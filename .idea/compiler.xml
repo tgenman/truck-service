@@ -9,8 +9,5 @@
         <module name="truck-service" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="truck-service" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
 </project>
