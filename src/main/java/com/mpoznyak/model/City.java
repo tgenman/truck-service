@@ -2,6 +2,11 @@ package com.mpoznyak.model;
 
 import javax.persistence.*;
 
+/**
+ * Created by Max Poznyak
+ * on 18/10/2018  at 20:15
+ */
+
 @Entity
 public class City {
 

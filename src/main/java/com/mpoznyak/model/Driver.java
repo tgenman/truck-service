@@ -5,6 +5,11 @@ import com.mpoznyak.model.type.DriverStatus;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Created by Max Poznyak
+ * on 18/10/2018  at 20:15
+ */
+
 @Entity
 public class Driver {
 

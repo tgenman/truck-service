@@ -7,6 +7,12 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Created by Max Poznyak
+ * on 18/10/2018  at 20:15
+ */
+
+
 @Entity
 public class DeliveryOrder {
 
@@ -25,7 +31,7 @@ public class DeliveryOrder {
 
     @ManyToMany
     @JoinTable(name = "OrderToDriver", joinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "id")},
-    inverseJoinColumns = {@JoinColumn(name = "driver_id", referencedColumnName = "id")})
+            inverseJoinColumns = {@JoinColumn(name = "driver_id", referencedColumnName = "id")})
     private List<Driver> drivers;
 
     @OneToOne
