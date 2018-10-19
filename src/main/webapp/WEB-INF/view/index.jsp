@@ -1,250 +1,129 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<?xml version="1.0" encoding="UTF-8"?>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Truck Service</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    <script src="js/bootstrap.min.js"></script>
+    <title>-Доставка грузов</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+    <script>
+        <!-- this part is important! -->
+        $(document).ready(function () {
+            $(".button-collapse").sideNav();
+        });
+    </script>
 </head>
-<body>
-<!-- navbar -->
-
-<nav class="navbar navbar-expand-lg fixed-top ">
-    <a class="navbar-brand" href="#">Home</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse " id="navbarSupportedContent">
-        <ul class="navbar-nav mr-4">
-
-            <li class="nav-item">
-                <a class="nav-link" data-value="about" href="#">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " data-value="portfolio" href="#">Portfolio</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " data-value="blog" href="#">Blog</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " data-value="team" href="#">
-                    Team</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " data-value="contact" href="#">Contact</a>
-            </li>
-        </ul>
-
-    </div>
-</nav>
-<!-- header -->
-<header class="header ">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="description ">
-            <h1>
-                Hello ,Welcome To My official Website
-                <p>
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <button class="btn btn-outline-secondary btn-lg">See more</button>
-            </h1>
+<body class="yellow lighten-5">
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper teal darken-4">
+            <a href="#!" class="brand-logo center">Furious Turtle</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Вход</a></li>
+            </ul>
         </div>
-    </div>
+    </nav>
+</div>
+<ul class="side-nav" id="mobile-demo">
+    <li><a href="#">О нас</a></li>
+    <li><a href="#">Вход</a></li>
+</ul>
 
-</header>
-
-<!-- about section -->
-<div class="about" id="about">
+<div class="section no-pad-bot" id="index-banner">
     <div class="container">
-        <h1 class="text-center">About Me</h1>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-12">
-                <img src="images/team-3.jpg" class="img-fluid">
-                <span class="text-justify">S.Web Developer</span>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-12 desc">
-
-                <h3>D.John</h3>
-                <p>
-                    ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </div>
+        <br><br>
+        <h1 class="header center orange-text">Есть груз, но нет фуры?</h1>
+        <div class="row center">
+            <h5 class="header col s12 light">
+                Компания Furious Turtle быстро и бережно доставит Ваш груз!
+            </h5>
         </div>
+        <div class="row center">
+            <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light orange">Сделать заказ</a>
+        </div>
+        <br><br>
+
     </div>
 </div>
 
-<!-- portfolio -->
-<div class="portfolio" id="portfolio">
-    <h1 class="text-center">Portfolio</h1>
+
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="icon-block">
+                    <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
+                    <h5 class="center">Speeds up development</h5>
+                    <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+                </div>
+            </div>
+
+            <div class="col s12 m4">
+                <div class="icon-block">
+                    <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
+                    <h5 class="center">User Experience Focused</h5>
+
+                    <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+                </div>
+            </div>
+
+            <div class="col s12 m4">
+                <div class="icon-block">
+                    <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
+                    <h5 class="center">Easy to work with</h5>
+
+                    <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <br><br>
+</div>
+
+<footer class="page-footer orange">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-12">
-                <img src="images/portfolio/port13.png" class="img-fluid">
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12">
-                <img src="images/portfolio/port1.png" class="img-fluid">
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12">
-                <img src="images/portfolio/port6.png" class="img-fluid">
-            </div>
+            <div class="col l6 s12">
+                <h5 class="white-text">Company Bio</h5>
+                <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
 
-            <div class="col-lg-4 col-md-4 col-sm-12">
-                <img src="images/portfolio/port3.png" class="img-fluid">
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12">
-                <img src="images/portfolio/port11.png" class="img-fluid">
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12">
-                <img src="images/portfolio/electric.png" class="img-fluid">
-            </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-12">
-                <img src="images/portfolio/Classic.jpg" class="img-fluid">
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-12">
-                <img src="images/portfolio/port1.png" class="img-fluid">
+            <div class="col l3 s12">
+                <h5 class="white-text">Settings</h5>
+                <ul>
+                    <li><a class="white-text" href="#!">Link 1</a></li>
+                    <li><a class="white-text" href="#!">Link 2</a></li>
+                    <li><a class="white-text" href="#!">Link 3</a></li>
+                    <li><a class="white-text" href="#!">Link 4</a></li>
+                </ul>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-12">
-                <img src="images/portfolio/port8.png" class="img-fluid">
+            <div class="col l3 s12">
+                <h5 class="white-text">Connect</h5>
+                <ul>
+                    <li><a class="white-text" href="#!">Link 1</a></li>
+                    <li><a class="white-text" href="#!">Link 2</a></li>
+                    <li><a class="white-text" href="#!">Link 3</a></li>
+                    <li><a class="white-text" href="#!">Link 4</a></li>
+                </ul>
             </div>
         </div>
     </div>
-</div>
-
-
-<!-- Posts section -->
-<div class="blog" id="blog">
-    <div class="container">
-        <h1 class="text-center">Blog</h1>
-        <div class="row">
-            <div class="col-md-4 col-lg-4 col-sm-12">
-                <div class="card">
-                    <div class="card-img">
-                        <img src="images/posts/polit.jpg" class="img-fluid">
-                    </div>
-
-                    <div class="card-body">
-                        <h4 class="card-title">Post Title</h4>
-                        <p class="card-text">
-
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="" class="card-link">Read more</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-lg-4 col-sm-12">
-                <div class="card">
-                    <div class="card-img">
-                        <img src="images/posts/images.jpg" class="img-fluid">
-                    </div>
-
-                    <div class="card-body">
-                        <h4 class="card-title">Post Title</h4>
-                        <p class="card-text">
-
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="" class="card-link">Read more</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-lg-4 col-sm-12">
-                <div class="card">
-                    <div class="card-img">
-                        <img src="images/posts/imag2.jpg" class="img-fluid">
-                    </div>
-
-                    <div class="card-body">
-                        <h4 class="card-title">Post Title</h4>
-                        <p class="card-text">
-
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="" class="card-link">Read more</a>
-                    </div>
-                </div>
-            </div>
+    <div class="footer-copyright">
+        <div class="container">
+            Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
         </div>
     </div>
-</div>
+</footer>
 
-<!-- Team section -->
-<div class="team" id="team">
-    <div class="container">
-        <h1 class="text-center">Our Team</h1>
-        <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-12 item">
-                <img src="images/team-2.jpg" class="img-fluid" alt="team">
-                <div class="des">
-                    Sara
-                </div>
-                <span class="text-muted">Manager</span>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-12 item">
-                <img src="images/team-3.jpg" class="img-fluid" alt="team">
-                <div class="des">
-                    Chris
-                </div>
-                <span class="text-muted">S.enginner</span>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-12 item">
-                <img src="images/team-2.jpg" class="img-fluid" alt="team">
-                <div class="des">
-                    Layla
-                </div>
-                <span class="text-muted">Front End Developer</span>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-12 item">
-                <img src="images/team-3.jpg" class="img-fluid" alt="team">
-                <div class="des">
-                    J.Jirard
-                </div>
-                <span class="text-muted">Team Manger</span>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Contact form -->
-<div class="contact-form" id="contact">
-    <div class="container">
-        <form>
-            <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-12">
-                    <h1>Get in Touch</h1>
-                </div>
-                <div class="col-lg-8 col-md-8 col-sm-12 right">
-                    <div class="form-group">
-                        <input type="text" class="form-control form-control-lg" placeholder="Your Name" name="">
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control form-control-lg" placeholder="YourEmail@email.com" name="email">
-                    </div>
-                    <div class="form-group">
-				   	 <textarea class="form-control form-control-lg">
-
-				   	 </textarea>
-                    </div>
-                    <input type="submit" class="btn btn-secondary btn-block" value="Send" name="">
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
+<!--  Scripts-->
 </body>
 </html>
