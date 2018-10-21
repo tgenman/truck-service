@@ -5,7 +5,7 @@ package com.mpoznyak.model.type;
  * on 18/10/2018  at 20:15
  */
 
-public enum RoleType {
+public enum UserType {
 
     DRIVER, MANAGER
 }

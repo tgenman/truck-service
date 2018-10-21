@@ -7,7 +7,7 @@
         <setting name="provider-name" value="" />
         <datasource-mapping>
           <factory-entry name="Entities" />
-          <factory-entry name="TRUCK_SERVICE" />
+          <factory-entry name="TRUCK_SERVICE" value="acb25f58-c532-4fcd-9d66-35c7e6d3ea3f" />
           <factory-entry name="hello" value="acb25f58-c532-4fcd-9d66-35c7e6d3ea3f" />
         </datasource-mapping>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
