@@ -1,4 +1,4 @@
-package com.mpoznyak.configuration;
+package com.mpoznyak;
 
 /**
  * Created by Max Poznyak

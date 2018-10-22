@@ -1,8 +1,7 @@
 package com.mpoznyak.repository;
 
-import com.mpoznyak.configuration.Constants;
+import com.mpoznyak.Constants;
 import com.mpoznyak.model.Driver;
-import com.mpoznyak.model.Manager;
 import com.mpoznyak.model.User;
 import org.springframework.stereotype.Repository;
 
