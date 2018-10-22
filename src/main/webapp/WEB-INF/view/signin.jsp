@@ -3,8 +3,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
-    <link href="css/signin.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link href="static/css/signin.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css"/>
     <title>Sign In</title>
 </head>
 <body class="text-center">
