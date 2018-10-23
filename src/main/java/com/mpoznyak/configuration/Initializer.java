@@ -1,13 +1,13 @@
 package com.mpoznyak.configuration;
 
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
  * Created by Max Poznyak
  * on 22/10/2018  at 09:43
  */
-public class WebInitializer
+
+public class Initializer
         extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
@@ -17,14 +17,13 @@ public class WebInitializer
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{RootConfig.class};
+        return new Class<?>[]{RepositoryConfig.class};
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
         return new Class<?>[]{WebConfig.class};
     }
-
 
 
 }

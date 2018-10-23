@@ -19,26 +19,22 @@ import java.util.List;
 @Repository
 public class UserRepository {
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     public void add(User user) {
         add(Collections.singletonList(user));
     }
 
     public void add(Iterable<User> users) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(Constants.PERSISTENCE_UNIT_NAME);
-        EntityManager entityManager = factory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        try {
-            for (User user : users) {
-                entityManager.persist(user);
-                entityTransaction.commit();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            entityManager.close();
-            factory.close();
+
+        for (User user : users) {
+            entityManager.persist(user);
+            entityTransaction.commit();
         }
+
     }
 
     public void remove(User user) {
@@ -51,8 +47,6 @@ public class UserRepository {
 
     public List<User> queryAll() {
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(Constants.PERSISTENCE_UNIT_NAME);
-        EntityManager entityManager = factory.createEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
         Root<User> roleRoot = query.from(User.class);

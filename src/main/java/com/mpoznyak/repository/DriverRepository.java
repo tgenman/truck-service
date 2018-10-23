@@ -19,25 +19,24 @@ import java.util.List;
 @Repository
 public class DriverRepository {
 
+    @PersistenceContext
+    EntityManager entityManager;
+
     public void add(Driver driver) {
         add(Collections.singletonList(driver));
     }
 
     public void add(Iterable<Driver> drivers) {
         for (Driver driver : drivers) {
-            EntityManagerFactory factory = Persistence.createEntityManagerFactory(Constants.PERSISTENCE_UNIT_NAME);
-            EntityManager manager = factory.createEntityManager();
-            EntityTransaction transaction= manager.getTransaction();
+            EntityTransaction transaction= entityManager.getTransaction();
             transaction.begin();
             User user = new User();
             user.setCompanyId(Long.valueOf(456));
             user.setPassword("456");
             user.setDriver(driver);
-            manager.persist(driver);
-            manager.persist(user);
+            entityManager.persist(driver);
+            entityManager.persist(user);
             transaction.commit();
-            manager.close();
-            factory.close();
         }
     }
 

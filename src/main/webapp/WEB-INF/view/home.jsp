@@ -25,14 +25,14 @@
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="about_us.jsp">О нас</a></li>
-                <li><a href="signin">Вход</a></li>
+                <li><a href="signIn">Вход</a></li>
             </ul>
         </div>
     </nav>
 </div>
 <ul class="side-nav" id="mobile-demo">
     <li><a href="about_us.jsp">О нас</a></li>
-    <li><a href="signin">Вход</a></li>
+    <li><a href="signIn">Вход</a></li>
 </ul>
 
 <div class="section no-pad-bot" id="index-banner">

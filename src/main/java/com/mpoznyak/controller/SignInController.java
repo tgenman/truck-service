@@ -1,13 +1,11 @@
 package com.mpoznyak.controller;
 
 import com.mpoznyak.model.User;
-import com.mpoznyak.repository.UserRepository;
+import com.mpoznyak.service.UserSignInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -19,28 +17,28 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class SignInController {
 
     @Autowired
-    UserRepository userRepository;
+    UserSignInService userSignInService;
 
 
-    @GetMapping("/signin")
+    @GetMapping("/signIn")
     public String showSignIn(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        return "signin";
+        return "sign-in";
     }
 
-    @RequestMapping(value = "processData", method = POST)
+    @RequestMapping(value = "/processAuthInput", method = POST)
     public String processSubmit(@ModelAttribute("user") User user, Model model) {
+
         Long companyId = user.getCompanyId();
         String password = user.getPassword();
-        List<User> users = userRepository.queryAll();
-        for (User testUser : users) {
-            if (testUser.getCompanyId() == companyId
-                && testUser.getPassword().equals(password)) {
-                return "manager_page";
-            }
+        boolean authorized = userSignInService.checkAuthInput(companyId, password);
+
+        if (authorized) {
+            return "manager";
+        } else {
+            model.addAttribute("user", new User());
+            return "try-sign-in";
         }
-        model.addAttribute("user", new User());
-        return "try_signin";
     }
 }
