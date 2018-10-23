@@ -1,6 +1,5 @@
 package com.mpoznyak.repository;
 
-import com.mpoznyak.Constants;
 import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.User;
 import org.springframework.stereotype.Repository;
@@ -28,15 +27,7 @@ public class DriverRepository {
 
     public void add(Iterable<Driver> drivers) {
         for (Driver driver : drivers) {
-            EntityTransaction transaction= entityManager.getTransaction();
-            transaction.begin();
-            User user = new User();
-            user.setCompanyId(Long.valueOf(456));
-            user.setPassword("456");
-            user.setDriver(driver);
             entityManager.persist(driver);
-            entityManager.persist(user);
-            transaction.commit();
         }
     }
 
@@ -50,8 +41,7 @@ public class DriverRepository {
 
     public List<Driver> query() {
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(Constants.PERSISTENCE_UNIT_NAME);
-        EntityManager entityManager = factory.createEntityManager();
+
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Driver> query = criteriaBuilder.createQuery(Driver.class);
         Root<Driver> driverRoot = query.from(Driver.class);

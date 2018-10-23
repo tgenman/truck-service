@@ -1,55 +1,32 @@
-package com.mpoznyak.model;
+package com.mpoznyak.dto;
 
-
+import com.mpoznyak.model.City;
 import com.mpoznyak.model.type.TruckStatus;
 
 import javax.persistence.*;
 
 /**
  * Created by Max Poznyak
- * on 18/10/2018  at 20:15
+ * on 23/10/2018  at 23:02
  */
 
-@Entity
-public class Truck {
+public class TruckDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "license_plate")
     private String licensePlate;
 
-    @Column(name = "working_session")
     private Integer workingSession;
 
-    @Column(name = "capacity")
     private Integer capacity;
 
-    @Column(name = "type")
-    @Enumerated(EnumType.STRING)
-    private TruckStatus status;
+    private String status;
 
-    @Column(name = "brand")
     private String brand;
 
-    @Column(name = "model")
     private String model;
 
-    @OneToOne
-    @JoinColumn(name = "city_id")
-    private City city;
+    private String city;
 
-    @Column(name = "max_drivers")
     private Integer maxDrivers;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getLicensePlate() {
         return licensePlate;
@@ -75,28 +52,12 @@ public class Truck {
         this.capacity = capacity;
     }
 
-    public TruckStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(TruckStatus status) {
+    public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Integer getMaxDrivers() {
-        return maxDrivers;
-    }
-
-    public void setMaxDrivers(Integer maxDrivers) {
-        this.maxDrivers = maxDrivers;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
     }
 
     public String getBrand() {
@@ -113,5 +74,21 @@ public class Truck {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public Integer getMaxDrivers() {
+        return maxDrivers;
+    }
+
+    public void setMaxDrivers(Integer maxDrivers) {
+        this.maxDrivers = maxDrivers;
     }
 }

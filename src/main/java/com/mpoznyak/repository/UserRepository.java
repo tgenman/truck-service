@@ -1,6 +1,5 @@
 package com.mpoznyak.repository;
 
-import com.mpoznyak.Constants;
 import com.mpoznyak.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -27,12 +26,9 @@ public class UserRepository {
     }
 
     public void add(Iterable<User> users) {
-        EntityTransaction entityTransaction = entityManager.getTransaction();
-        entityTransaction.begin();
 
         for (User user : users) {
             entityManager.persist(user);
-            entityTransaction.commit();
         }
 
     }

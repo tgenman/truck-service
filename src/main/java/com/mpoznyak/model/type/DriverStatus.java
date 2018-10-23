@@ -7,6 +7,6 @@ package com.mpoznyak.model.type;
 
 public enum DriverStatus {
 
-    REST, WORKING_WAIT, WORKING_DRIVE
+    REST, WORKING_SESSION_WAIT, WORKING_SESSION_DRIVE
 
 }

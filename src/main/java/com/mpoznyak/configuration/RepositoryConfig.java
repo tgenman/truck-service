@@ -25,7 +25,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class RepositoryConfig {
 
-    private String url = "jdbc:mysql://localhost:3306/school?serverTimezone=UTC";
+    private String url = "jdbc:mysql://localhost:3306/school?serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8";
 
     private String username = "school";
 
@@ -77,6 +77,9 @@ public class RepositoryConfig {
         properties.setProperty("hibernate.generateDdl", "true");
         properties.setProperty(
                 "hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        properties.setProperty("hibernate.connection.characterEncoding","utf8");
+        properties.setProperty("hibernate.connection.useUnicode","true");
+        properties.setProperty("hibernate.connection.charSet","UTF-8");
 
         return properties;
     }

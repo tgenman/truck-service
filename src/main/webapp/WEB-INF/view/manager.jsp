@@ -6,8 +6,7 @@
 </head>
 <body>
 <h1>ЗДЕСЬ БУДЕТ ДАШБОРД</h1>
-<a href="newDriver">Новый водитель</a>
-<a href="#">Управление заказами</a>
-<a href="newTruck">Новая фура</a>
+<a href="newDriver">New driver</a>
+<a href="newTruck">New truck</a>
 </body>
 </html>

@@ -1,10 +1,17 @@
 package com.mpoznyak.service;
 
+import com.mpoznyak.dto.DriverDTO;
+import com.mpoznyak.mapper.DriverMapper;
 import com.mpoznyak.model.Driver;
+import com.mpoznyak.model.type.DriverStatus;
+import com.mpoznyak.model.type.TruckStatus;
 import com.mpoznyak.repository.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Max Poznyak
@@ -17,8 +24,20 @@ public class DriverService {
     @Autowired
     private DriverRepository driverRepository;
 
-    public void processNewDriverData(Driver driver) {
+    @Autowired
+    private DriverMapper driverMapper;
+
+    public void processNewDriverData(DriverDTO driverDTO) {
+        Driver driver = driverMapper.map(driverDTO);
         driverRepository.add(driver);
+    }
+
+    public List<String> getAllDriverStatus() {
+        List<String> driverStatusList = new ArrayList<>();
+        for (DriverStatus truckStatus : DriverStatus.values()) {
+            driverStatusList.add(truckStatus.name());
+        }
+        return driverStatusList;
     }
 
 }

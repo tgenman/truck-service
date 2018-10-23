@@ -1,6 +1,5 @@
 package com.mpoznyak.repository;
 
-import com.mpoznyak.Constants;
 import com.mpoznyak.model.Manager;
 import com.mpoznyak.model.User;
 import org.springframework.stereotype.Repository;
@@ -16,8 +15,12 @@ import java.util.List;
  * Created by Max Poznyak
  * on 18/10/2018  at 20:14
  */
+
 @Repository
 public class ManagerRepository {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public void add(Manager manager) {
         add(Collections.singletonList(manager));
@@ -25,19 +28,7 @@ public class ManagerRepository {
 
     public void add(Iterable<Manager> managers) {
         for (Manager manager : managers) {
-            EntityManagerFactory factory = Persistence.createEntityManagerFactory(Constants.PERSISTENCE_UNIT_NAME);
-            EntityManager entityManager = factory.createEntityManager();
-            EntityTransaction transaction= entityManager.getTransaction();
-            transaction.begin();
-            User user = new User();
-            user.setCompanyId(Long.valueOf(123));
-            user.setPassword("123");
-            user.setManager(manager);
-            entityManager.persist(manager);
-            entityManager.persist(user);
-            transaction.commit();
-            entityManager.close();
-            factory.close();
+
         }
     }
 
@@ -51,8 +42,6 @@ public class ManagerRepository {
 
     public List<Manager> query() {
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(Constants.PERSISTENCE_UNIT_NAME);
-        EntityManager entityManager = factory.createEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Manager> query = criteriaBuilder.createQuery(Manager.class);
         Root<Manager> manager = query.from(Manager.class);
@@ -60,6 +49,11 @@ public class ManagerRepository {
         TypedQuery<Manager> typedQuery = entityManager.createQuery(query);
         List<Manager> managers = typedQuery.getResultList();
         return managers;
+    }
+
+    private User newUser(Long id, String password) {
+        User user = new User();
+        return user;
     }
 
 
