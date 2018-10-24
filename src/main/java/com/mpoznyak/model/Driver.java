@@ -26,7 +26,7 @@ public class Driver {
     @Column(name = "worked_time")
     private Integer workedTime;
 
-    @Column(name = "type")
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private DriverStatus status;
 

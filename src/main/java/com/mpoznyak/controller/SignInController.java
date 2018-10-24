@@ -1,6 +1,9 @@
 package com.mpoznyak.controller;
 
+import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.User;
+import com.mpoznyak.service.DriverService;
+import com.mpoznyak.service.TruckService;
 import com.mpoznyak.service.UserSignInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +20,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class SignInController {
 
     @Autowired
-    UserSignInService userSignInService;
+    private UserSignInService userSignInService;
 
+    @Autowired
+    private DriverService driverService;
+
+    @Autowired
+    private TruckService truckService;
 
     @GetMapping("/signIn")
     public String showSignIn(Model model) {
@@ -35,7 +43,7 @@ public class SignInController {
         boolean authorized = userSignInService.checkAuthInput(companyId, password);
 
         if (authorized) {
-            return "manager";
+            return "redirect:managerPage";
         } else {
             model.addAttribute("user", new User());
             return "try-sign-in";

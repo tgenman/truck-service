@@ -73,11 +73,11 @@ public class DriverMapper {
         return null;
     }
 
-    private Truck mapToTruck(String truckLicensePlate) {
+    private Truck mapToTruck(String truckDTO) {
         List<Truck> trucks = truckRepository.query();
 
         for (Truck truck : trucks) {
-            if (truck.getLicensePlate().equals(truckLicensePlate)) {
+            if (truckDTO.contains(truck.getLicensePlate())) {
                 return truck;
             }
         }

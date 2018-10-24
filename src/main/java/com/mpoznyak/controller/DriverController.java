@@ -34,14 +34,14 @@ public class DriverController {
         Driver driver = new Driver();
         model.addAttribute("driverDTO", new DriverDTO());
         model.addAttribute("cities", cityService.getAllCities());
-        model.addAttribute("trucks", truckService.getAllTrucks());
+        model.addAttribute("trucks", truckService.getTrucksDetails());
         model.addAttribute("status", driverService.getAllDriverStatus());
         return "new-driver";
     }
 
     @RequestMapping(value = "/processNewDriverData", method = RequestMethod.POST)
-    public String processNewDriver(@ModelAttribute("driver") DriverDTO driverDTO) {
+    public String processNewDriver(@ModelAttribute("driver") DriverDTO driverDTO, Model model) {
         driverService.processNewDriverData(driverDTO);
-        return "manager";
+        return "redirect:managerPage";
     }
 }

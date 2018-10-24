@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.StringJoiner;
 
 /**
  * Created by Max Poznyak
@@ -35,7 +36,7 @@ public class TruckService {
         truckRepository.add(truck);
     }
 
-    public List<String> getAllTruckStatus() {
+    public List<String> getTrucksStatus() {
         List<String> truckStatusList = new ArrayList<>();
         for (TruckStatus truckStatus : TruckStatus.values()) {
             truckStatusList.add(truckStatus.name());
@@ -44,9 +45,25 @@ public class TruckService {
     }
 
     @Transactional
+    public List<String> getTrucksDetails() {
+        List<Truck> trucks = truckRepository.query();
+        List<String> details = new ArrayList<>();
+        for (Truck truck : trucks) {
+            StringJoiner truckDetails = new StringJoiner(" ");
+            truckDetails.add("brand: " + truck.getBrand());
+            truckDetails.add("model: " + truck.getModel());
+            truckDetails.add("license plate: " + truck.getLicensePlate());
+            details.add(truckDetails.toString());
+        }
+        return details;
+    }
+
+    @Transactional
     public List<Truck> getAllTrucks() {
         return truckRepository.query();
     }
+
+
 
 
 

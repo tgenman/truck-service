@@ -18,7 +18,6 @@ import java.util.List;
  * on 23/10/2018  at 02:33
  */
 @Service
-@Transactional
 public class DriverService {
 
     @Autowired
@@ -27,6 +26,7 @@ public class DriverService {
     @Autowired
     private DriverMapper driverMapper;
 
+    @Transactional
     public void processNewDriverData(DriverDTO driverDTO) {
         Driver driver = driverMapper.map(driverDTO);
         driverRepository.add(driver);
@@ -38,6 +38,11 @@ public class DriverService {
             driverStatusList.add(truckStatus.name());
         }
         return driverStatusList;
+    }
+
+    @Transactional
+    public List<Driver> getAllDrivers() {
+        return driverRepository.query();
     }
 
 }
