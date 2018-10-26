@@ -12,6 +12,8 @@ import javax.persistence.*;
 
 public class TruckDTO {
 
+    private Long id;
+
     private String licensePlate;
 
     private Integer workingSession;
@@ -90,5 +92,13 @@ public class TruckDTO {
 
     public void setMaxDrivers(Integer maxDrivers) {
         this.maxDrivers = maxDrivers;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

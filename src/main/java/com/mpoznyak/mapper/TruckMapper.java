@@ -29,6 +29,7 @@ public class TruckMapper {
 
     public Truck map(TruckDTO truckDTO) {
         Truck truck = new Truck();
+        truck.setId(truckDTO.getId());
         truck.setBrand(truckDTO.getBrand());
         truck.setCapacity(truckDTO.getCapacity());
         truck.setLicensePlate(truckDTO.getLicensePlate());

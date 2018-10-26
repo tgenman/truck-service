@@ -1466,56 +1466,61 @@
       <DataType>bigint(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="353" parent="288" name="FK7uu7ppufup2w86lldd065sfdq">
+    <column id="353" parent="288" name="deleted">
+      <Position>10</Position>
+      <DataType>bit(1)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="354" parent="288" name="FK7uu7ppufup2w86lldd065sfdq">
       <ColNames>city_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="354" parent="288" name="PRIMARY">
+    <key id="355" parent="288" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="355" parent="289" name="id">
+    <column id="356" parent="289" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="356" parent="289" name="companyId">
+    <column id="357" parent="289" name="companyId">
       <Position>2</Position>
       <DataType>bigint(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="357" parent="289" name="password">
+    <column id="358" parent="289" name="password">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="358" parent="289" name="type">
+    <column id="359" parent="289" name="type">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="359" parent="289" name="driver_id">
+    <column id="360" parent="289" name="driver_id">
       <Position>5</Position>
       <DataType>bigint(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="360" parent="289" name="manager_id">
+    <column id="361" parent="289" name="manager_id">
       <Position>6</Position>
       <DataType>bigint(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="361" parent="289" name="FKirpsyd4tmje5cf15vs1g3ep2">
+    <index id="362" parent="289" name="FKirpsyd4tmje5cf15vs1g3ep2">
       <ColNames>driver_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="362" parent="289" name="FKn3jc5vc5cl7j96rdrhm6truq8">
+    <index id="363" parent="289" name="FKn3jc5vc5cl7j96rdrhm6truq8">
       <ColNames>manager_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="363" parent="289" name="PRIMARY">
+    <key id="364" parent="289" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

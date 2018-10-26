@@ -43,6 +43,9 @@ public class Truck {
     @Column(name = "max_drivers")
     private Integer maxDrivers;
 
+    @Column(name = "deleted")
+    private Boolean deleted = false;
+
     public Long getId() {
         return id;
     }

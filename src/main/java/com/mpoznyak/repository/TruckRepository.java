@@ -1,5 +1,6 @@
 package com.mpoznyak.repository;
 
+import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.Truck;
 import org.springframework.stereotype.Repository;
 
@@ -32,28 +33,36 @@ public class TruckRepository {
     }
 
     public void remove(Truck truck) {
-
+        Query query = entityManager.createQuery("UPDATE Truck d SET d.deleted = true " +
+                "WHERE d.id = :id");
+        query.setParameter("id", truck.getId());
+        query.executeUpdate();
     }
 
-    public void update(Truck driver) {
+    public void remove(Long id) {
+        Truck truck = new Truck();
+        truck.setId(id);
+        remove(truck);
+    }
 
+    public void update(Truck truck) {
+        Truck truckDb = (Truck) entityManager.find(Truck.class, truck.getId());
+        truckDb.setBrand(truck.getBrand());
+        truckDb.setModel(truck.getModel());
+        truckDb.setCity(truck.getCity());
+        truckDb.setStatus(truck.getStatus());
+        truckDb.setCapacity(truck.getCapacity());
+        truckDb.setWorkingSession(truck.getWorkingSession());
+        truckDb.setMaxDrivers(truck.getMaxDrivers());
+        truckDb.setLicensePlate(truck.getLicensePlate());
     }
 
     public List<Truck> query() {
 
 
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Truck> query = criteriaBuilder.createQuery(Truck.class);
-        Root<Truck> driverRoot = query.from(Truck.class);
-        query.select(driverRoot);
-        TypedQuery<Truck> typedQuery = entityManager.createQuery(query);
-        List<Truck> trucks = typedQuery.getResultList();
+        Query query = entityManager.createQuery("SELECT d FROM Truck d WHERE d.deleted = false ");
+        List<Truck> trucks = query.getResultList();
         return trucks;
     }
-
-    public List<Truck> findTrucks() {
-        return null;
-    }
-
 
 }

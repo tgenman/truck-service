@@ -1,8 +1,10 @@
 package com.mpoznyak.service;
 
+import com.mpoznyak.dto.DriverDTO;
 import com.mpoznyak.dto.TruckDTO;
 import com.mpoznyak.mapper.TruckMapper;
 import com.mpoznyak.model.City;
+import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.Truck;
 import com.mpoznyak.model.type.TruckStatus;
 import com.mpoznyak.repository.TruckRepository;
@@ -29,6 +31,7 @@ public class TruckService {
 
     @Autowired
     private TruckMapper truckMapper;
+
 
     @Transactional
     public void saveNewTruckData(TruckDTO truckDTO) {
@@ -63,6 +66,16 @@ public class TruckService {
         return truckRepository.query();
     }
 
+    @Transactional
+    public void updateTruck(TruckDTO truckDTO) {
+        Truck truck = truckMapper.map(truckDTO);
+        truckRepository.update(truck);
+    }
+
+    @Transactional
+    public void deleteTruck(Long id) {
+        truckRepository.remove(id);
+    }
 
 
 

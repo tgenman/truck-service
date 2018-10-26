@@ -1,3 +1,4 @@
+<%--suppress ALL --%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -180,12 +181,63 @@
                 <td>${truck1.licensePlate}</td>
                 <td>${truck1.city.name}</td>
                 <td>
-                    <button type="button" class="btn btn-warning">Edit</button>
+                    <button type="button" class="btn btn-warning"
+                            data-toggle="modal"
+                            name="editableTruck"
+                            data-target="#editableTruck"
+                            data-id-truck="${truck1.id}"
+                            data-brand-truck="${truck1.brand}"
+                            data-model-truck="${truck1.model}"
+                            data-capacity-truck="${truck1.capacity}"
+                            data-working-session-truck="${truck1.workingSession}"
+                            data-max-drivers-truck="${truck1.maxDrivers}"
+                            data-license-truck="${truck1.licensePlate}">
+                        Edit
+                    </button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <sf:form method="post" action="delete-truck">
+                        <input type="hidden" value="${truck1.id}" name="truckIdDelete">
+                        <input type="submit" class="btn btn-danger" value="Delete"/>
+                    </sf:form>
                 </td>
             </tr>
+            <div class="modal fade" id="editableTruck" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit driver</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <sf:form action="update-truck" method="post" modelAttribute="truckDTO" cssClass="form-signin">
+                                <sf:hidden name="idDriver" path="id"/>
+                                <sf:input name="brand" path="brand" class="form-control" placeholder="Brand"/>
+                                <sf:input name="model" path="model" class="form-control" placeholder="Model"/>
+                                <sf:input name="licensePlate" path="licensePlate" class="form-control" placeholder="License plate"/>
+                                <sf:input name="workingSession" path="workingSession" class="form-control" placeholder="Max working session"/>
+                                <sf:input name="capacity" path="capacity" class="form-control" placeholder="Capacity (tons)"/>
+                                <sf:input name="maxDrivers" path="maxDrivers" class="form-control" placeholder="Max drivers"/>
+                                <br>
+                                <h5>Current location</h5>
+                                <sf:select path="city" cssClass="form-control" >
+                                    <sf:options items="${cities.keySet()}"/>
+                                </sf:select>
+                                <br>
+                                <h5>Operable status</h5>
+                                <sf:select path="status" cssClass="form-control">
+                                    <sf:options items="${truckStatus}"/>
+                                </sf:select>
+                                <br><br>
+                                <input type="submit" name="save" class="btn btn-lg btn-primary btn-block" value="Save">
+                            </sf:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </c:forEach>
         </tbody>
     </table>
@@ -204,6 +256,27 @@
         modal.find('.modal-body input[name="firstName"]').val(firstName)
         modal.find('.modal-body input[name="lastName"]').val(lastName)
         modal.find('.modal-body input[name="workedTime"]').val(workedTime)
+    })
+
+    $('#editableTruck').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var idTruck = button.data('id-truck');
+        var brand = button.data('brand-truck');
+        var model = button.data('model-truck');
+        var capacity = button.data('capacity-truck');
+        var workingSession = button.data('working-session-truck');
+        var maxDrivers = button.data('max-drivers-truck');
+        var licensePlate = button.data('license-truck');
+
+        var modal = $(this)
+        modal.find('.modal-body input').val(idTruck)
+        modal.find('.modal-body input[name="save"]').val("Save")
+        modal.find('.modal-body input[name="brand"]').val(brand)
+        modal.find('.modal-body input[name="model"]').val(model)
+        modal.find('.modal-body input[name="capacity"]').val(capacity)
+        modal.find('.modal-body input[name="workingSession"]').val(workingSession)
+        modal.find('.modal-body input[name="maxDriver"]').val(maxDrivers)
+        modal.find('.modal-body input[name="licensePlate"]').val(licensePlate)
     })
 </script>
 
