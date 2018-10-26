@@ -2,7 +2,6 @@ package com.mpoznyak.controller;
 
 import com.mpoznyak.dto.DriverDTO;
 import com.mpoznyak.model.Driver;
-import com.mpoznyak.model.type.DriverStatus;
 import com.mpoznyak.service.CityService;
 import com.mpoznyak.service.DriverService;
 import com.mpoznyak.service.TruckService;
@@ -39,9 +38,16 @@ public class DriverController {
         return "new-driver";
     }
 
+    //TODO switch to modal
     @RequestMapping(value = "/processNewDriverData", method = RequestMethod.POST)
-    public String processNewDriver(@ModelAttribute("driver") DriverDTO driverDTO, Model model) {
-        driverService.processNewDriverData(driverDTO);
+    public String processNewDriver(@ModelAttribute("driver") DriverDTO driverDTO) {
+        driverService.addDriver(driverDTO);
+        return "redirect:managerPage";
+    }
+
+    @RequestMapping(value = "update-driver", method = RequestMethod.POST)
+    public String processUpdateDriverData(@ModelAttribute("driver") DriverDTO driverDTO) {
+        driverService.updateDriver(driverDTO);
         return "redirect:managerPage";
     }
 }

@@ -27,7 +27,7 @@ public class DriverService {
     private DriverMapper driverMapper;
 
     @Transactional
-    public void processNewDriverData(DriverDTO driverDTO) {
+    public void addDriver(DriverDTO driverDTO) {
         Driver driver = driverMapper.map(driverDTO);
         driverRepository.add(driver);
     }
@@ -42,7 +42,18 @@ public class DriverService {
 
     @Transactional
     public List<Driver> getAllDrivers() {
-        return driverRepository.query();
+        return driverRepository.queryExisted();
+    }
+
+    @Transactional
+    public void deleteDriver(Long id) {
+        driverRepository.remove(id);
+    }
+
+    @Transactional
+    public void updateDriver(DriverDTO driverDTO) {
+        Driver driver = driverMapper.map(driverDTO);
+        driverRepository.update(driver);
     }
 
 }

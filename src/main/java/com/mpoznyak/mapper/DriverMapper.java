@@ -34,6 +34,7 @@ public class DriverMapper {
 
     public Driver map(DriverDTO driverDTO) {
         Driver driver = new Driver();
+        driver.setId(driverDTO.getId());
         driver.setFirstName(driverDTO.getFirstName());
         driver.setLastName(driverDTO.getLastName());
         driver.setWorkedTime(driverDTO.getWorkedTime());

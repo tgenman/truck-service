@@ -8,6 +8,8 @@ package com.mpoznyak.dto;
 
 public class DriverDTO {
 
+    private Long id;
+
     private String firstName;
 
     private String lastName;
@@ -66,5 +68,13 @@ public class DriverDTO {
 
     public void setTruck(String truck) {
         this.truck = truck;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

@@ -1,6 +1,7 @@
 package com.mpoznyak.model;
 
 import com.mpoznyak.model.type.DriverStatus;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javax.persistence.*;
 import java.util.List;
@@ -42,6 +43,9 @@ public class Driver {
     @JoinTable(name = "OrderToDriver", joinColumns = {@JoinColumn(name = "driver_id", referencedColumnName = "id")},
     inverseJoinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "id")})
     private List<DeliveryOrder> deliveryOrders;
+
+    @Column(name = "deleted")
+    private Boolean deleted = false;
 
     public Long getId() {
         return id;
@@ -105,5 +109,21 @@ public class Driver {
 
     public void setOrder(List<DeliveryOrder> deliveryOrders) {
         this.deliveryOrders = deliveryOrders;
+    }
+
+    public List<DeliveryOrder> getDeliveryOrders() {
+        return deliveryOrders;
+    }
+
+    public void setDeliveryOrders(List<DeliveryOrder> deliveryOrders) {
+        this.deliveryOrders = deliveryOrders;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }
