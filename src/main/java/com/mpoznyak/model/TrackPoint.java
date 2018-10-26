@@ -22,7 +22,7 @@ public class TrackPoint {
 
     @OneToOne
     @JoinColumn(name = "order_id")
-    private DeliveryOrder deliveryOrder;
+    private Order order;
 
     @OneToOne
     @JoinColumn(name = "city_id")
@@ -48,12 +48,12 @@ public class TrackPoint {
         this.type = type;
     }
 
-    public DeliveryOrder getDeliveryOrder() {
-        return deliveryOrder;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setDeliveryOrder(DeliveryOrder deliveryOrder) {
-        this.deliveryOrder = deliveryOrder;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public City getCity() {

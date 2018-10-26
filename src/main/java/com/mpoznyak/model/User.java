@@ -13,37 +13,18 @@ import javax.validation.constraints.Size;
  */
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "type")
-    @Enumerated(EnumType.STRING)
-    private UserType type;
+    protected Long id;
     
     @Column(name = "companyId")
-    private Long companyId;
+    protected Long companyId;
 
     @Column(name = "password")
-    private String password;
-
-    @OneToOne
-    @JoinColumn(name = "manager_id")
-    private Manager manager;
-
-    @OneToOne
-    @JoinColumn(name = "driver_id")
-    private Driver driver;
-
-    public Manager getManager() {
-        return manager;
-    }
-
-    public void setManager(Manager manager) {
-        this.manager = manager;
-    }
+    protected String password;
 
     public Long getCompanyId() {
         return companyId;
@@ -69,19 +50,4 @@ public class User {
         this.id = id;
     }
 
-    public UserType getType() {
-        return type;
-    }
-
-    public void setType(UserType type) {
-        this.type = type;
-    }
-
-    public Driver getDriver() {
-        return driver;
-    }
-
-    public void setDriver(Driver driver) {
-        this.driver = driver;
-    }
 }

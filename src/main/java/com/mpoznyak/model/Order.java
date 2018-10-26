@@ -14,11 +14,16 @@ import java.util.List;
 
 
 @Entity
-public class DeliveryOrder {
+@Table(name = "Order_")
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
     @Column(name = "timestamp")
     @CreationTimestamp
@@ -88,5 +93,13 @@ public class DeliveryOrder {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

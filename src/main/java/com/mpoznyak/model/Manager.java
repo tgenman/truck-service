@@ -8,11 +8,7 @@ import javax.persistence.*;
  */
 
 @Entity
-public class Manager {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Manager extends User{
 
     @Column(name = "first_name")
     private String firstName;

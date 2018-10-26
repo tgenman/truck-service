@@ -1,7 +1,6 @@
 package com.mpoznyak.model;
 
 import com.mpoznyak.model.type.DriverStatus;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javax.persistence.*;
 import java.util.List;
@@ -42,7 +41,7 @@ public class Driver {
     @ManyToMany
     @JoinTable(name = "OrderToDriver", joinColumns = {@JoinColumn(name = "driver_id", referencedColumnName = "id")},
     inverseJoinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "id")})
-    private List<DeliveryOrder> deliveryOrders;
+    private List<Order> orders;
 
     @Column(name = "deleted")
     private Boolean deleted = false;
@@ -103,20 +102,20 @@ public class Driver {
         this.truck = truck;
     }
 
-    public List<DeliveryOrder> getOrder() {
-        return deliveryOrders;
+    public List<Order> getOrder() {
+        return orders;
     }
 
-    public void setOrder(List<DeliveryOrder> deliveryOrders) {
-        this.deliveryOrders = deliveryOrders;
+    public void setOrder(List<Order> orders) {
+        this.orders = orders;
     }
 
-    public List<DeliveryOrder> getDeliveryOrders() {
-        return deliveryOrders;
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    public void setDeliveryOrders(List<DeliveryOrder> deliveryOrders) {
-        this.deliveryOrders = deliveryOrders;
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     public Boolean getDeleted() {

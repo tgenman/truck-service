@@ -1,17 +1,18 @@
 package com.mpoznyak.controller;
 
 import com.mpoznyak.dto.DriverDTO;
+import com.mpoznyak.dto.OrderDTO;
 import com.mpoznyak.dto.TruckDTO;
+import com.mpoznyak.model.Customer;
+import com.mpoznyak.model.Order;
 import com.mpoznyak.service.CityService;
+import com.mpoznyak.service.CustomerService;
 import com.mpoznyak.service.DriverService;
 import com.mpoznyak.service.TruckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Max Poznyak
@@ -29,6 +30,9 @@ public class ManagerController {
     @Autowired
     private CityService cityService;
 
+    @Autowired
+    private CustomerService customerService;
+
     @GetMapping("/managerPage")
     public String showManagerPage(Model model) {
 
@@ -39,6 +43,7 @@ public class ManagerController {
         model.addAttribute("truckDTO", new TruckDTO());
         model.addAttribute("cities", cityService.getAllCities());
         model.addAttribute("truckStatus", truckService.getTrucksStatus());
+        model.addAttribute("customer", new Customer());
 
         model.addAttribute("cities", cityService.getAllCities());
         model.addAttribute("truckDetails", truckService.getTrucksDetails());
@@ -52,6 +57,16 @@ public class ManagerController {
         System.out.println(id);
         driverService.deleteDriver(longId);
         return "redirect:managerPage";
+    }
+
+    @PostMapping(value = "/new-customer")
+    public String processNewCustomer(@ModelAttribute("customer") Customer customer, Model model) {
+        customerService.saveCustomer(customer);
+        model.addAttribute("customerNewOrder", customer);
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setCustomer(customer.getName());
+        model.addAttribute("order", orderDTO);
+        return "new-order";
     }
 
 
