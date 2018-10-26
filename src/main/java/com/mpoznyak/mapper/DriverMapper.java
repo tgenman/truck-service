@@ -77,6 +77,7 @@ public class DriverMapper {
     private Truck mapToTruck(String truckDTO) {
         List<Truck> trucks = truckRepository.query();
 
+        //TODO update code for checking brand and model too
         for (Truck truck : trucks) {
             if (truckDTO.contains(truck.getLicensePlate())) {
                 return truck;
