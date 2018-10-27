@@ -32,7 +32,7 @@ public class Order {
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private OrderStatus status = OrderStatus.INCOMPLETED;
 
     @ManyToMany
     @JoinTable(name = "OrderToDriver", joinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "id")},

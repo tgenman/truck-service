@@ -1,6 +1,6 @@
 package com.mpoznyak.model;
 
-import com.mpoznyak.model.type.TrackPointType;
+import com.mpoznyak.model.type.RoutePointType;
 
 import javax.persistence.*;
 
@@ -10,7 +10,7 @@ import javax.persistence.*;
  */
 
 @Entity
-public class TrackPoint {
+public class RoutePoint {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class TrackPoint {
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
-    private TrackPointType type;
+    private RoutePointType type;
 
     @OneToOne
     @JoinColumn(name = "order_id")
@@ -40,11 +40,11 @@ public class TrackPoint {
         this.id = id;
     }
 
-    public TrackPointType getType() {
+    public RoutePointType getType() {
         return type;
     }
 
-    public void setType(TrackPointType type) {
+    public void setType(RoutePointType type) {
         this.type = type;
     }
 

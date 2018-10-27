@@ -43,6 +43,10 @@ public class Driver {
     inverseJoinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "id")})
     private List<Order> orders;
 
+    @OneToOne
+    @JoinColumn(name = "shift_id")
+    private Shift shift;
+
     @Column(name = "deleted")
     private Boolean deleted = false;
 
@@ -102,14 +106,6 @@ public class Driver {
         this.truck = truck;
     }
 
-    public List<Order> getOrder() {
-        return orders;
-    }
-
-    public void setOrder(List<Order> orders) {
-        this.orders = orders;
-    }
-
     public List<Order> getOrders() {
         return orders;
     }
@@ -124,5 +120,13 @@ public class Driver {
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public Shift getShift() {
+        return shift;
+    }
+
+    public void setShift(Shift shift) {
+        this.shift = shift;
     }
 }

@@ -14,7 +14,14 @@ public class City {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longtitude")
+    private Double longtitude;
 
     public Long getId() {
         return id;

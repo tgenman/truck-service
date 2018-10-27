@@ -1,7 +1,9 @@
 package com.mpoznyak.repository;
 
 import com.mpoznyak.model.Driver;
+import com.mpoznyak.model.Shift;
 import com.mpoznyak.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -21,7 +23,10 @@ import java.util.List;
 public class DriverRepository {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
+
+    @Autowired
+    private ShiftRepository shiftRepository;
 
     public void add(Driver driver) {
         add(Collections.singletonList(driver));
@@ -29,6 +34,9 @@ public class DriverRepository {
 
     public void add(Iterable<Driver> drivers) {
         for (Driver driver : drivers) {
+            Shift shift = new Shift();
+            shiftRepository.add(shift);
+            driver.setShift(shift);
             entityManager.persist(driver);
         }
     }
