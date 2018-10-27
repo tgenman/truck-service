@@ -67,11 +67,10 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <button type="button" class="btn btn-primary"
-                                data-toggle="modal"
-                                data-target="#newOrder">
+                        <a type="button" class="btn btn-primary"
+                                href="/new-order">
                             New order
-                        </button>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
@@ -325,32 +324,6 @@
                 </table>
             </div>
 
-            <div class="modal fade" id="newOrder" tabindex="-1" role="dialog"
-                 aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">New order</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <sf:form action="new-customer" method="post" modelAttribute="customer"
-                                     cssClass="form-signin">
-                                <h6>Customer information</h6>
-                                <sf:input name="name" path="name" class="form-control"
-                                          placeholder="Customer name"/>
-                                <br><br>
-                                <input type="submit" name="save" class="btn btn-lg btn-primary btn-block"
-                                       value="Continue">
-                            </sf:form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <script>
                 $('#editableDriver').on('show.bs.modal', function (event) {
                     var button = $(event.relatedTarget) // Button that triggered the modal
@@ -387,10 +360,6 @@
                     modal.find('.modal-body input[name="licensePlate"]').val(licensePlate)
                 })
 
-                $('#newOrder').on('show.bs.modal', function (event) {
-                    var button = $(event.relatedTarget) // Button that triggered the modal
-                    var modal = $(this)
-                })
             </script>
         </main>
     </div>

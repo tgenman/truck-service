@@ -9,13 +9,13 @@ import java.util.List;
 
 public class RouteDTO {
 
-    List<CompoundRoutePointDTO> routePoints;
+    List<OrderDetailsDTO> routePoints;
 
-    public List<CompoundRoutePointDTO> getRoutePoints() {
+    public List<OrderDetailsDTO> getRoutePoints() {
         return routePoints;
     }
 
-    public void setRoutePoints(List<CompoundRoutePointDTO> routePoints) {
+    public void setRoutePoints(List<OrderDetailsDTO> routePoints) {
         this.routePoints = routePoints;
     }
 }

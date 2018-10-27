@@ -7,6 +7,5 @@ package com.mpoznyak.model.type;
 
 public enum DriverStatus {
 
-    REST, WORKING_SESSION_WAIT, WORKING_SESSION_DRIVE
-
+    WEEKLY_REST, SHIFT_REST, SECOND_DRIVER, DRIVER, CARGO_OPERATIONS
 }

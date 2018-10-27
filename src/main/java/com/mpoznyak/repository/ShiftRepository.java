@@ -1,12 +1,10 @@
 package com.mpoznyak.repository;
 
-import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.Shift;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -46,7 +44,12 @@ public class ShiftRepository {
 
     public void update(Shift shift) {
         Shift shiftDb = entityManager.find(Shift.class, shift.getId());
-        shiftDb.setElapsed(shift.getElapsed());
+        shiftDb.setMonthStartAt(shift.getMonthStartAt());
+        shiftDb.setMonthEndAt(shift.getMonthEndAt());
+        shiftDb.setTimeMonthlyElapsed(shift.getTimeMonthlyElapsed());
+        shiftDb.setTimeWeeklyElapsed(shift.getTimeWeeklyElapsed());
+        shiftDb.setWeeklyRest(shift.getWeeklyRest());
+
     }
 
     public List<Shift> query() {

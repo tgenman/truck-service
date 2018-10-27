@@ -28,17 +28,11 @@ public class DriverMapper {
     @Autowired
     private TruckRepository truckRepository;
 
-    @Autowired
-    public DriverMapper() {
-    }
-
     public Driver map(DriverDTO driverDTO) {
         Driver driver = new Driver();
         driver.setId(driverDTO.getId());
         driver.setFirstName(driverDTO.getFirstName());
         driver.setLastName(driverDTO.getLastName());
-        driver.setWorkedTime(driverDTO.getWorkedTime());
-
         DriverStatus status = mapToDriverStatus(driverDTO.getStatus());
         driver.setStatus(status);
 
@@ -53,12 +47,16 @@ public class DriverMapper {
 
     private DriverStatus mapToDriverStatus(String status) {
         switch (status) {
-            case "REST":
-                return DriverStatus.REST;
-            case "WORKING_SESSION_WAIT":
-                return DriverStatus.WORKING_SESSION_DRIVE;
-            case "WORKING_SESSION_DRIVE":
-                return DriverStatus.WORKING_SESSION_DRIVE;
+            case "WEEKLY_REST":
+                return DriverStatus.WEEKLY_REST;
+            case "SHIFT_REST":
+                return DriverStatus.SHIFT_REST;
+            case "CARGO_OPERATIONS":
+                return DriverStatus.CARGO_OPERATIONS;
+            case "DRIVER":
+                return DriverStatus.DRIVER;
+            case "SECOND_DRIVER":
+                return DriverStatus.SECOND_DRIVER;
         }
         return null;
     }

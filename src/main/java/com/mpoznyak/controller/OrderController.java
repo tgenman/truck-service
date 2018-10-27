@@ -1,11 +1,13 @@
 package com.mpoznyak.controller;
 
-import com.mpoznyak.dto.CompoundRoutePointDTO;
+import com.mpoznyak.dto.OrderDetailsDTO;
 import com.mpoznyak.dto.OrderDTO;
-import com.mpoznyak.model.Customer;
-import com.mpoznyak.model.Order;
+import com.mpoznyak.model.City;
+import com.mpoznyak.service.CityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -17,23 +19,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class OrderController {
 
+    @Autowired
+    private CityService cityService;
 
 
     //TODO implement
     @PostMapping(value = "save-order")
-    public String saveOrder(@ModelAttribute("order") Order order) {
+    public String saveOrder(@ModelAttribute("orderDetails") OrderDetailsDTO orderDetails) {
 
-        return null;
+
+        return "redirect:managerPage";
     }
 
-    @PostMapping(value = "new-route")
-    public String processNewPoint(@ModelAttribute("route-point")CompoundRoutePointDTO routePoint,
-                                  @ModelAttribute("customer") Customer customer,
-                                  Model model) {
-
-        model.addAttribute("customer", customer);
-        model.addAttribute("route-point", routePoint);
-        model.addAttribute("order", new OrderDTO());
+    @GetMapping(value = "/new-order")
+    public String processNewPoint(Model model) {
+        model.addAttribute("orderDetails", new OrderDetailsDTO());
+        model.addAttribute("cities", cityService.getAllCities());
         return "new-order";
     }
 

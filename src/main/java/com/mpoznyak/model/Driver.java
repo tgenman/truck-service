@@ -23,9 +23,6 @@ public class Driver {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "worked_time")
-    private Integer workedTime;
-
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private DriverStatus status;
@@ -72,14 +69,6 @@ public class Driver {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public Integer getWorkedTime() {
-        return workedTime;
-    }
-
-    public void setWorkedTime(Integer workedTime) {
-        this.workedTime = workedTime;
     }
 
     public DriverStatus getStatus() {

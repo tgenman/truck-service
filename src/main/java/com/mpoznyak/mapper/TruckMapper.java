@@ -20,11 +20,6 @@ import java.util.List;
 public class TruckMapper {
 
     @Autowired
-    public TruckMapper() {
-
-    }
-
-    @Autowired
     CityRepository cityRepository;
 
     public Truck map(TruckDTO truckDTO) {

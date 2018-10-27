@@ -1,8 +1,7 @@
 package com.mpoznyak.controller;
 
-import com.mpoznyak.dto.CompoundRoutePointDTO;
+import com.mpoznyak.dto.OrderDetailsDTO;
 import com.mpoznyak.dto.DriverDTO;
-import com.mpoznyak.dto.OrderDTO;
 import com.mpoznyak.dto.TruckDTO;
 import com.mpoznyak.model.Customer;
 import com.mpoznyak.service.CityService;
@@ -59,15 +58,7 @@ public class ManagerController {
         return "redirect:managerPage";
     }
 
-    @PostMapping(value = "/new-customer")
-    public String processNewCustomer(@ModelAttribute("customer") Customer customer, Model model) {
-        customerService.saveCustomer(customer);
 
-        model.addAttribute("customer", customer);
-        model.addAttribute("route-point", new CompoundRoutePointDTO());
-        model.addAttribute("cities", cityService.getAllCities());
-        return "new-route-cargo";
-    }
 
 
 }

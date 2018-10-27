@@ -5,7 +5,9 @@ package com.mpoznyak.dto;
  * on 27/10/2018  at 15:34
  */
 
-public class CompoundRoutePointDTO {
+public class OrderDetailsDTO {
+
+    private String customerName;
 
     private Long orderId;
 
@@ -55,5 +57,13 @@ public class CompoundRoutePointDTO {
 
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 }

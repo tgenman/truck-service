@@ -58,7 +58,6 @@ public class DriverRepository {
         Driver driverDb = (Driver) entityManager.find(Driver.class, driver.getId());
         driverDb.setFirstName(driver.getFirstName());
         driverDb.setLastName(driver.getLastName());
-        driverDb.setWorkedTime(driver.getWorkedTime());
         driverDb.setCity(driver.getCity());
         driverDb.setTruck(driver.getTruck());
         driverDb.setStatus(driver.getStatus());
