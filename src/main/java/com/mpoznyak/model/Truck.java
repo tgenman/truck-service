@@ -46,6 +46,9 @@ public class Truck {
     @Column(name = "deleted")
     private Boolean deleted = false;
 
+    @Column(name = "free")
+    private Boolean free = true;
+
     public Long getId() {
         return id;
     }
@@ -116,5 +119,26 @@ public class Truck {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public Boolean isFree() {
+        return free;
+    }
+
+    public void setFree(Boolean free) {
+        this.free = free;
+    }
+
+    @Override
+    public String toString() {
+        return "brand: " + brand + ", model: " + model + ", license plate: " + licensePlate;
     }
 }

@@ -133,7 +133,8 @@
                         <th scope="col">First name</th>
                         <th scope="col">Last name</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Worked time</th>
+                        <th scope="col">Week time</th>
+                        <th scope="col">Month time</th>
                         <th scope="col">City</th>
                         <th scope="col">Truck</th>
                         <th scope="col"></th>
@@ -149,7 +150,8 @@
 
                             <td>${driver.status}</td>
 
-                            <td>${driver.workedTime}</td>
+                            <td>${driver.shift.timeWeeklyElapsed}</td>
+                            <td>${driver.shift.timeMonthlyElapsed}</td>
 
                             <td>${driver.city.name}</td>
                             <td>${driver.truck.licensePlate}</td>
@@ -161,7 +163,7 @@
                                         data-id-driver="${driver.id}"
                                         data-first-name-driver="${driver.firstName}"
                                         data-last-name-driver="${driver.lastName}"
-                                        data-worked-time-driver="${driver.workedTime}">
+                                        data-worked-time-driver="${driver.shift.timeWeeklyElapsed}">
                                     Edit
                                 </button>
                             </td>
@@ -189,7 +191,7 @@
                                             <sf:hidden name="idDriver" path="id"/>
                                             <sf:input name="firstName" path="firstName" class="form-control"/>
                                             <sf:input name="lastName" path="lastName" class="form-control"/>
-                                            <sf:input name="workedTime" path="workedTime" class="form-control"/>
+                                            <sf:input name="shiftId" path="shiftId" class="form-control"/>
                                             <br>
                                             <h6>Driver status</h6>
                                             <sf:select path="status" cssClass="form-control">
@@ -330,13 +332,13 @@
                     var idDriver = button.data('id-driver');
                     var firstName = button.data('first-name-driver');
                     var lastName = button.data('last-name-driver');
-                    var workedTime = button.data('worked-time-driver');
+                    var shiftId = button.data('worked-time-driver');
                     var modal = $(this)
                     modal.find('.modal-body input').val(idDriver)
                     modal.find('.modal-body input[name="save"]').val("Save")
                     modal.find('.modal-body input[name="firstName"]').val(firstName)
                     modal.find('.modal-body input[name="lastName"]').val(lastName)
-                    modal.find('.modal-body input[name="workedTime"]').val(workedTime)
+                    modal.find('.modal-body input[name="shiftId"]').val(shiftId)
                 })
 
                 $('#editableTruck').on('show.bs.modal', function (event) {

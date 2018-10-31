@@ -33,14 +33,18 @@ public class DriverMapper {
         driver.setId(driverDTO.getId());
         driver.setFirstName(driverDTO.getFirstName());
         driver.setLastName(driverDTO.getLastName());
-        DriverStatus status = mapToDriverStatus(driverDTO.getStatus());
-        driver.setStatus(status);
-
-        Truck truck = mapToTruck(driverDTO.getTruck());
-        driver.setTruck(truck);
-
-        City city = mapToCity(driverDTO.getCity());
-        driver.setCity(city);
+        if (driverDTO.getStatus() != null) {
+            DriverStatus status = mapToDriverStatus(driverDTO.getStatus());
+            driver.setStatus(status);
+        }
+        if (driverDTO.getTruck() != null) {
+            Truck truck = mapToTruck(driverDTO.getTruck());
+            driver.setTruck(truck);
+        }
+        if (driverDTO.getCity() != null) {
+            City city = mapToCity(driverDTO.getCity());
+            driver.setCity(city);
+        }
 
         return driver;
     }

@@ -3,9 +3,13 @@ package com.mpoznyak.service;
 import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.Shift;
 import com.mpoznyak.repository.DriverRepository;
+import com.mpoznyak.repository.ShiftRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,26 +21,32 @@ import java.util.List;
 public class ShiftService {
 
     @Autowired
-    private DriverRepository driverRepository;
+    private ShiftRepository shiftRepository;
 
-
-    public List<Driver> getDriversForOrder(Long orderDuration) {
-
-        List<Driver> allDrivers = driverRepository.queryExisted();
-
-        for (int i = 0; i < allDrivers.size(); i++) {
-
-            Shift shift = allDrivers.get(i).getShift();
-            if (shift.hasWeeklyRest()) {
-                allDrivers.remove(i);
-            } else if ((shift.getTimeWeeklyElapsed() + orderDuration) > 56
-                    && (shift.getTimeMonthlyElapsed() + orderDuration) > 176) {
-                allDrivers.remove(i);
-            }
+    @Transactional
+    public void newWeekShift(Shift shift) {
+        shift.setTimeWeeklyElapsed(0);
+        if (shift.getWeekCounter() > 3) {
+            shift.setWeekCounter(1);
+        } else {
+            shift.setWeekCounter(shift.getWeekCounter() + 1);
         }
-        return allDrivers;
+
+        shiftRepository.update(shift);
     }
 
-    //TODO method for refreshing shift for each driver if 56 and 176 hours were expired
+    @Transactional
+    public void newMonthShift(Shift shift) {
+        shift.setTimeMonthlyElapsed(0);
+        shift.setMonthStartAt(LocalDate.now());
+        shift.setMonthEndAt(shift.getMonthStartAt().plusMonths(1));
+        shiftRepository.update(shift);
+    }
+
+    @Transactional
+    public void addShift(Shift shift) {
+        shiftRepository.add(shift);
+    }
+
 
 }

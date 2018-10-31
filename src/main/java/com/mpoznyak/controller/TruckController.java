@@ -1,6 +1,5 @@
 package com.mpoznyak.controller;
 
-import com.mpoznyak.dto.DriverDTO;
 import com.mpoznyak.dto.TruckDTO;
 import com.mpoznyak.service.CityService;
 import com.mpoznyak.service.DriverService;
@@ -30,7 +29,7 @@ public class TruckController {
     @RequestMapping("newTruck")
     public String showNewTruckPage(Model model) {
         model.addAttribute("truckDTO", new TruckDTO());
-        model.addAttribute("cities", cityService.getAllCities());
+        model.addAttribute("cities", cityService.getAllCitiesMap());
         model.addAttribute("truckStatus", truckService.getTrucksStatus());
         return "new-truck";
     }

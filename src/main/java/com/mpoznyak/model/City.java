@@ -1,6 +1,7 @@
 package com.mpoznyak.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * Created by Max Poznyak
@@ -37,5 +38,23 @@ public class City {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        City city = (City) o;
+        return Objects.equals(id, city.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, latitude, longtitude);
     }
 }

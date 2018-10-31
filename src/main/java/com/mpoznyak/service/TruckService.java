@@ -77,6 +77,21 @@ public class TruckService {
         truckRepository.remove(id);
     }
 
+    //TODO подходит по вместимости с учетом погрузки/выгрузки по маршруту следования
+    @Transactional
+    public LinkedHashMap<Long,Truck> getTrucksForOrder(Integer cargoCapacity) {
+
+        List<Truck> trucks = truckRepository.query();
+        LinkedHashMap<Long, Truck> map = new LinkedHashMap<>();
+        for (int i = 0; i < trucks.size(); i++) {
+            Truck truck = trucks.get(i);
+            if (truck.getStatus().equals(TruckStatus.OPERABLE) && truck.isFree()
+                    && (truck.getCapacity() - cargoCapacity) >= 0) {
+                map.put(truck.getId(), truck);
+            }
+        }
+        return map;
+    }
 
 
 

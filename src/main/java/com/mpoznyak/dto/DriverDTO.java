@@ -14,7 +14,7 @@ public class DriverDTO {
 
     private String lastName;
 
-    private Integer workedTime;
+    private Long shiftId;
 
     private String status;
 
@@ -38,12 +38,12 @@ public class DriverDTO {
         this.lastName = lastName;
     }
 
-    public Integer getWorkedTime() {
-        return workedTime;
+    public Long getShiftId() {
+        return shiftId;
     }
 
-    public void setWorkedTime(Integer workedTime) {
-        this.workedTime = workedTime;
+    public void setShiftId(Long shiftId) {
+        this.shiftId = shiftId;
     }
 
     public String getStatus() {

@@ -6,5 +6,5 @@ package com.mpoznyak.model.type;
  */
 
 public enum RoutePointType {
-    PICK_UP, DROP_OFF
+    PICK_UP, DROP_OFF, IN_TRANSIT
 }

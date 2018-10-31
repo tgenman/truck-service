@@ -118,4 +118,9 @@ public class Driver {
     public void setShift(Shift shift) {
         this.shift = shift;
     }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + ", location: " + city;
+    }
 }

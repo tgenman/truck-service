@@ -24,6 +24,9 @@ public class RoutePoint {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @Column(name = "route_sequence_index")
+    private Integer routeSequnceIndex;
+
     @OneToOne
     @JoinColumn(name = "city_id")
     private City city;

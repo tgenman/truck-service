@@ -1,5 +1,9 @@
 package com.mpoznyak.dto;
 
+import com.mpoznyak.model.Cargo;
+import com.mpoznyak.model.RoutePoint;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,13 +13,21 @@ import java.util.List;
 
 public class RouteDTO {
 
-    List<OrderDetailsDTO> routePoints;
+    public RouteDTO() {
+        routePoints = new ArrayList<>();
+    }
 
-    public List<OrderDetailsDTO> getRoutePoints() {
+    private List<RoutePointDTO> routePoints;
+
+    public List<RoutePointDTO> getRoutePoints() {
         return routePoints;
     }
 
-    public void setRoutePoints(List<OrderDetailsDTO> routePoints) {
+    public void setRoutePoints(List<RoutePointDTO> routePoints) {
         this.routePoints = routePoints;
+    }
+
+    public void addRoutePoint(RoutePointDTO routePointDTO) {
+        routePoints.add(routePointDTO);
     }
 }

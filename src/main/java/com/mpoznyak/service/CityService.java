@@ -14,6 +14,7 @@ import java.util.Map;
  * Created by Max Poznyak
  * on 23/10/2018  at 19:37
  */
+
 @Service
 public class CityService {
 
@@ -21,12 +22,17 @@ public class CityService {
     private CityRepository cityRepository;
 
     @Transactional
-    public LinkedHashMap<String, City> getAllCities() {
+    public LinkedHashMap<Long, City> getAllCitiesMap() {
         List<City> cityList = cityRepository.query();
-        LinkedHashMap<String, City>  cityMap = new LinkedHashMap<>();
+        LinkedHashMap<Long, City>  cityMap = new LinkedHashMap<>();
         for (City city : cityList) {
-            cityMap.put(city.getName(), city);
+            cityMap.put(city.getId(), city);
         }
         return cityMap;
+    }
+
+    @Transactional
+    public List<City> getAllCitiesList() {
+        return cityRepository.query();
     }
 }

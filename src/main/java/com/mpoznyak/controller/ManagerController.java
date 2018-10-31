@@ -1,6 +1,5 @@
 package com.mpoznyak.controller;
 
-import com.mpoznyak.dto.OrderDetailsDTO;
 import com.mpoznyak.dto.DriverDTO;
 import com.mpoznyak.dto.TruckDTO;
 import com.mpoznyak.model.Customer;
@@ -40,11 +39,11 @@ public class ManagerController {
         model.addAttribute("driverDTO", new DriverDTO());
 
         model.addAttribute("truckDTO", new TruckDTO());
-        model.addAttribute("cities", cityService.getAllCities());
+        model.addAttribute("cities", cityService.getAllCitiesMap());
         model.addAttribute("truckStatus", truckService.getTrucksStatus());
         model.addAttribute("customer", new Customer());
 
-        model.addAttribute("cities", cityService.getAllCities());
+        model.addAttribute("cities", cityService.getAllCitiesMap());
         model.addAttribute("truckDetails", truckService.getTrucksDetails());
         model.addAttribute("status", driverService.getAllDriverStatus());
         return "manager";

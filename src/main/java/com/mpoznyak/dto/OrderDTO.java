@@ -1,5 +1,6 @@
 package com.mpoznyak.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,11 +16,11 @@ public class OrderDTO {
 
     private String status;
 
-    private List<String> drivers;
+    private List<Long> driver = new ArrayList<>();
 
-    private String truck;
+    private Long truck;
 
-    private String manager;
+    private Long manager;
 
     public Long getId() {
         return id;
@@ -45,27 +46,27 @@ public class OrderDTO {
         this.status = status;
     }
 
-    public List<String> getDrivers() {
-        return drivers;
+    public List<Long> getDriver() {
+        return driver;
     }
 
-    public void setDrivers(List<String> drivers) {
-        this.drivers = drivers;
+    public void setDriver(List<Long> driver) {
+        this.driver = driver;
     }
 
-    public String getTruck() {
+    public Long getTruck() {
         return truck;
     }
 
-    public void setTruck(String truck) {
+    public void setTruck(Long truck) {
         this.truck = truck;
     }
 
-    public String getManager() {
+    public Long getManager() {
         return manager;
     }
 
-    public void setManager(String manager) {
+    public void setManager(Long manager) {
         this.manager = manager;
     }
 }

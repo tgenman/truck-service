@@ -32,7 +32,7 @@ public class DriverController {
     public String showNewDriverPage(Model model) {
         Driver driver = new Driver();
         model.addAttribute("driverDTO", new DriverDTO());
-        model.addAttribute("cities", cityService.getAllCities());
+        model.addAttribute("cities", cityService.getAllCitiesMap());
         model.addAttribute("trucks", truckService.getTrucksDetails());
         model.addAttribute("status", driverService.getAllDriverStatus());
         return "new-driver";

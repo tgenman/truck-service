@@ -15,15 +15,15 @@ public class Road {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "city_id1")
-    private City city1;
+    @JoinColumn(name = "from")
+    private City from;
 
     @OneToOne
-    @JoinColumn(name = "city_id2")
-    private City city2;
+    @JoinColumn(name = "to")
+    private City to;
 
     @Column(name = "distance")
-    private Long distance;
+    private Integer distance;
 
     public Long getId() {
         return id;
@@ -33,27 +33,27 @@ public class Road {
         this.id = id;
     }
 
-    public City getCity1() {
-        return city1;
-    }
-
-    public void setCity1(City city1) {
-        this.city1 = city1;
-    }
-
-    public City getCity2() {
-        return city2;
-    }
-
-    public void setCity2(City city2) {
-        this.city2 = city2;
-    }
-
-    public Long getDistance() {
+    public Integer getDistance() {
         return distance;
     }
 
-    public void setDistance(Long distance) {
+    public void setDistance(Integer distance) {
         this.distance = distance;
+    }
+
+    public City getFrom() {
+        return from;
+    }
+
+    public void setFrom(City from) {
+        this.from = from;
+    }
+
+    public City getTo() {
+        return to;
+    }
+
+    public void setTo(City to) {
+        this.to = to;
     }
 }
