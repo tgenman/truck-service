@@ -63,16 +63,14 @@
                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">City: ${point.city}</h5>
-                                    <small>Type: ${point.type}</small>
+                                    <small>Type: ${point.type.toString()}</small>
                                 </div>
                                 <c:if test="${point.cargo != null}">
                                     <p class="mb-1">Cargo ID: ${point.cargo.id}</p>
                                     <p class="mb-1">Cargo name: ${point.cargo.name}</p>
                                     <p class="mb-1">Cargo weight: ${point.cargo.weight}</p>
-                                    <p class="mb-1">Cargo status: ${point.cargo.status}</p>
+                                    <p class="mb-1">Cargo status: ${point.cargo.status.toString()}</p>
                                     <c:choose>
-
-
                                         <c:when test="${point.completed != true}">
                                             <sf:form method="post" action="route-point-update"
                                                      modelAttribute="routePointDTO">
@@ -84,13 +82,14 @@
                                         <c:otherwise>
                                             <h5 style="color: #0f9d58">COMPLETED</h5>
                                         </c:otherwise>
-
                                     </c:choose>
                                 </c:if>
                                 <c:if test="${point.cargoesForDrop.size() != 0}">
                                     <c:forEach items="${point.cargoesForDrop}" var="cargoDrop">
                                         <p class="mb-1">Cargo ID: ${cargoDrop.id}</p>
                                         <p class="mb-1">Cargo name: ${cargoDrop.name}</p>
+                                        <p>____________</p>
+                                        <br>
                                     </c:forEach>
                                     <c:choose>
                                         <c:when test="${point.completed != true}">

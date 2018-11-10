@@ -9,6 +9,7 @@ import com.mpoznyak.model.RoutePoint;
 import com.mpoznyak.model.Truck;
 import com.mpoznyak.model.type.DriverStatus;
 import com.mpoznyak.model.type.OrderStatus;
+import com.mpoznyak.model.type.RoutePointType;
 import com.mpoznyak.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -145,7 +146,7 @@ public class DriverController {
                 if (point.getOrder().getId() == order.getId()) {
 
                     point.setCompleted(true);
-                    routePointService.updateRoutePoint(point);
+                    routePointService.updatePointStatusForOrder(point, order);
                 }
             }
             for (Driver driver1 : driversForOrder) {

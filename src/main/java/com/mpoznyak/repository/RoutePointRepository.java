@@ -1,7 +1,10 @@
 package com.mpoznyak.repository;
 
+import com.mpoznyak.model.Cargo;
 import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.RoutePoint;
+import com.mpoznyak.model.type.CargoStatus;
+import com.mpoznyak.model.type.RoutePointType;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -55,7 +58,9 @@ public class RoutePointRepository {
     public void update(RoutePoint routePoint) {
         RoutePoint routePointDb = (RoutePoint) entityManager.find(RoutePoint.class, routePoint.getId());
         routePointDb.setCity(routePoint.getCity());
-        routePointDb.setCargo(routePoint.getCargo());
+        Cargo cargo = routePoint.getCargo();
+        routePointDb.setCargo(cargo);
+        routePointDb.setCompleted(routePoint.getCompleted());
         routePointDb.setOrder(routePoint.getOrder());
         routePointDb.setType(routePoint.getType());
         routePointDb.setRouteSequnceIndex(routePoint.getRouteSequnceIndex());

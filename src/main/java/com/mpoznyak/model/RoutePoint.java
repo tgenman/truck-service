@@ -21,6 +21,9 @@ public class RoutePoint {
     @Enumerated(EnumType.STRING)
     private RoutePointType type;
 
+    @Column(name = "completed")
+    private Boolean completed = false;
+
     @OneToOne
     @JoinColumn(name = "order_id")
     private Order order;
@@ -41,9 +44,6 @@ public class RoutePoint {
 
     @Column(name = "deleted")
     private Boolean deleted = false;
-
-    @Column(name = "completed")
-    private Boolean completed = false;
 
     public Long getId() {
         return id;

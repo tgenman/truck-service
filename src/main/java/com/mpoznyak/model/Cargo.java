@@ -21,7 +21,7 @@ public class Cargo {
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
-    private CargoStatus status;
+    private CargoStatus status = CargoStatus.PREPARED;
 
     @ManyToOne
     @JoinColumn(name = "dropoff")

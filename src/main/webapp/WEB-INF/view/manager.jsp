@@ -114,7 +114,7 @@
                                             <h4>Route Points:</h4>
                                             <ol class="list-group-item-text">
                                                 <c:forEach items="${order.routePoints}" var="point">
-                                                    <li>Type: ${point.type}</li>
+                                                    <li>Type: ${point.type.toString()}</li>
                                                     <h6>City: ${point.city}</h6>
                                                     <c:if test="${point.cargoesForDrop.size() != 0}">
                                                         <c:forEach items="${point.cargoesForDrop}" var="cargo">
@@ -152,7 +152,7 @@
                                                     <li>Cargo ID: ${cargo.id}</li>
                                                     <h6>Name: ${cargo.name}</h6>
                                                     <h6>Weight: ${cargo.weight}</h6>
-                                                    <h6>Status: ${cargo.status}</h6>
+                                                    <h6>Status: ${cargo.status.toString()}</h6>
                                                 </ul>
                                             </c:forEach>
                                         </div>
