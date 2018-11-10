@@ -39,9 +39,8 @@ public class RoutePointService {
     }
 
     @Transactional
-    public void updatePointStatusForOrder(RoutePoint routePoint, Order order) {
+    public void updatePointStatusForOrder(RoutePoint routePoint) {
 
-        List<RoutePoint> pointsForOrder = orderService.getRoutePointsForOrder(order);
         Cargo cargo = routePoint.getCargo();
 
         if (routePoint.getType().equals(RoutePointType.PICK_UP)) {
@@ -70,6 +69,7 @@ public class RoutePointService {
             }
         }
 
+        routePoint.setCompleted(true);
         routePointRepository.update(routePoint);
 
     }
@@ -79,7 +79,7 @@ public class RoutePointService {
         List<RoutePoint> pointList = routePointRepository.query();
         for (RoutePoint routePoint : pointList) {
             if (routePointDTO.getId() == routePoint.getId()) {
-                routePoint.setCompleted(routePointDTO.getCompleted());
+                updatePointStatusForOrder(routePoint);
                 routePointRepository.update(routePoint);
                 break;
             }

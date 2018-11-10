@@ -64,9 +64,10 @@ public class DriverController {
     }
 
     @PostMapping("/route-point-update")
-    public String updateRoutePoint(@ModelAttribute("routePointDTO") RoutePointDTO routePointDTO
-            , @RequestParam("driverId") Long driverId, @RequestParam("pointId") Long pointId
-            , Model model)  {
+    public String updateRoutePoint(@ModelAttribute("routePointDTO") RoutePointDTO routePointDTO,
+                                   @RequestParam("driverId") Long driverId,
+                                   @RequestParam("pointId") Long pointId,
+                                   Model model)  {
         routePointDTO.setId(pointId);
         routePointDTO.setCompleted(true);
         routePointService.updateRoutePoint(routePointDTO);
@@ -145,8 +146,7 @@ public class DriverController {
             for (RoutePoint point : points) {
                 if (point.getOrder().getId() == order.getId()) {
 
-                    point.setCompleted(true);
-                    routePointService.updatePointStatusForOrder(point, order);
+                    routePointService.updatePointStatusForOrder(point);
                 }
             }
             for (Driver driver1 : driversForOrder) {
