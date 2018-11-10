@@ -10,11 +10,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link href="${pageContext.request.contextPath}/static/css/sign-in.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/css/driver.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css"/>
     <title></title>
 </head>
-<body class="text-left">
+<body>
 <div class="container mt-2">
     <div class="row">
         <div class="col-5">

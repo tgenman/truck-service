@@ -143,7 +143,7 @@ public class DriverController {
             List<RoutePoint> points = routePointService.getRoutePoints();
             for (RoutePoint point : points) {
                 if (point.getOrder().getId() == order.getId()) {
-                    point.setOrder(null);
+
                     point.setCompleted(true);
                     routePointService.updateRoutePoint(point);
                 }
