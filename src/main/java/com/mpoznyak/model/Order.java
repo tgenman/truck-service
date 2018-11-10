@@ -4,6 +4,7 @@ import com.mpoznyak.model.type.OrderStatus;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -26,26 +27,21 @@ public class Order {
     private Customer customer;
 
     @Column(name = "timestamp")
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private LocalDateTime date;
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private OrderStatus status = OrderStatus.INCOMPLETED;
 
-    @ManyToMany
-    @JoinTable(name = "OrderToDriver", joinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "driver_id", referencedColumnName = "id")})
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<Driver> drivers;
 
     @OneToOne
     @JoinColumn(name = "truck_id")
     private Truck truck;
 
-    @OneToOne
-    @JoinColumn(name = "manager_id")
-    private Manager manager;
+    @Column(name = "deleted")
+    private Boolean deleted = false;
 
     public Long getId() {
         return id;
@@ -79,19 +75,11 @@ public class Order {
         this.truck = truck;
     }
 
-    public Manager getManager() {
-        return manager;
-    }
-
-    public void setManager(Manager manager) {
-        this.manager = manager;
-    }
-
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -102,4 +90,14 @@ public class Order {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+
 }

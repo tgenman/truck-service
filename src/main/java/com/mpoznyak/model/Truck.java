@@ -4,6 +4,7 @@ package com.mpoznyak.model;
 import com.mpoznyak.model.type.TruckStatus;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * Created by Max Poznyak
@@ -140,5 +141,18 @@ public class Truck {
     @Override
     public String toString() {
         return "brand: " + brand + ", model: " + model + ", license plate: " + licensePlate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Truck truck = (Truck) o;
+        return Objects.equals(id, truck.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

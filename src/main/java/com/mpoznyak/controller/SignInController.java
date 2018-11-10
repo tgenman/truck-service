@@ -1,14 +1,24 @@
 package com.mpoznyak.controller;
 
+import com.mpoznyak.dto.RoutePointDTO;
 import com.mpoznyak.model.Driver;
+import com.mpoznyak.model.Order;
+import com.mpoznyak.model.RoutePoint;
 import com.mpoznyak.model.User;
+import com.mpoznyak.model.type.DriverStatus;
+import com.mpoznyak.model.type.Role;
 import com.mpoznyak.service.DriverService;
+import com.mpoznyak.service.OrderService;
 import com.mpoznyak.service.TruckService;
 import com.mpoznyak.service.UserSignInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -26,27 +36,54 @@ public class SignInController {
     private DriverService driverService;
 
     @Autowired
-    private TruckService truckService;
+    private OrderService orderService;
 
-    @GetMapping("/signIn")
+    @GetMapping("/sign-in")
     public String showSignIn(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return "sign-in";
     }
 
+    //TODO switch to oauth2 spring security
     @RequestMapping(value = "/processAuthInput", method = POST)
     public String processSubmit(@ModelAttribute("user") User user, Model model) {
 
         Long companyId = user.getCompanyId();
         String password = user.getPassword();
-        boolean authorized = userSignInService.checkAuthInput(companyId, password);
-
-        if (authorized) {
-            return "redirect:managerPage";
-        } else {
-            model.addAttribute("user", new User());
-            return "try-sign-in";
+        Role role = userSignInService.checkAuthInput(companyId, password);
+        if (role==null) {
+            role = Role.NOT_AUTHORIZED;
         }
+
+        switch (role) {
+            case DRIVER:
+                List<Driver> drivers = driverService.getAllDrivers();
+                Driver driver = null;
+                for (Driver driver1 : drivers) {
+                    if (companyId == driver1.getId()) {
+                        driver = driver1;
+                    }
+                }
+                Order order = driver.getOrder();
+                if (order != null) {
+                    List<RoutePoint> points = orderService.getRoutePointsForOrder(order);
+                    model.addAttribute("routePoints", points);
+                } else {
+                    model.addAttribute("routePoints", new ArrayList<>());
+
+                }
+                model.addAttribute("driverStatus", DriverStatus.values());
+                model.addAttribute("routePointDTO", new RoutePointDTO());
+                model.addAttribute("driver", driver);
+                return "driver";
+            case MANAGER:
+                return "redirect:managerPage";
+            default:
+                model.addAttribute("user", new User());
+                return "try-sign-in";
+        }
+
+
     }
 }

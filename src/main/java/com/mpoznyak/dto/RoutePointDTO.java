@@ -2,6 +2,9 @@ package com.mpoznyak.dto;
 
 import com.mpoznyak.model.type.RoutePointType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Max Poznyak
  * on 29/10/2018  at 15:08
@@ -21,7 +24,12 @@ public class RoutePointDTO {
 
     private Long cityId;
 
+    //TODO rename/refactor
     private CargoDTO cargoDTO;
+
+    private List<String> cargoesForDroppingOff = new ArrayList<>();
+
+    private Boolean completed;
 
     public Long getId() {
         return id;
@@ -78,4 +86,23 @@ public class RoutePointDTO {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
+
+    public List<String> getCargoesForDroppingOff() {
+        return cargoesForDroppingOff;
+    }
+
+    public void setCargoesForDroppingOff(List<String> cargoesForDroppingOff) {
+        this.cargoesForDroppingOff = cargoesForDroppingOff;
+    }
+
+    public Boolean getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
+    }
+
+
+
 }

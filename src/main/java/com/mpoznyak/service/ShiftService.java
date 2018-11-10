@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 import java.util.List;
 
@@ -36,10 +38,19 @@ public class ShiftService {
     }
 
     @Transactional
-    public void newMonthShift(Shift shift) {
+    public void setStartMonthShift(Shift shift) {
         shift.setTimeMonthlyElapsed(0);
-        shift.setMonthStartAt(LocalDate.now());
-        shift.setMonthEndAt(shift.getMonthStartAt().plusMonths(1));
+        shift.setMonthStartAt(LocalDateTime.now());
+        shiftRepository.update(shift);
+    }
+
+    @Transactional
+    public void setEndMonthShift(Shift shift) {
+        LocalDateTime startDate = shift.getMonthStartAt();
+        LocalDateTime endDate = startDate.toLocalDate()
+                .with(TemporalAdjusters.lastDayOfMonth())
+                .atTime(23,59,59);
+        shift.setMonthEndAt(endDate);
         shiftRepository.update(shift);
     }
 

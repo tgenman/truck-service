@@ -7,5 +7,17 @@ package com.mpoznyak.model.type;
 
 public enum DriverStatus {
 
-    WEEKLY_REST, SHIFT_REST, SECOND_DRIVER, DRIVER, CARGO_OPERATIONS
+    WEEKLY_REST("Weekly rest"), SHIFT_REST("Rest during shift"), SECOND_DRIVER("Second driver (partner)"),
+    DRIVER("Driver"), CARGO_OPERATIONS("Cargoes operations"), FREE("Free for a new order");
+
+    private String name;
+
+    DriverStatus(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

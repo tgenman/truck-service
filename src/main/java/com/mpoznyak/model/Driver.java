@@ -35,10 +35,9 @@ public class Driver {
     @JoinColumn(name = "truck_id")
     private Truck truck;
 
-    @ManyToMany
-    @JoinTable(name = "OrderToDriver", joinColumns = {@JoinColumn(name = "driver_id", referencedColumnName = "id")},
-    inverseJoinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "id")})
-    private List<Order> orders;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @OneToOne
     @JoinColumn(name = "shift_id")
@@ -95,12 +94,12 @@ public class Driver {
         this.truck = truck;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public Boolean getDeleted() {
@@ -123,4 +122,6 @@ public class Driver {
     public String toString() {
         return firstName + " " + lastName + ", location: " + city;
     }
+
+
 }

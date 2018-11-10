@@ -34,15 +34,18 @@
             <sf:form action="save-order" modelAttribute="orderDTO">
 
                 <h5>Select available drivers:</h5>
-                <sf:checkboxes element="div class='checkbox'" path="driver" items="${drivers}"/>
+                <sf:checkboxes element="div class='checkbox'" path="drivers" items="${drivers}"/>
                 <br>
-                <h5>Select truck:</h5>
-                <sf:select path="truck" cssClass="dropdown">
-                    <sf:options items="${trucks}"/>
-                </sf:select>
                 <br><br>
                 <input type="submit"
                        class="btn btn-lg btn-primary" value="Confirm"/>
+            </sf:form>
+
+            <br>
+            <br>
+            <br>
+            <sf:form action="abort-order" method="post">
+                <input type="submit" value="Abort Order" class="btn btn-danger"/>
             </sf:form>
         </div>
         <div class="col-8">

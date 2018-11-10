@@ -111,9 +111,11 @@ public class DijkstraAlgorithm {
         LinkedList<City> path = new LinkedList<>();
         City step = target;
         // check if a path exists
+        /*
         if (predecessors.get(step) == null) {
             return null;
         }
+        */
         path.add(step);
         while (predecessors.get(step) != null) {
             step = predecessors.get(step);

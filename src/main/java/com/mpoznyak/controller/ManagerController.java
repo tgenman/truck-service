@@ -3,10 +3,8 @@ package com.mpoznyak.controller;
 import com.mpoznyak.dto.DriverDTO;
 import com.mpoznyak.dto.TruckDTO;
 import com.mpoznyak.model.Customer;
-import com.mpoznyak.service.CityService;
-import com.mpoznyak.service.CustomerService;
-import com.mpoznyak.service.DriverService;
-import com.mpoznyak.service.TruckService;
+import com.mpoznyak.model.type.DriverStatus;
+import com.mpoznyak.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +27,7 @@ public class ManagerController {
     private CityService cityService;
 
     @Autowired
-    private CustomerService customerService;
+    private OrderService orderService;
 
     @GetMapping("/managerPage")
     public String showManagerPage(Model model) {
@@ -43,9 +41,9 @@ public class ManagerController {
         model.addAttribute("truckStatus", truckService.getTrucksStatus());
         model.addAttribute("customer", new Customer());
 
-        model.addAttribute("cities", cityService.getAllCitiesMap());
+        model.addAttribute("orders", orderService.getAllOrdersDTO());
         model.addAttribute("truckDetails", truckService.getTrucksDetails());
-        model.addAttribute("status", driverService.getAllDriverStatus());
+        model.addAttribute("driverStatus", DriverStatus.values());
         return "manager";
     }
 

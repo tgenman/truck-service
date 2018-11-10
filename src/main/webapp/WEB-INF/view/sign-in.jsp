@@ -3,14 +3,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
-    <link href="static/css/sign-in.css" rel="stylesheet">
-    <link rel="stylesheet" href="static/css/bootstrap.min.css"/>
+    <link href="${pageContext.request.contextPath}/static/css/sign-in.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css"/>
     <title>Sign In</title>
 </head>
 <body class="text-center">
 <sf:form action="processAuthInput" modelAttribute="user" method="post" class="form-signin">
     <h1 class="h3 mb-3 font-weight-normal">Greetings!</h1>
-    <sf:input id="companyId" path="companyId" class="form-control" placeholder="ID manager/ driver"/>
+    <sf:input id="companyId" path="companyId" class="form-control" placeholder="ID manager/ drivers"/>
 
     <sf:input path="password" type="password" id="inputPassword" class="form-control" placeholder="Password"
               required=""/>

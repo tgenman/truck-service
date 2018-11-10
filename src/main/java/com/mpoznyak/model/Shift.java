@@ -2,6 +2,7 @@ package com.mpoznyak.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Created by Max Poznyak
@@ -16,10 +17,10 @@ public class Shift {
     private Long id;
 
     @Column(name = "month_start_at")
-    private LocalDate monthStartAt;
+    private LocalDateTime monthStartAt;
 
     @Column(name = "month_end_at")
-    private LocalDate monthEndAt;
+    private LocalDateTime monthEndAt;
 
     @Column(name = "time_weekly_elapsed")
     private Integer timeWeeklyElapsed = 0;
@@ -39,22 +40,6 @@ public class Shift {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public LocalDate getMonthStartAt() {
-        return monthStartAt;
-    }
-
-    public void setMonthStartAt(LocalDate monthStartAt) {
-        this.monthStartAt = monthStartAt;
-    }
-
-    public LocalDate getMonthEndAt() {
-        return monthEndAt;
-    }
-
-    public void setMonthEndAt(LocalDate monthEndAt) {
-        this.monthEndAt = monthEndAt;
     }
 
     public Integer getWeekCounter() {
@@ -91,5 +76,21 @@ public class Shift {
 
     public Boolean hasWeeklyRest() {
         return weeklyRest;
+    }
+
+    public LocalDateTime getMonthStartAt() {
+        return monthStartAt;
+    }
+
+    public void setMonthStartAt(LocalDateTime monthStartAt) {
+        this.monthStartAt = monthStartAt;
+    }
+
+    public LocalDateTime getMonthEndAt() {
+        return monthEndAt;
+    }
+
+    public void setMonthEndAt(LocalDateTime monthEndAt) {
+        this.monthEndAt = monthEndAt;
     }
 }

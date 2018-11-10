@@ -1,6 +1,7 @@
 package com.mpoznyak.model;
 
 
+import com.mpoznyak.model.type.Role;
 import com.mpoznyak.model.type.UserType;
 
 import javax.persistence.*;
@@ -26,6 +27,13 @@ public class User {
     @Column(name = "password")
     protected String password;
 
+    @Column(name = "role")
+    private Role role;
+
+    @JoinColumn(name = "driver_id")
+    @OneToOne
+    private Driver driver;
+
     public Long getCompanyId() {
         return companyId;
     }
@@ -50,4 +58,19 @@ public class User {
         this.id = id;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
 }

@@ -23,7 +23,7 @@
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Furious Turtle</a>
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">Sign out</a>
+            <a class="nav-link" href="/home">Sign out</a>
         </li>
     </ul>
 </nav>
@@ -46,9 +46,9 @@
                                 Drivers
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="newDriver">Add driver</a>
-                                <a class="dropdown-item" href="#">Update driver</a>
-                                <a class="dropdown-item" href="#">Delete driver</a>
+                                <a class="dropdown-item" href="newDriver">Add drivers</a>
+                                <a class="dropdown-item" href="#">Update drivers</a>
+                                <a class="dropdown-item" href="#">Delete drivers</a>
                             </div>
                         </div>
                     </li>
@@ -68,65 +68,111 @@
                     </li>
                     <li class="nav-item">
                         <a type="button" class="btn btn-primary"
-                                href="/new-order">
+                           href="new-order" role="button">
                             New order
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="bar-chart-2"></span>
-                            Reports
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="layers"></span>
-                            Integrations
-                        </a>
-                    </li>
+
                 </ul>
 
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>Saved reports</span>
-                    <a class="d-flex align-items-center text-muted" href="#">
-                        <span data-feather="plus-circle"></span>
-                    </a>
-                </h6>
-                <ul class="nav flex-column mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Current month
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Last quarter
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Social engagement
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Year-end sale
-                        </a>
-                    </li>
-                </ul>
+
             </div>
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 
             <div class="container">
+
+                <br>
+                <br>
+                <h3>Orders</h3>
+
+                <br>
+                <br>
+
+                <c:choose>
+                    <c:when test="${orders.size()>0}">
+                        <div id="accordion">
+                            <div class="panel list-group">
+                                <!-- panel class must be in -->
+                                <c:forEach items="${orders}" var="order">
+                                    <a href="#web_dev${order.id}" data-parent="#accordion" data-toggle="collapse"
+                                       class="list-group-item">
+                                        <h6>Order ID: ${order.id}   </h6>
+                                        <h6>Customer: ${order.customer}</h6>
+                                        <h6>Status: ${order.status}   </h6>
+                                        <h6>Truck: ${order.truckObject}   </h6>
+                                        <h6>Drivers: ${order.driversList}   </h6>
+                                    </a>
+                                    <sf:form method="post" action="delete-order">
+                                        <input type="hidden" value="${order.id}" name="orderId">
+                                        <input type="submit" class="btn btn-danger" value="Delete"/>
+                                    </sf:form>
+                                    <br>
+                                    <div class="collapse" id="web_dev${order.id}">
+                                        <div>
+                                            <h4>Route Points:</h4>
+                                            <ol class="list-group-item-text">
+                                                <c:forEach items="${order.routePoints}" var="point">
+                                                    <li>Type: ${point.type}</li>
+                                                    <h6>City: ${point.city}</h6>
+                                                    <c:if test="${point.cargoesForDrop.size() != 0}">
+                                                        <c:forEach items="${point.cargoesForDrop}" var="cargo">
+                                                            <h6>Cargo for drop: ${cargo.name} , ID: ${cargo.id}</h6>
+                                                            <c:choose>
+                                                                <c:when test="${point.completed == false}">
+                                                                    <h5 style="color: #ff2b3c;">INCOMPLETED</h5>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <h5 style="color: #0f9d58">COMPLETED</h5>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:forEach>
+                                                    </c:if>
+                                                    <c:if test="${point.cargo != null}">
+                                                        <h6>Cargo: ${point.cargo.name}</h6>
+                                                        <c:choose>
+                                                            <c:when test="${point.completed == false}">
+                                                                <h5 style="color: #ff2b3c;">INCOMPLETED</h5>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <h5 style="color: #0f9d58">COMPLETED</h5>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:if>
+
+                                                </c:forEach>
+                                            </ol>
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <h4>Cargoes:</h4>
+                                            <c:forEach items="${order.cargoes}" var="cargo">
+                                                <ul class="list-group-item-text">
+                                                    <li>Cargo ID: ${cargo.id}</li>
+                                                    <h6>Name: ${cargo.name}</h6>
+                                                    <h6>Weight: ${cargo.weight}</h6>
+                                                    <h6>Status: ${cargo.status}</h6>
+                                                </ul>
+                                            </c:forEach>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <h6>No orders now</h6>
+                    </c:otherwise>
+                </c:choose>
+
+                <br>
+                <br>
+
                 <h3> Drivers </h3>
                 <br>
-                <table class="table">
+                <table class="table table-hover table-bordered">
                     <thead>
                     <tr>
                         <th scope="col">№</th>
@@ -142,34 +188,34 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${drivers}" var="driver">
+                    <c:forEach items="${drivers}" var="drivers">
                         <tr>
                             <th scope="row" class="counterCell"></th>
-                            <td>${driver.firstName}</td>
-                            <td>${driver.lastName}</td>
+                            <td>${drivers.firstName}</td>
+                            <td>${drivers.lastName}</td>
 
-                            <td>${driver.status}</td>
+                            <td>${drivers.status.toString()}</td>
 
-                            <td>${driver.shift.timeWeeklyElapsed}</td>
-                            <td>${driver.shift.timeMonthlyElapsed}</td>
+                            <td>${drivers.shift.timeWeeklyElapsed}</td>
+                            <td>${drivers.shift.timeMonthlyElapsed}</td>
 
-                            <td>${driver.city.name}</td>
-                            <td>${driver.truck.licensePlate}</td>
+                            <td>${drivers.city.name}</td>
+                            <td>${drivers.truck.licensePlate}</td>
                             <td>
                                 <button type="button" class="btn btn-warning"
                                         data-toggle="modal"
                                         name="editableDriver"
                                         data-target="#editableDriver"
-                                        data-id-driver="${driver.id}"
-                                        data-first-name-driver="${driver.firstName}"
-                                        data-last-name-driver="${driver.lastName}"
-                                        data-worked-time-driver="${driver.shift.timeWeeklyElapsed}">
+                                        data-id-drivers="${drivers.id}"
+                                        data-first-name-drivers="${drivers.firstName}"
+                                        data-last-name-drivers="${drivers.lastName}"
+                                        data-worked-time-drivers="${drivers.shift.timeWeeklyElapsed}">
                                     Edit
                                 </button>
                             </td>
                             <td>
                                 <sf:form method="post" action="delete-driver">
-                                    <input type="hidden" value="${driver.id}" name="driverIdDelete">
+                                    <input type="hidden" value="${drivers.id}" name="driverIdDelete">
                                     <input type="submit" class="btn btn-danger" value="Delete"/>
                                 </sf:form>
                             </td>
@@ -180,7 +226,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Edit driver</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit drivers</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -191,22 +237,24 @@
                                             <sf:hidden name="idDriver" path="id"/>
                                             <sf:input name="firstName" path="firstName" class="form-control"/>
                                             <sf:input name="lastName" path="lastName" class="form-control"/>
-                                            <sf:input name="shiftId" path="shiftId" class="form-control"/>
                                             <br>
                                             <h6>Driver status</h6>
-                                            <sf:select path="status" cssClass="form-control">
+                                          <%--  <sf:select path="status" cssClass="form-control">
                                                 <sf:options items="${status}"/>
+                                            </sf:select>
+                                            --%>
+
+                                            <sf:select path="status">
+                                                <c:forEach items="${driverStatus}" var="status">
+                                                    <sf:option value="${status}">${status.toString()}</sf:option>
+                                                </c:forEach>
                                             </sf:select>
                                             <br>
                                             <h6>Current location</h6>
-                                            <sf:select path="city" cssClass="form-control">
-                                                <sf:options items="${cities.keySet()}"/>
+                                            <sf:select path="cityId" cssClass="form-control">
+                                                <sf:options items="${cities}"/>
                                             </sf:select>
                                             <br>
-                                            <h6>Truck</h6>
-                                            <sf:select path="truck" cssClass="form-control">
-                                                <sf:options items="${truckDetails}"/>
-                                            </sf:select>
 
                                             <br><br>
                                             <input type="submit" name="save" class="btn btn-lg btn-primary btn-block"
@@ -223,7 +271,7 @@
             <br><br>
             <div class="container">
                 <h3> Trucks </h3>
-                <table class="table">
+                <table class="table table-hover table-bordered">
                     <thead>
                     <tr>
                         <th scope="col">№</th>
@@ -282,7 +330,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">Edit driver</h5>
+                                        <h5 class="modal-title">Edit drivers</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -306,7 +354,7 @@
                                             <br>
                                             <h5>Current location</h5>
                                             <sf:select path="city" cssClass="form-control">
-                                                <sf:options items="${cities.keySet()}"/>
+                                                <sf:options items="${cities}"/>
                                             </sf:select>
                                             <br>
                                             <h5>Operable status</h5>
@@ -329,10 +377,10 @@
             <script>
                 $('#editableDriver').on('show.bs.modal', function (event) {
                     var button = $(event.relatedTarget) // Button that triggered the modal
-                    var idDriver = button.data('id-driver');
-                    var firstName = button.data('first-name-driver');
-                    var lastName = button.data('last-name-driver');
-                    var shiftId = button.data('worked-time-driver');
+                    var idDriver = button.data('id-drivers');
+                    var firstName = button.data('first-name-drivers');
+                    var lastName = button.data('last-name-drivers');
+                    var shiftId = button.data('worked-time-drivers');
                     var modal = $(this)
                     modal.find('.modal-body input').val(idDriver)
                     modal.find('.modal-body input[name="save"]').val("Save")
@@ -366,7 +414,6 @@
         </main>
     </div>
 </div>
-
 
 
 </body>

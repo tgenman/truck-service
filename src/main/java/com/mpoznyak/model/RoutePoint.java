@@ -3,6 +3,7 @@ package com.mpoznyak.model;
 import com.mpoznyak.model.type.RoutePointType;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Max Poznyak
@@ -31,9 +32,18 @@ public class RoutePoint {
     @JoinColumn(name = "city_id")
     private City city;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "cargo_id")
     private Cargo cargo;
+
+    @OneToMany(mappedBy = "dropoff", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Cargo> cargoesForDrop;
+
+    @Column(name = "deleted")
+    private Boolean deleted = false;
+
+    @Column(name = "completed")
+    private Boolean completed = false;
 
     public Long getId() {
         return id;
@@ -75,5 +85,35 @@ public class RoutePoint {
         this.cargo = cargo;
     }
 
+    public Integer getRouteSequnceIndex() {
+        return routeSequnceIndex;
+    }
 
+    public void setRouteSequnceIndex(Integer routeSequnceIndex) {
+        this.routeSequnceIndex = routeSequnceIndex;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public List<Cargo> getCargoesForDrop() {
+        return cargoesForDrop;
+    }
+
+    public void setCargoesForDrop(List<Cargo> cargoesForDrop) {
+        this.cargoesForDrop = cargoesForDrop;
+    }
+
+    public Boolean getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
+    }
 }

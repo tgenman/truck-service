@@ -19,7 +19,7 @@
     <br>
     <h5>Current location</h5>
     <sf:select path="city" cssClass="form-control" >
-        <sf:options items="${cities.keySet()}"/>
+        <sf:options items="${cities}"/>
     </sf:select>
     <br>
     <h5>Operable status</h5>

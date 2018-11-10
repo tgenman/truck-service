@@ -5,3 +5,15 @@ table {
     content: counter(tableCount);
     counter-increment: tableCount;
 }
+
+tbody.collapse.in {
+    display: table-row-group;
+}
+
+.table td {
+    text-align: center;
+}
+
+.list-group-item {
+    padding: 5px 10px
+}

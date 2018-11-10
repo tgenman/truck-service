@@ -51,11 +51,11 @@ public class TruckMapper {
         return null;
     }
 
-    private City mapToCity(String cityName) {
+    private City mapToCity(Long cityId) {
         List<City> cities = cityRepository.query();
 
         for (City city : cities) {
-            if (city.getName().equals(cityName)) {
+            if (city.getId() == cityId) {
                 return city;
             }
         }

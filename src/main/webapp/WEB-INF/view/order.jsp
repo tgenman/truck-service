@@ -29,22 +29,50 @@
     <div class="row border-between">
         <div class="col-4">
 
-                <h6>Customer: ${orderDTO.customer}</h6>
-                <br>
-                <h6>Add a new location for cargo picking up</h6>
-                <button type="button" data-toggle="modal"
-                        name="newPoint"
-                        data-target="#newPoint" class="btn btn-primary">
-                    Add new route point
-                </button>
-                <br>
-                <h6>If the order was formed, click "Verify" for setting up drop off point
-                    of the route, start route optimization and checking
-                    order final information</h6>
-            <button type="submit" data-toggle="modal" data-target="#dropOffPoint"
-                    class="btn btn-lg btn-primary btn-block">
-                Finish the Route
+            <h6>Customer: ${orderDTO.customer}</h6>
+            <br>
+            <h6>Add a new location for cargo picking up</h6>
+            <button type="button" data-toggle="modal"
+                    name="newPoint"
+                    data-target="#newPoint" class="btn btn-primary">
+                Pick Up Cargo
             </button>
+            <button type="button" data-toggle="modal"
+                    name="dropOff"
+                    data-target="#dropOff" class="btn btn-primary">
+                Drop Off Cargo
+            </button>
+            <br>
+            <br>
+            <sf:form action="select-driver" method="post" modelAttribute="orderDTO">
+                <h5>Select truck:</h5>
+                <sf:select path="truck" cssClass="dropdown">
+                    <sf:options items="${trucks}"/>
+                </sf:select>
+                <br>
+                <br>
+                <c:choose>
+                    <c:when test="${routeDTO.allDroppingLocationsSelected}">
+                        <input type="submit"
+                               class="btn btn-lg btn-primary btn-block" value="Finish The Route">
+                        </input>
+                    </c:when>
+                    <c:otherwise>
+                        <input type="submit"
+                               class="btn btn-lg btn-primary btn-block"
+                               disabled="disabled" value="Finish The Route">
+                        </input>
+                    </c:otherwise>
+                </c:choose>
+
+            </sf:form>
+            <br>
+            <br>
+            <br>
+            <sf:form action="abort-order" method="post">
+                <input type="submit" value="Abort Order" class="btn btn-danger"/>
+            </sf:form>
+
         </div>
         <div class="col-8">
             <h4>Route cities</h4>
@@ -68,8 +96,8 @@
                         <td>${point.cargoDTO.weight}</td>
                         <td>${point.type.name()}</td>
                         <td>
-                            <sf:form method="post" action="delete-truck">
-                                <input type="hidden" value="${point.id}" name="truckIdDelete">
+                            <sf:form method="post" action="delete-point">
+                                <input type="hidden" value="${point}" name="pointDelete">
                                 <input type="submit" class="btn btn-danger" value="Delete"/>
                             </sf:form>
                         </td>
@@ -102,6 +130,8 @@
                         <h6>Cargo name, product name or smth else</h6>
                         <sf:input path="cargoDTO.name" id="cargoName" class="form-control" placeholder="Name"
                                   required=""/>
+                        <sf:hidden path="cargoDTO.dropLocationSelected" value="false"/>
+                        <sf:hidden path="type" value="PICK_UP"/>
                         <h6>It should have any weight, man</h6>
                         <sf:input path="cargoDTO.weight" id="cargoWeight" class="form-control" placeholder="Weight"
                                   required=""/>
@@ -114,7 +144,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="dropOffPoint" tabindex="-1" role="dialog"
+<div class="modal fade" id="dropOff" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -126,11 +156,21 @@
                 </button>
             </div>
             <div class="modal-body">
-                <sf:form action="orderTruck" method="post" modelAttribute="route-point">
-                    <h6>Drop off cargoes in:</h6>
+                <sf:form action="order-main" method="post" modelAttribute="route-point">
+                    <h6>Drop off in:</h6>
                     <sf:select path="cityId" cssClass="form-control">
                         <sf:options items="${cities}"/>
                     </sf:select>
+                    <sf:hidden path="type" value="DROP_OFF"/>
+                    <br>
+                    <h6>Cargoes:</h6>
+                    <c:forEach items="${routeDTO.routePoints}" var="j">
+                        <c:if test="${j.cargoDTO.dropLocationSelected == false}">
+                            <sf:checkbox path="cargoesForDroppingOff" value="${j.cargoDTO}"/>
+                            <c:out value="${j.cargoDTO.name}"/>
+                        </c:if>
+                    </c:forEach>
+                    <br>
                     <br>
                     <input type="submit" value="Select a Truck">
                 </sf:form>
@@ -146,7 +186,7 @@
         var modal = $(this)
 
     })
-    $('#dropOffPoint').on('show.bs.modal', function (event) {
+    $('#dropOff').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var modal = $(this)
 

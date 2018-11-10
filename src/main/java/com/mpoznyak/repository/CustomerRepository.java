@@ -23,7 +23,7 @@ import java.util.List;
 public class CustomerRepository {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     public void add(Customer customer) {
         add(Collections.singletonList(customer));

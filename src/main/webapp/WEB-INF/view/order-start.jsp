@@ -27,14 +27,20 @@
 <div class="container-fluid">
     <div class="row border-between">
         <div class="col-4">
-            <h6>Customer</h6>
-            <br>
             <h6>Where should a cargo be picked up?</h6>
-                <button type="button" data-toggle="modal"
-                        name="newPoint"
-                        data-target="#newPoint" class="btn btn-primary">
-                    Add new route point
-                </button>
+            <button type="button" data-toggle="modal"
+                    name="newPoint"
+                    data-target="#newPoint" class="btn btn-primary">
+                Add Cargo
+            </button>
+
+            <br>
+            <br>
+            <br>
+            <sf:form action="abort-order" method="post">
+                <input type="submit" value="Abort Order" class="btn btn-danger"/>
+            </sf:form>
+
         </div>
         <div class="col-8">
             <h4>Route cities</h4>
@@ -80,6 +86,7 @@
                         <h6>Cargo name</h6>
                         <sf:input path="cargoDTO.name" id="cargoName" class="form-control" placeholder="Name"
                                   required=""/>
+                        <sf:hidden path="cargoDTO.dropLocationSelected" value="false"/>
                         <h6>It should have any weight, man</h6>
                         <sf:input path="cargoDTO.weight" id="cargoWeight" class="form-control" placeholder="Weight"
                                   required=""/>
@@ -95,11 +102,9 @@
         $('#newPoint').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var modal = $(this)
-
         })
     </script>
 </div>
-
 
 
 </body>

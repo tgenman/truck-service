@@ -25,7 +25,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class RepositoryConfig {
 
-    private String url = "jdbc:mysql://localhost:3306/school?serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8";
+    private String url = "jdbc:mysql://localhost:3306/school?useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC";
 
     private String username = "school";
 
@@ -72,8 +72,8 @@ public class RepositoryConfig {
     Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
-        properties.setProperty("hibernate.show_sql", "true");
-        properties.setProperty("hibernate.format_sql", "true");
+        //properties.setProperty("hibernate.show_sql", "true");
+        //properties.setProperty("hibernate.format_sql", "true");
         properties.setProperty("hibernate.generateDdl", "true");
         properties.setProperty(
                 "hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");

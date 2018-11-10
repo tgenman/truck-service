@@ -26,7 +26,7 @@ public class TruckDTO {
 
     private String model;
 
-    private String city;
+    private Long city;
 
     private Integer maxDrivers;
 
@@ -78,11 +78,11 @@ public class TruckDTO {
         this.model = model;
     }
 
-    public String getCity() {
+    public Long getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(Long city) {
         this.city = city;
     }
 

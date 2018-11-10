@@ -1,7 +1,6 @@
 package com.mpoznyak.dto;
 
-import com.mpoznyak.model.Cargo;
-import com.mpoznyak.model.RoutePoint;
+import com.mpoznyak.model.City;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +11,12 @@ import java.util.List;
  */
 
 public class RouteDTO {
+
+    private City carCity;
+
+    private Long weight = 0L;
+
+    private Boolean allDroppingLocationsSelected;
 
     public RouteDTO() {
         routePoints = new ArrayList<>();
@@ -29,5 +34,29 @@ public class RouteDTO {
 
     public void addRoutePoint(RoutePointDTO routePointDTO) {
         routePoints.add(routePointDTO);
+    }
+
+    public City getCarCity() {
+        return carCity;
+    }
+
+    public void setCarCity(City carCity) {
+        this.carCity = carCity;
+    }
+
+    public Boolean getAllDroppingLocationsSelected() {
+        return allDroppingLocationsSelected;
+    }
+
+    public void setAllDroppingLocationsSelected(Boolean allDroppingLocationsSelected) {
+        this.allDroppingLocationsSelected = allDroppingLocationsSelected;
+    }
+
+    public Long getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Long weight) {
+        this.weight = weight;
     }
 }

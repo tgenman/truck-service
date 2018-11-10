@@ -10,8 +10,6 @@ import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,14 +17,12 @@ import java.util.List;
  * Created by Max Poznyak
  * on 18/10/2018  at 20:15
  */
+
 @Repository
 public class DriverRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
-
-    @Autowired
-    private ShiftRepository shiftRepository;
 
     public void add(Driver driver) {
         add(Collections.singletonList(driver));
@@ -34,9 +30,6 @@ public class DriverRepository {
 
     public void add(Iterable<Driver> drivers) {
         for (Driver driver : drivers) {
-            Shift shift = new Shift();
-            shiftRepository.add(shift);
-            driver.setShift(shift);
             entityManager.persist(driver);
         }
     }
@@ -58,6 +51,7 @@ public class DriverRepository {
         Driver driverDb = (Driver) entityManager.find(Driver.class, driver.getId());
         driverDb.setFirstName(driver.getFirstName());
         driverDb.setLastName(driver.getLastName());
+        driverDb.setOrder(driver.getOrder());
         driverDb.setCity(driver.getCity());
         driverDb.setTruck(driver.getTruck());
         driverDb.setStatus(driver.getStatus());

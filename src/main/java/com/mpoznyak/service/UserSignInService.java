@@ -1,6 +1,7 @@
 package com.mpoznyak.service;
 
 import com.mpoznyak.model.User;
+import com.mpoznyak.model.type.Role;
 import com.mpoznyak.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,15 +21,16 @@ public class UserSignInService {
     @Autowired
     UserRepository userRepository;
 
-    public boolean checkAuthInput(Long companyId, String password) {
+    public Role checkAuthInput(Long companyId, String password) {
 
         List<User> users = userRepository.queryAll();
+        Role role = null;
         for (User testUser : users) {
             if (testUser.getCompanyId() == companyId
                     && testUser.getPassword().equals(password)) {
-                return true;
+                role = testUser.getRole();
             }
         }
-        return false;
+        return role;
     }
 }

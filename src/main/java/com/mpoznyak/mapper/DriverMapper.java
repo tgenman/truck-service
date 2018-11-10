@@ -34,17 +34,19 @@ public class DriverMapper {
         driver.setFirstName(driverDTO.getFirstName());
         driver.setLastName(driverDTO.getLastName());
         if (driverDTO.getStatus() != null) {
-            DriverStatus status = mapToDriverStatus(driverDTO.getStatus());
-            driver.setStatus(status);
+            driver.setStatus(driverDTO.getStatus());
+        } else {
+            driver.setStatus(DriverStatus.FREE);
         }
         if (driverDTO.getTruck() != null) {
             Truck truck = mapToTruck(driverDTO.getTruck());
             driver.setTruck(truck);
         }
-        if (driverDTO.getCity() != null) {
-            City city = mapToCity(driverDTO.getCity());
+        if (driverDTO.getCityId() != null) {
+            City city = mapToCity(driverDTO.getCityId());
             driver.setCity(city);
         }
+        driver.setShift(driverDTO.getShift());
 
         return driver;
     }
@@ -61,15 +63,17 @@ public class DriverMapper {
                 return DriverStatus.DRIVER;
             case "SECOND_DRIVER":
                 return DriverStatus.SECOND_DRIVER;
+            case "FREE":
+                return DriverStatus.FREE;
         }
         return null;
     }
 
-    private City mapToCity(String cityName) {
+    private City mapToCity(Long cityId) {
         List<City> cities = cityRepository.query();
 
         for (City city : cities) {
-            if (city.getName().equals(cityName)) {
+            if (city.getId() == cityId) {
                 return city;
             }
         }

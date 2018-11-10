@@ -2,10 +2,7 @@ package com.mpoznyak.configuration;
 
 import com.mpoznyak.mapper.TruckMapper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -31,6 +28,7 @@ import java.util.Properties;
  * on 22/10/2018  at 09:51
  */
 @Configuration
+@EnableAspectJAutoProxy
 @EnableWebMvc
 @ComponentScan("com.mpoznyak")
 public class WebConfig implements WebMvcConfigurer {

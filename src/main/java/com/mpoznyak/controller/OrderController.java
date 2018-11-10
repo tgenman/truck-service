@@ -1,23 +1,20 @@
 package com.mpoznyak.controller;
 
+import com.mpoznyak.dto.CargoDTO;
 import com.mpoznyak.dto.OrderDTO;
 import com.mpoznyak.dto.RouteDTO;
 import com.mpoznyak.dto.RoutePointDTO;
-import com.mpoznyak.logistics.algorithm.DijkstraAlgorithm;
-import com.mpoznyak.logistics.model.Graph;
-import com.mpoznyak.model.City;
-import com.mpoznyak.model.Road;
+import com.mpoznyak.model.Cargo;
+import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.RoutePoint;
-import com.mpoznyak.model.Truck;
 import com.mpoznyak.model.type.RoutePointType;
-import com.mpoznyak.service.CityService;
-import com.mpoznyak.service.DriverService;
-import com.mpoznyak.service.GraphService;
-import com.mpoznyak.service.TruckService;
+import com.mpoznyak.service.*;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.*;
 
@@ -27,20 +24,14 @@ import java.util.*;
  */
 
 @Controller
-@SessionAttributes({"routeDTO", "orderDTO"})
+@SessionAttributes({"routeDTO", "orderDTO", "cargoes"})
 public class OrderController {
 
-    @Autowired
-    private CityService cityService;
+    private static final Logger logger = Logger.getLogger(OrderController.class);
+    private static final String TAG = OrderController.class.getSimpleName();
 
     @Autowired
-    private DriverService driverService;
-
-    @Autowired
-    private GraphService graphService;
-
-    @Autowired
-    private TruckService truckService;
+    private OrderService orderService;
 
     @ModelAttribute("routeDTO")
     public RouteDTO getRouteDTO() {
@@ -52,125 +43,160 @@ public class OrderController {
         return new OrderDTO();
     }
 
+    @ModelAttribute("cargoes")
+    public List<CargoDTO> getCargosDTO() {
+        return new ArrayList<>();
+    }
+
 
     //TODO implement
     @PostMapping(value = "save-order")
     public String saveOrder(@ModelAttribute("routeDTO") RouteDTO routeDTO,
-                            @ModelAttribute("orderDTO") OrderDTO orderDTO) {
-
-
-
-        return "manager";
-    }
-
-    @PostMapping(value = "verify-order")
-    public String verifyOrder(@ModelAttribute("routeDTO") RouteDTO routeDTO,
-                            @ModelAttribute("point") RoutePointDTO point,
                             @ModelAttribute("orderDTO") OrderDTO orderDTO,
-                            Model model) {
+                            SessionStatus sessionStatus) {
 
-        List<RoutePointDTO> routePoints = routeDTO.getRoutePoints();
-        LinkedHashMap<Integer, LinkedList<City>> map = new LinkedHashMap<>();
-        List<City> cities = graphService.getGraphVertices();
-        List<Road> roads = graphService.getGraphEdges();
+        orderService.saveOrder(routeDTO, orderDTO);
+        sessionStatus.setComplete();
 
-        Graph graph = new Graph(cities,roads);
-
-        int i = 0;
-        for (int j = 0; j < routePoints.size(); j++) {
-
-            RoutePointDTO routePoint1 = routePoints.get(j);
-            routePoint1.setRouteSequenceIndex(i++);
-            City from = new City();
-            from.setId(routePoint1.getCityId());
-            City to = new City();
-
-            //TODO to service and implement and implement logic for the same city delivery
-            //TODO first point depends on truck position
-            //TODO Abort order
-            if ((j+1) < routePoints.size()) {
-                RoutePointDTO routePoint2 = routePoints.get(j+1);
-                routePoint2.setRouteSequenceIndex(i++);
-                to.setId(routePoint2.getCityId());
-            } else {
-                break;
-            }
-
-            map.put(routePoint1.getRouteSequenceIndex(),graphService.getPath(graph,cities.indexOf(from),cities.indexOf(to)));
-
-        }
-
-        //TODO optimize the route and pass it
-        model.addAttribute("routeDTO", routeDTO);
-        //TODO analyze trucks and drivers
-
-        model.addAttribute("drivers", driverService.getDriversForOrder(10));
-        model.addAttribute("trucks", truckService.getTrucksForOrder(15));
-
-        model.addAttribute("orderDTO", orderDTO);
-        return "order-confirmation";
-
+        return "redirect:managerPage";
     }
 
-    @GetMapping(value = "/new-order")
-    public String showOrderFirstPage(@ModelAttribute("routeDTO") RouteDTO routeDTO,
-                                 @ModelAttribute("orderDTO") OrderDTO orderDTO,
-                                 Model model) {
-        model.addAttribute("route-point", new RoutePointDTO());
-        model.addAttribute("cities", cityService.getAllCitiesMap());
-        return "order-start";
+    @PostMapping(value = "abort-order")
+    public String abortOrder(SessionStatus sessionStatus) {
+
+        sessionStatus.setComplete();
+
+        return "redirect:managerPage";
     }
 
-    @PostMapping(value = "/order-main")
-    public String showOrderMainPage(@ModelAttribute("routeDTO") RouteDTO routeDTO,
-                                @ModelAttribute("route-point") RoutePointDTO routePointDTO,
-                                @ModelAttribute("orderDTO") OrderDTO orderDTO,
-                                Model model) {
-        orderDTO.setCustomer(routePointDTO.getCustomerName());
-        routeDTO.addRoutePoint(routePointDTO);
-        model.addAttribute("route-point", new RoutePointDTO());
-        model.addAttribute("order", new OrderDTO());
-        model.addAttribute("drivers", driverService.getDriversForOrder(10));
-        model.addAttribute("cities", cityService.getAllCitiesMap());
-        return "order-main";
-    }
-
-    @PostMapping(value = "/order-new-point")
-    public String addNewPointToOrder(@ModelAttribute("routeDTO") RouteDTO routeDTO,
-                                @ModelAttribute("route-point") RoutePointDTO routePointDTO,
-                                @ModelAttribute("orderDTO") OrderDTO orderDTO,
-                                Model model) {
-        model.addAttribute("route-point", new RoutePointDTO());
-        model.addAttribute("order", new OrderDTO());
-
-        model.addAttribute("cities", cityService.getAllCitiesMap());
-        return "order-main";
-    }
-
-    @PostMapping(value = "/orderTruck")
-    public String selectTruck(@ModelAttribute("routeDTO") RouteDTO routeDTO,
-                              @ModelAttribute("route-point") RoutePointDTO routePointDTO,
+    @PostMapping(value = "select-driver")
+    public String selectDrivers(@ModelAttribute("routeDTO") RouteDTO routeDTO,
+                              @ModelAttribute("point") RoutePointDTO point,
                               @ModelAttribute("orderDTO") OrderDTO orderDTO,
                               Model model) {
 
-        Integer weight = 0;
+        Long time = orderService.getRouteTime(routeDTO, orderDTO);
+        LinkedHashMap<Long, Driver> drivers = orderService.getDriversForOrder(time, orderDTO);
 
-        routePointDTO.setType(RoutePointType.DROP_OFF);
-        routeDTO.addRoutePoint(routePointDTO);
+        logger.info(TAG + ": called selectDrivers(args...)" +
+                "{time = " + time + " hours" + "\n" +
+                "drivers map = " +drivers.values() +
+                "}");
 
-        List<RoutePointDTO> routePoints = routeDTO.getRoutePoints();
+        model.addAttribute("routeDTO", routeDTO);
+        model.addAttribute("drivers", drivers);
+        model.addAttribute("orderDTO", orderDTO);
 
-        for (RoutePointDTO routePoint : routePoints) {
-            if (routePoint.getType() != RoutePointType.DROP_OFF) {
-                weight += routePoint.getCargoDTO().getWeight();
+        return "select-driver";
+
+    }
+
+    @GetMapping(value = "new-order")
+    public String showOrderFirstPage(@ModelAttribute("routeDTO") RouteDTO routeDTO,
+                                     @ModelAttribute("orderDTO") OrderDTO orderDTO,
+                                     Model model) {
+        model.addAttribute("route-point", new RoutePointDTO());
+        model.addAttribute("cities", orderService.getAllCitiesMap());
+        return "order-start";
+    }
+
+    //TODO implement
+    @PostMapping(value = "delete-point")
+    public String deletePoint(@ModelAttribute("routeDTO") RouteDTO routeDTO,
+                              @RequestParam("pointDelete") String routePoint,
+                              Model model) {
+
+        logger.info(TAG + ": called deletePoint(" + routeDTO + ", " + routePoint +")");
+
+        List<RoutePointDTO> points = routeDTO.getRoutePoints();
+        RoutePointDTO deletePoint = null;
+        for (RoutePointDTO point : points) {
+            if (point.toString().equals(routePoint)) {
+                deletePoint = point;
+                if (deletePoint.getType().equals(RoutePointType.PICK_UP)) {
+                    if (point.getCargoDTO() == null) {
+                        logger.info(TAG + ": condition [ point.getCargoDTO == null ] returns true, " +
+                                "point.getType() equals " + point.getType());
+                        points.remove(deletePoint);
+                        break;
+                    }
+                    Long weight = routeDTO.getWeight();
+                    logger.info(TAG + ": deletePoint(args...) initial weight = " + weight);
+                    weight -= deletePoint.getCargoDTO().getWeight();
+                    routeDTO.setWeight(weight);
+                    logger.info(TAG + ": deletePoint(args...) final weight = " + weight);
+                }
+                if (deletePoint.getType().equals(RoutePointType.DROP_OFF)) {
+                    for (RoutePointDTO routePointDTO : points) {
+                        List<String> cargoes = deletePoint.getCargoesForDroppingOff();
+                        for (String cargo : cargoes) {
+                            if (routePointDTO.getCargoDTO().toString().equals(cargo)) {
+                                routePointDTO.getCargoDTO().setDropLocationSelected(false);
+                                logger.info("deleteRoutePoint(): drop off point cargo location selected:" +
+                                        routePointDTO.getCargoDTO().getDropLocationSelected());
+
+                            }
+
+                        }
+
+                    }
+                }
+                points.remove(point);
+                break;
             }
         }
 
-
-        model.addAttribute("trucks", truckService.getTrucksForOrder(weight));
-        model.addAttribute("order", new OrderDTO());
-        return "order-truck";
+        model.addAttribute("route-point", new RoutePointDTO());
+        return "redirect:order";
     }
 
+    @GetMapping(value = "/order")
+    public String showOrderPage(@ModelAttribute("routeDTO") RouteDTO routeDTO,
+                                @ModelAttribute("route-point") RoutePointDTO routePointDTO,
+                                @ModelAttribute("orderDTO") OrderDTO orderDTO,
+                                Model model) {
+        List<RoutePointDTO> points = routeDTO.getRoutePoints();
+        orderService.setDropLocations(routeDTO, points);
+        Long weight = routeDTO.getWeight();
 
+        model.addAttribute("route-point", new RoutePointDTO());
+        model.addAttribute("trucks", orderService.getTrucksForOrder(weight));
+        model.addAttribute("cities", orderService.getAllCitiesMap());
+        return "order";
+    }
+
+    @PostMapping(value = "order-main")
+    public String processNewRoutePoint(@ModelAttribute("routeDTO") RouteDTO routeDTO,
+                                    @ModelAttribute("route-point") RoutePointDTO routePointDTO,
+                                    @ModelAttribute("orderDTO") OrderDTO orderDTO,
+                                    Model model) {
+
+        if (orderDTO.getCustomer() == null) {
+            orderDTO.setCustomer(routePointDTO.getCustomerName());
+        }
+        List<RoutePointDTO> points = routeDTO.getRoutePoints();
+        orderService.newRoutePoint(routePointDTO, routeDTO, points);
+
+        routeDTO.addRoutePoint(routePointDTO);
+        points = routeDTO.getRoutePoints();
+        Long weight = routeDTO.getWeight();
+
+        weight = orderService.getWeight(routePointDTO, points, weight);
+
+        routeDTO.setWeight(weight);
+
+        orderService.setDropLocations(routeDTO, points);
+
+        model.addAttribute("route-point", new RoutePointDTO());
+        model.addAttribute("trucks", orderService.getTrucksForOrder(weight));
+        model.addAttribute("cities", orderService.getAllCitiesMap());
+        return "redirect:order";
+    }
+
+    @PostMapping("/delete-order")
+    public String deleteOrder(@RequestParam("orderId") Long id) {
+        orderService.deleteOrder(id);
+        return "redirect:managerPage";
+    }
 }
+

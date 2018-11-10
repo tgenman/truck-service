@@ -30,6 +30,7 @@ public class ShiftRepository {
     public void add(Iterable<Shift> shifts) {
         for (Shift shift : shifts) {
             entityManager.persist(shift);
+
         }
     }
 

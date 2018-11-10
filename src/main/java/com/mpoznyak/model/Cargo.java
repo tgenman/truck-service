@@ -23,6 +23,13 @@ public class Cargo {
     @Enumerated(EnumType.STRING)
     private CargoStatus status;
 
+    @ManyToOne
+    @JoinColumn(name = "dropoff")
+    private RoutePoint dropoff;
+
+    @Column(name = "deleted")
+    private Boolean deleted = false;
+
     public Long getId() {
         return id;
     }
@@ -53,5 +60,21 @@ public class Cargo {
 
     public void setStatus(CargoStatus status) {
         this.status = status;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public RoutePoint getDrop() {
+        return dropoff;
+    }
+
+    public void setDrop(RoutePoint drop) {
+        this.dropoff = drop;
     }
 }

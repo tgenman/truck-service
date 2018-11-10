@@ -10,11 +10,17 @@ public class CargoDTO {
 
     private String name;
 
-    private Integer weight;
+    private Long weight;
 
     private String status;
 
     private Long routePointId;
+
+    private RoutePointDTO droppedOffIn;
+
+    private RoutePointDTO pickedUpIn;
+
+    private Boolean dropLocationSelected;
 
     public Long getId() {
         return id;
@@ -32,11 +38,11 @@ public class CargoDTO {
         this.name = name;
     }
 
-    public Integer getWeight() {
+    public Long getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(Long weight) {
         this.weight = weight;
     }
 
@@ -55,4 +61,29 @@ public class CargoDTO {
     public void setRoutePointId(Long routePointId) {
         this.routePointId = routePointId;
     }
+
+    public Boolean getDropLocationSelected() {
+        return dropLocationSelected;
+    }
+
+    public void setDropLocationSelected(Boolean dropLocationSelected) {
+        this.dropLocationSelected = dropLocationSelected;
+    }
+
+    public RoutePointDTO getDroppedOffIn() {
+        return droppedOffIn;
+    }
+
+    public void setDroppedOffIn(RoutePointDTO droppedOffIn) {
+        this.droppedOffIn = droppedOffIn;
+    }
+
+    public RoutePointDTO getPickedUpIn() {
+        return pickedUpIn;
+    }
+
+    public void setPickedUpIn(RoutePointDTO pickedUpIn) {
+        this.pickedUpIn = pickedUpIn;
+    }
+
 }
