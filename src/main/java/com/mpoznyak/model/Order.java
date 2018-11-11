@@ -43,7 +43,7 @@ public class Order {
     @Column(name = "deleted")
     private Boolean deleted = false;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tempshift_id")
     private TempShift tempShift;
 

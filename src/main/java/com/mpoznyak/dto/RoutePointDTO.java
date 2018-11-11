@@ -24,7 +24,8 @@ public class RoutePointDTO {
 
     private Long cityId;
 
-    //TODO rename/refactor
+    private String cityName;
+
     private CargoDTO cargoDTO;
 
     private List<String> cargoesForDroppingOff = new ArrayList<>();
@@ -103,6 +104,11 @@ public class RoutePointDTO {
         this.completed = completed;
     }
 
+    public String getCityName() {
+        return cityName;
+    }
 
-
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
 }

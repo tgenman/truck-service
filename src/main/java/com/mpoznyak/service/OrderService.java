@@ -123,6 +123,15 @@ public class OrderService {
     }
 
     public void newRoutePoint(RoutePointDTO routePointDTO, RouteDTO routeDTO, List<RoutePointDTO> points) {
+
+        List<City> cities = cityService.getAllCitiesList();
+
+        for (City city : cities) {
+            if (city.getId() == routePointDTO.getCityId()) {
+                routePointDTO.setCityName(city.getName());
+            }
+        }
+
         if (routePointDTO.getType().equals(RoutePointType.PICK_UP)) {
             routePointDTO.setType(RoutePointType.PICK_UP);
             routePointDTO.getCargoDTO().setPickedUpIn(routePointDTO);

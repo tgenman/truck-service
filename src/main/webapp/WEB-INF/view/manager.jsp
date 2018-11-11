@@ -32,47 +32,22 @@
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                            <span data-feather="home"></span>
-                            Dashboard <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <div class="btn-group dropright">
-                            <button type="button" class="btn btn-primary dropdown-toggle"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                Drivers
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="newDriver">Add drivers</a>
-                                <a class="dropdown-item" href="#">Update drivers</a>
-                                <a class="dropdown-item" href="#">Delete drivers</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="btn-group dropright">
-                            <button type="button" class="btn btn-primary dropdown-toggle"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                Trucks
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="newTruck">New truck</a>
-                                <a class="dropdown-item" href="#">Update truck</a>
-                                <a class="dropdown-item" href="#">Delete truck</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a type="button" class="btn btn-primary"
-                           href="new-order" role="button">
+                    <br>
+                    <br>
+                    <br>
+                    <sf:form method="get" action="newDriver">
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="New Driver">
+                    </sf:form>
+                    <sf:form method="get" action="newTruck">
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="New Truck">
+                    </sf:form>
+
+                    <div class="btn btn-primary btn-lg btn-block">
+                        <a class="btn btn-primary"
+                           href="new-order">
                             New order
                         </a>
-                    </li>
-
+                    </div>
                 </ul>
 
 
@@ -239,10 +214,10 @@
                                             <sf:input name="lastName" path="lastName" class="form-control"/>
                                             <br>
                                             <h6>Driver status</h6>
-                                          <%--  <sf:select path="status" cssClass="form-control">
-                                                <sf:options items="${status}"/>
-                                            </sf:select>
-                                            --%>
+                                            <%--  <sf:select path="status" cssClass="form-control">
+                                                  <sf:options items="${status}"/>
+                                              </sf:select>
+                                              --%>
 
                                             <sf:select path="status">
                                                 <c:forEach items="${driverStatus}" var="status">

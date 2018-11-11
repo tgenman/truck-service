@@ -49,6 +49,7 @@ public class TruckRepository {
         Truck truckDb = (Truck) entityManager.find(Truck.class, truck.getId());
         truckDb.setBrand(truck.getBrand());
         truckDb.setModel(truck.getModel());
+        truckDb.setFree(truck.isFree());
         truckDb.setCity(truck.getCity());
         truckDb.setStatus(truck.getStatus());
         truckDb.setCapacity(truck.getCapacity());

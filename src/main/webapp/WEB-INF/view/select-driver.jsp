@@ -64,10 +64,10 @@
                 <c:forEach items="${routeDTO.routePoints}" var="point">
                     <tr>
                         <th scope="row" class="counterCell"></th>
-                        <td>${point.cityId}</td>
+                        <td>${point.cityName}</td>
                         <td>${point.cargoDTO.name}</td>
                         <td>${point.cargoDTO.weight}</td>
-                        <td>${point.type.name()}</td>
+                        <td>${point.type.toString()}</td>
                     </tr>
                 </c:forEach>
                 </tbody>
