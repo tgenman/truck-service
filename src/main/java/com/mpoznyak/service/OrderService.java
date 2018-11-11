@@ -58,6 +58,9 @@ public class OrderService {
     @Autowired
     private CargoRepository cargoRepository;
 
+    @Autowired
+    private TempShiftService tempShiftService;
+
 
     public Long getRouteTime(RouteDTO routeDTO, OrderDTO orderDTO) {
         Long time = graphService.getRouteTime(routeDTO, orderDTO);
@@ -190,6 +193,9 @@ public class OrderService {
         order.setDrivers(driversForOrder);
 
         order.setStatus(OrderStatus.INCOMPLETED);
+        TempShift tempShift = new TempShift();
+        tempShiftService.saveNewTempShift(tempShift);
+        order.setTempShift(tempShift);
         orderRepository.add(order);
 
         //TODO move to service

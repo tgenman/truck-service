@@ -3,19 +3,20 @@ package com.mpoznyak.controller;
 import com.mpoznyak.dto.DriverDTO;
 import com.mpoznyak.dto.RouteDTO;
 import com.mpoznyak.dto.RoutePointDTO;
-import com.mpoznyak.model.Driver;
-import com.mpoznyak.model.Order;
-import com.mpoznyak.model.RoutePoint;
-import com.mpoznyak.model.Truck;
+import com.mpoznyak.model.*;
 import com.mpoznyak.model.type.DriverStatus;
 import com.mpoznyak.model.type.OrderStatus;
 import com.mpoznyak.model.type.RoutePointType;
+import com.mpoznyak.repository.ShiftRepository;
 import com.mpoznyak.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -41,6 +42,11 @@ public class DriverController {
 
     @Autowired
     private RoutePointService routePointService;
+
+    @Autowired
+    private ShiftService shiftService;
+
+    @Autowired TempShiftService tempShiftService;
 
     @RequestMapping(value = "/newDriver")
     public String showNewDriverPage(Model model) {
@@ -111,6 +117,7 @@ public class DriverController {
                 driver = driver1;
             }
         }
+
         Order order = driver.getOrder();
         if (order != null) {
             List<RoutePoint> points = orderService.getRoutePointsForOrder(order);
@@ -165,6 +172,40 @@ public class DriverController {
 
         model.addAttribute("driverId", driverId);
         return "redirect:driver";
+    }
 
+    @PostMapping("start-shift")
+    public String startDriverShift(@RequestParam("driverId") Long driverId, Model model) {
+
+        List<Driver> drivers = driverService.getAllDrivers();
+        Driver driver = null;
+        for (Driver driver1 : drivers) {
+            if (driverId == driver1.getId()) {
+                driver = driver1;
+            }
+        }
+
+        Order order = driver.getOrder();
+        TempShift tempShift = order.getTempShift();
+        Shift shift = driver.getShift();
+        Long driverMonthTimeElapsed = shift.getTimeMonthlyElapsed();
+        if (tempShift.getStartTempShift()) {
+            tempShift.setStartTempShift(false);
+            Long timeElapsed = Duration.between(tempShift.getStartDate(), LocalDateTime.now()).toHours();
+            driverMonthTimeElapsed += timeElapsed;
+            shift.setTimeMonthlyElapsed(driverMonthTimeElapsed);
+            tempShift.setStartDate(null);
+            shiftService.updateShift(shift);
+            tempShiftService.updateTempShift(tempShift);
+        } else {
+            tempShift.setStartTempShift(true);
+            tempShift.setStartDate(LocalDateTime.now());
+            tempShiftService.updateTempShift(tempShift);
+        }
+
+        Long driverIds = driverId;
+        model.addAttribute("driverId", driverIds);
+        model.addAttribute("routePointDTO", new RoutePointDTO());
+        return "redirect:driver";
     }
 }

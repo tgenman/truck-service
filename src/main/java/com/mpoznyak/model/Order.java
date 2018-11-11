@@ -43,6 +43,10 @@ public class Order {
     @Column(name = "deleted")
     private Boolean deleted = false;
 
+    @OneToOne
+    @JoinColumn(name = "tempshift_id")
+    private TempShift tempShift;
+
     public Long getId() {
         return id;
     }
@@ -99,5 +103,11 @@ public class Order {
         this.deleted = deleted;
     }
 
+    public TempShift getTempShift() {
+        return tempShift;
+    }
 
+    public void setTempShift(TempShift tempShift) {
+        this.tempShift = tempShift;
+    }
 }

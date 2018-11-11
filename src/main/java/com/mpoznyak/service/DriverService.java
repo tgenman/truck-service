@@ -109,7 +109,7 @@ public class DriverService {
             Shift shift = allDrivers.get(i).getShift();
             LocalDateTime endDate = shift.getMonthEndAt();
             LocalDateTime orderDate = orderDTO.getDate();
-            Integer monthTime = shift.getTimeMonthlyElapsed();
+            Long monthTime = shift.getTimeMonthlyElapsed();
             if ((driver.getStatus().equals(DriverStatus.FREE) && (monthTime + orderDuration) <= 176)
                     || (!shift.hasWeeklyRest()
                     && orderDate.plusHours(orderDuration).isAfter(endDate)

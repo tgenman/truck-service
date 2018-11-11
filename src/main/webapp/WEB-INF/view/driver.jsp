@@ -1,3 +1,4 @@
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%--
@@ -23,12 +24,15 @@
             <br>
             <h2>Hello, ${driver.firstName} ${driver.lastName} !</h2>
             <h5>Your ID is: ${driver.id}</h5>
+            <br>
+            <h5>In this month you worked: ${driver.shift.timeMonthlyElapsed} h.</h5>
+            <br>
             <c:forEach items="${driver.order.drivers}" var="partner">
                 <c:if test="${partner.id != driver.id}">
                     <h5>Partner: ${partner.firstName} ${partner.lastName} , ID: ${partner.id}</h5>
+                    <br>
                 </c:if>
             </c:forEach>
-            <br>
             <h5>Truck: ${driver.truck.licensePlate}</h5>
             <br>
             <c:choose>
@@ -115,6 +119,35 @@
                 </c:otherwise>
             </c:choose>
 
+        </div>
+
+        <div class="col-5">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <c:if test="${driver.order != null}">
+                <c:choose>
+                    <c:when test="${driver.order.tempShift.startTempShift == false}">
+                        <sf:form action="start-shift" method="post">
+                            <h5>If you're ready for work, press "Start Shift"</h5>
+                            <input type="hidden" value="${driver.id}" name="driverId">
+                            <input type="submit" class="btn btn-primary" value="Start Shift">
+                        </sf:form>
+                    </c:when>
+                    <c:otherwise>
+
+                        <h6>Shift starts at: ${driver.order.tempShift.startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))}</h6>
+                        <sf:form action="start-shift" method="post">
+                            <input type="hidden" value="${driver.id}" name="driverId">
+                            <input type="submit" class="btn btn-primary" value="Finish Shift">
+                        </sf:form>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
         </div>
     </div>
 </div>

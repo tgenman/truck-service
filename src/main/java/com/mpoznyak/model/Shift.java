@@ -29,7 +29,7 @@ public class Shift {
     private Integer weekCounter = 1;
 
     @Column(name = "time_monthly_elapsed")
-    private Integer timeMonthlyElapsed = 0;
+    private Long timeMonthlyElapsed = 0L;
 
     @Column(name = "weekly_rest")
     private Boolean weeklyRest = false;
@@ -58,12 +58,12 @@ public class Shift {
         this.timeWeeklyElapsed = weeklyElapsed;
     }
 
-    public Integer getTimeMonthlyElapsed() {
+    public Long getTimeMonthlyElapsed() {
         return timeMonthlyElapsed;
     }
 
-    public void setTimeMonthlyElapsed(Integer monthlyElapsed) {
-        this.timeMonthlyElapsed = monthlyElapsed;
+    public void setTimeMonthlyElapsed(Long timeMonthlyElapsed) {
+        this.timeMonthlyElapsed = timeMonthlyElapsed;
     }
 
     public Boolean getWeeklyRest() {

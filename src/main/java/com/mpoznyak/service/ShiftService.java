@@ -39,7 +39,7 @@ public class ShiftService {
 
     @Transactional
     public void setStartMonthShift(Shift shift) {
-        shift.setTimeMonthlyElapsed(0);
+        shift.setTimeMonthlyElapsed(0L);
         shift.setMonthStartAt(LocalDateTime.now());
         shiftRepository.update(shift);
     }
@@ -57,6 +57,11 @@ public class ShiftService {
     @Transactional
     public void addShift(Shift shift) {
         shiftRepository.add(shift);
+    }
+
+    @Transactional
+    public void updateShift(Shift shift) {
+        shiftRepository.update(shift);
     }
 
 
