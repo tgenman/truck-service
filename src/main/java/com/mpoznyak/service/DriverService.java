@@ -115,6 +115,10 @@ public class DriverService {
                     && orderDate.plusHours(orderDuration).isAfter(endDate)
                     && (monthTime + orderDuration <=176))) {
 
+                if (176 - monthTime < truck.getWorkingSession()) {
+                    continue;
+                }
+
                 if (driver.getCity().equals(truck.getCity())
                         && driver.getOrder() == null) {
                     map.put(driver.getId(), driver);
