@@ -6,8 +6,8 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/manager.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/manager.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -17,6 +17,63 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+
+        function validateUpdateTruck() {
+            var licenseRegex = new RegExp("^[A-Za-z]{2}[0-9]{5}$");
+            var digitsRegex = new RegExp("\\d+");
+
+            if (document.formUpdateTruck.brand.value == "" || document.formUpdateTruck.brand == null) {
+                alert("Brand field is empty!");
+                return false;
+            } else if (document.formUpdateTruck.model.value == "" || document.formUpdateTruck.model == null) {
+                alert("Model field is empty!");
+                return false;
+            } else if (document.formUpdateTruck.licensePlate.value == "" || document.formUpdateTruck.licensePlate == null) {
+                alert("License field is empty!")
+                return false;
+            } else if (document.formUpdateTruck.licensePlate.value.length > 7) {
+                alert("License plate should have 2 letters and 5 numbers!")
+                return false;
+            } else if (!licenseRegex.test(document.formUpdateTruck.licensePlate.value)) {
+                alert("License plate should have 2 letters and 5 numbers!")
+                return false;
+            } else if (document.formUpdateTruck.workingSession.value == "" || document.formUpdateTruck.workingSession == null) {
+                alert("Truck shift field is empty!");
+                return false;
+            } else if (document.formUpdateTruck.capacity.value == "" || document.formUpdateTruck.capacity == null) {
+                alert("Capacity field is empty!");
+                return false;
+            } else if (document.formUpdateTruck.maxDrivers.value == "" || document.formUpdateTruck.maxDrivers == null) {
+                alert("Max amount of drivers field is empty!");
+                return false;
+            } else if (!digitsRegex.test(document.formUpdateTruck.workingSession.value)) {
+                alert("Truck shift field consists of digits!");
+                return false;
+            } else if (!digitsRegex.test(document.formUpdateTruck.capacity.value)) {
+                alert("Capacity field consists of digits!");
+                return false;
+            } else if (!digitsRegex.test(document.formUpdateTruck.maxDrivers.value)) {
+                alert("Drivers amount field consists of digits!");
+                return false;
+            }
+            return true;
+        }
+
+        function validateUpdateDriver() {
+
+            if (document.formSubmit.firstName.value == "" || document.formSubmit.firstName == null) {
+                alert("First name field is empty!");
+                return false;
+
+            } else if (document.formSubmit.secondName.value == "" || document.formSubmit.secondName == null) {
+                alert("Second name field is empty!");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
@@ -201,17 +258,18 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Edit drivers</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit driver</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <sf:form action="update-driver" method="post" modelAttribute="driverDTO"
+                                        <sf:form action="update-driver" name="formSubmit" id="formSubmit" onsubmit="return validateUpdateDriver()"
+                                                 method="post" modelAttribute="driverDTO"
                                                  cssClass="form-signin">
                                             <sf:hidden name="idDriver" path="id"/>
-                                            <sf:input name="firstName" path="firstName" class="form-control"/>
-                                            <sf:input name="lastName" path="lastName" class="form-control"/>
+                                            <sf:input name="firstName" id="firstName" path="firstName" class="form-control"/>
+                                            <sf:input name="lastName" id="firstName" path="lastName" class="form-control"/>
                                             <br>
                                             <h6>Driver status</h6>
                                             <%--  <sf:select path="status" cssClass="form-control">
@@ -305,26 +363,26 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">Edit drivers</h5>
+                                        <h5 class="modal-title">Edit truck</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <sf:form action="update-truck" method="post" modelAttribute="truckDTO"
-                                                 cssClass="form-signin">
+                                        <sf:form action="update-truck" method="post" name="formUpdateTruck" id="formUpdateTruck" modelAttribute="truckDTO"
+                                                 cssClass="form-signin" onsubmit="return validateUpdateTruck()">
                                             <sf:hidden name="idDriver" path="id"/>
-                                            <sf:input name="brand" path="brand" class="form-control"
+                                            <sf:input name="brand" id="brand" path="brand" class="form-control"
                                                       placeholder="Brand"/>
-                                            <sf:input name="model" path="model" class="form-control"
+                                            <sf:input name="model" id="model" path="model" class="form-control"
                                                       placeholder="Model"/>
-                                            <sf:input name="licensePlate" path="licensePlate" class="form-control"
+                                            <sf:input name="licensePlate" id="licensePlate" path="licensePlate" class="form-control"
                                                       placeholder="License plate"/>
-                                            <sf:input name="workingSession" path="workingSession" class="form-control"
-                                                      placeholder="Max working session"/>
-                                            <sf:input name="capacity" path="capacity" class="form-control"
+                                            <sf:input name="workingSession" id="workingSession" path="workingSession" class="form-control"
+                                                      placeholder="Truck shift"/>
+                                            <sf:input name="capacity" id="capacity" path="capacity" class="form-control"
                                                       placeholder="Capacity (tons)"/>
-                                            <sf:input name="maxDrivers" path="maxDrivers" class="form-control"
+                                            <sf:input name="maxDrivers" id="maxDrivers" path="maxDrivers" class="form-control"
                                                       placeholder="Max drivers"/>
                                             <br>
                                             <h5>Current location</h5>
@@ -357,6 +415,7 @@
                     var lastName = button.data('last-name-drivers');
                     var shiftId = button.data('worked-time-drivers');
                     var modal = $(this)
+
                     modal.find('.modal-body input').val(idDriver)
                     modal.find('.modal-body input[name="save"]').val("Save")
                     modal.find('.modal-body input[name="firstName"]').val(firstName)

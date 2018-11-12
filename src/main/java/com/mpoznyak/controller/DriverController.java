@@ -40,16 +40,10 @@ public class DriverController {
     @Autowired
     private TruckService truckService;
 
-    @Autowired
-    private RoutePointService routePointService;
-
-    @Autowired
-    private ShiftService shiftService;
-
-    @Autowired TempShiftService tempShiftService;
 
     @RequestMapping(value = "/newDriver")
     public String showNewDriverPage(Model model) {
+
         model.addAttribute("driverDTO", new DriverDTO());
         model.addAttribute("cities", cityService.getAllCitiesMap());
         model.addAttribute("trucks", truckService.getTrucksDetails());
@@ -59,12 +53,14 @@ public class DriverController {
 
     @RequestMapping(value = "/processNewDriverData", method = RequestMethod.POST)
     public String processNewDriver(@ModelAttribute("driver") DriverDTO driverDTO) {
+
         driverService.addDriver(driverDTO);
         return "redirect:managerPage";
     }
 
     @RequestMapping(value = "update-driver", method = RequestMethod.POST)
     public String processUpdateDriverData(@ModelAttribute("driver") DriverDTO driverDTO) {
+
         driverService.updateDriver(driverDTO);
         return "redirect:managerPage";
     }
@@ -74,9 +70,10 @@ public class DriverController {
                                    @RequestParam("driverId") Long driverId,
                                    @RequestParam("pointId") Long pointId,
                                    Model model)  {
+
         routePointDTO.setId(pointId);
         routePointDTO.setCompleted(true);
-        routePointService.updateRoutePoint(routePointDTO);
+        driverService.updateRoutePoint(routePointDTO);
 
         Long pointIds = pointId;
         Long driverIds = driverId;
@@ -90,15 +87,8 @@ public class DriverController {
     public String updateDriverStatus(@ModelAttribute("driver") Driver driverStatus,
                                      @RequestParam("driverId") Long driverId,
                                      Model model)  {
-        List<Driver> drivers = driverService.getAllDrivers();
-        Driver driver = null;
-        for (Driver driver1 : drivers) {
-            if (driverId == driver1.getId()) {
-                driver = driver1;
-            }
-        }
-        driver.setStatus(driverStatus.getStatus());
-        driverService.updateDriver(driver);
+
+        driverService.updateDriverStatus(driverId, driverStatus);
 
         Long driverIds = driverId;
         model.addAttribute("driverId", driverIds);
@@ -110,15 +100,9 @@ public class DriverController {
     public String showDriverPage(@ModelAttribute("driverId") Long driverId,
                                  Model model) {
 
-        List<Driver> drivers = driverService.getAllDrivers();
-        Driver driver = null;
-        for (Driver driver1 : drivers) {
-            if (driverId == driver1.getId()) {
-                driver = driver1;
-            }
-        }
-
+        Driver driver = driverService.getDriverForId(driverId);
         Order order = driver.getOrder();
+
         if (order != null) {
             List<RoutePoint> points = orderService.getRoutePointsForOrder(order);
             model.addAttribute("routePoints", points);
@@ -126,8 +110,6 @@ public class DriverController {
             model.addAttribute("routePoints", new ArrayList<>());
 
         }
-
-        List<String> names = driverService.getAllDriverStatus();
 
         model.addAttribute("routePointDTO", new RoutePointDTO());
         model.addAttribute("driverStatus", DriverStatus.values());
@@ -137,38 +119,8 @@ public class DriverController {
 
     @PostMapping("finish-order")
     public String finishOrder(@RequestParam("driverId") long driverId, Model model) {
-        List<Driver> drivers = driverService.getAllDrivers();
-        Driver driver = null;
-        for (Driver driver1 : drivers) {
-            if (driverId == driver1.getId()) {
-                driver = driver1;
-            }
-        }
-        if (driver != null) {
-            Order order = driver.getOrder();
-            order.setStatus(OrderStatus.COMPLETED);
-            orderService.updateOrder(order);
-            List<Driver> driversForOrder = order.getDrivers();
-            List<RoutePoint> points = routePointService.getRoutePoints();
-            for (RoutePoint point : points) {
-                if (point.getOrder().getId() == order.getId()) {
 
-                    routePointService.updatePointStatusForOrder(point);
-                }
-            }
-            for (Driver driver1 : driversForOrder) {
-                driver1.setOrder(null);
-                driver1.setStatus(DriverStatus.FREE);
-                Truck truck = driver1.getTruck();
-                if (truck != null) {
-                    truck.setFree(true);
-                    truckService.updateTruck(truck);
-                }
-                driver1.setTruck(null);
-                driverService.updateDriver(driver1);
-            }
-
-        }
+        driverService.finishDriverOrder(driverId);
 
         model.addAttribute("driverId", driverId);
         return "redirect:driver";
@@ -177,31 +129,7 @@ public class DriverController {
     @PostMapping("start-shift")
     public String startDriverShift(@RequestParam("driverId") Long driverId, Model model) {
 
-        List<Driver> drivers = driverService.getAllDrivers();
-        Driver driver = null;
-        for (Driver driver1 : drivers) {
-            if (driverId == driver1.getId()) {
-                driver = driver1;
-            }
-        }
-
-        Order order = driver.getOrder();
-        TempShift tempShift = order.getTempShift();
-        Shift shift = driver.getShift();
-        Long driverMonthTimeElapsed = shift.getTimeMonthlyElapsed();
-        if (tempShift.getStartTempShift()) {
-            tempShift.setStartTempShift(false);
-            Long timeElapsed = Duration.between(tempShift.getStartDate(), LocalDateTime.now()).toHours();
-            driverMonthTimeElapsed += timeElapsed;
-            shift.setTimeMonthlyElapsed(driverMonthTimeElapsed);
-            tempShift.setStartDate(null);
-            shiftService.updateShift(shift);
-            tempShiftService.updateTempShift(tempShift);
-        } else {
-            tempShift.setStartTempShift(true);
-            tempShift.setStartDate(LocalDateTime.now());
-            tempShiftService.updateTempShift(tempShift);
-        }
+        driverService.startDriverShift(driverId);
 
         Long driverIds = driverId;
         model.addAttribute("driverId", driverIds);

@@ -21,7 +21,30 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
-    <title>Title</title>
+    <title>New Order</title>
+
+    <script type="text/javascript">
+        function validateForm() {
+
+            var cargoWeightRegex = new RegExp("\\d+");
+
+            if (document.formSubmit.customer.value == "" || document.formSubmit.customer == null) {
+                alert("Customer field is empty!");
+                return false;
+            } else if (document.formSubmit.cargoName.value == "" || document.formSubmit.cargoName == null) {
+                alert("Cargo name field is empty!");
+                return false;
+            } else if (document.formSubmit.cargoWeight.value == "" || document.formSubmit.cargoWeight == null) {
+                alert("Cargo weight field is empty!");
+                return false;
+            } else if (!cargoWeightRegex.test(document.formSubmit.cargoWeight.value)) {
+                alert("Cargo weight consists of digits!");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 <body>
 <div class="container-fluid">
@@ -74,9 +97,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <sf:form action="order-main" method="post" modelAttribute="route-point">
+                    <sf:form action="order-main" name="formSubmit" method="post" modelAttribute="route-point"
+                             onsubmit="return validateForm()">
                         <h6>Customer name</h6>
-                        <sf:input path="customerName"/>
+                        <sf:input name="customer" id="customer" path="customerName"/>
                         <br>
                         <h6>Pick up cargo in:</h6>
                         <sf:select path="cityId" cssClass="form-control">
@@ -84,16 +108,16 @@
                         </sf:select>
                         <br>
                         <h6>Cargo name</h6>
-                        <sf:input path="cargoDTO.name" id="cargoName" class="form-control" placeholder="Name"
+                        <sf:input path="cargoDTO.name" id="cargoName" name="cargoName" class="form-control"
+                                  placeholder="Name"
                                   required=""/>
                         <sf:hidden path="cargoDTO.dropLocationSelected" value="false"/>
                         <h6>It should have any weight, man</h6>
-                        <sf:input path="cargoDTO.weight" id="cargoWeight" class="form-control" placeholder="Weight"
+                        <sf:input path="cargoDTO.weight" id="cargoWeight" name="cargoWeight" class="form-control"
+                                  placeholder="Weight"
                                   required=""/>
-                        <input type="submit" value="Submit">
+                        <input type="submit" class="btn btn-primary" value="Submit">
                     </sf:form>
-
-
                 </div>
             </div>
         </div>
