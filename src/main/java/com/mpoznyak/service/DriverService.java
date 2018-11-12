@@ -214,6 +214,7 @@ public class DriverService {
         updateDriver(driver);
     }
 
+    //TODO move to the another place
     public void updateRoutePoint(RoutePointDTO routePointDTO) {
         routePointService.updateRoutePoint(routePointDTO);
     }

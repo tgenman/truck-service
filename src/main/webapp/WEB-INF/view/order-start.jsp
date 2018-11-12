@@ -37,11 +37,7 @@
             } else if (document.formSubmit.cargoWeight.value == "" || document.formSubmit.cargoWeight == null) {
                 alert("Cargo weight field is empty!");
                 return false;
-            } else if (!cargoWeightRegex.test(document.formSubmit.cargoWeight.value)) {
-                alert("Cargo weight consists of digits!");
-                return false;
             }
-
             return true;
         }
     </script>
@@ -113,9 +109,9 @@
                                   required=""/>
                         <sf:hidden path="cargoDTO.dropLocationSelected" value="false"/>
                         <h6>It should have any weight, man</h6>
-                        <sf:input path="cargoDTO.weight" id="cargoWeight" name="cargoWeight" class="form-control"
+                        <sf:input path="cargoDTO.weight" id="cargoWeight" pattern="\\d+" name="cargoWeight" class="form-control"
                                   placeholder="Weight"
-                                  required=""/>
+                                  required="required"/>
                         <input type="submit" class="btn btn-primary" value="Submit">
                     </sf:form>
                 </div>

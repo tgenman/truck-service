@@ -18,62 +18,6 @@
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
 
-    <script type="text/javascript">
-
-        function validateUpdateTruck() {
-            var licenseRegex = new RegExp("^[A-Za-z]{2}[0-9]{5}$");
-            var digitsRegex = new RegExp("\\d+");
-
-            if (document.formUpdateTruck.brand.value == "" || document.formUpdateTruck.brand == null) {
-                alert("Brand field is empty!");
-                return false;
-            } else if (document.formUpdateTruck.model.value == "" || document.formUpdateTruck.model == null) {
-                alert("Model field is empty!");
-                return false;
-            } else if (document.formUpdateTruck.licensePlate.value == "" || document.formUpdateTruck.licensePlate == null) {
-                alert("License field is empty!")
-                return false;
-            } else if (document.formUpdateTruck.licensePlate.value.length > 7) {
-                alert("License plate should have 2 letters and 5 numbers!")
-                return false;
-            } else if (!licenseRegex.test(document.formUpdateTruck.licensePlate.value)) {
-                alert("License plate should have 2 letters and 5 numbers!")
-                return false;
-            } else if (document.formUpdateTruck.workingSession.value == "" || document.formUpdateTruck.workingSession == null) {
-                alert("Truck shift field is empty!");
-                return false;
-            } else if (document.formUpdateTruck.capacity.value == "" || document.formUpdateTruck.capacity == null) {
-                alert("Capacity field is empty!");
-                return false;
-            } else if (document.formUpdateTruck.maxDrivers.value == "" || document.formUpdateTruck.maxDrivers == null) {
-                alert("Max amount of drivers field is empty!");
-                return false;
-            } else if (!digitsRegex.test(document.formUpdateTruck.workingSession.value)) {
-                alert("Truck shift field consists of digits!");
-                return false;
-            } else if (!digitsRegex.test(document.formUpdateTruck.capacity.value)) {
-                alert("Capacity field consists of digits!");
-                return false;
-            } else if (!digitsRegex.test(document.formUpdateTruck.maxDrivers.value)) {
-                alert("Drivers amount field consists of digits!");
-                return false;
-            }
-            return true;
-        }
-
-        function validateUpdateDriver() {
-
-            if (document.formSubmit.firstName.value == "" || document.formSubmit.firstName == null) {
-                alert("First name field is empty!");
-                return false;
-
-            } else if (document.formSubmit.secondName.value == "" || document.formSubmit.secondName == null) {
-                alert("Second name field is empty!");
-                return false;
-            }
-            return true;
-        }
-    </script>
 </head>
 <body>
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
@@ -264,12 +208,12 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <sf:form action="update-driver" name="formSubmit" id="formSubmit" onsubmit="return validateUpdateDriver()"
+                                        <sf:form action="update-driver" name="formSubmit" id="formSubmit"
                                                  method="post" modelAttribute="driverDTO"
                                                  cssClass="form-signin">
                                             <sf:hidden name="idDriver" path="id"/>
-                                            <sf:input name="firstName" id="firstName" path="firstName" class="form-control"/>
-                                            <sf:input name="lastName" id="firstName" path="lastName" class="form-control"/>
+                                            <sf:input name="firstName" id="firstName" required="required" path="firstName" class="form-control"/>
+                                            <sf:input name="lastName" id="firstName" required="required" path="lastName" class="form-control"/>
                                             <br>
                                             <h6>Driver status</h6>
                                             <%--  <sf:select path="status" cssClass="form-control">
@@ -370,20 +314,34 @@
                                     </div>
                                     <div class="modal-body">
                                         <sf:form action="update-truck" method="post" name="formUpdateTruck" id="formUpdateTruck" modelAttribute="truckDTO"
-                                                 cssClass="form-signin" onsubmit="return validateUpdateTruck()">
+                                                 cssClass="form-signin">
                                             <sf:hidden name="idDriver" path="id"/>
-                                            <sf:input name="brand" id="brand" path="brand" class="form-control"
+                                            Brand: <sf:input name="brand" id="brand" path="brand" class="form-control" required="required"
                                                       placeholder="Brand"/>
-                                            <sf:input name="model" id="model" path="model" class="form-control"
+                                            Model: <sf:input name="model" id="model" path="model" class="form-control" required="required"
                                                       placeholder="Model"/>
-                                            <sf:input name="licensePlate" id="licensePlate" path="licensePlate" class="form-control"
-                                                      placeholder="License plate"/>
-                                            <sf:input name="workingSession" id="workingSession" path="workingSession" class="form-control"
-                                                      placeholder="Truck shift"/>
-                                            <sf:input name="capacity" id="capacity" path="capacity" class="form-control"
-                                                      placeholder="Capacity (tons)"/>
-                                            <sf:input name="maxDrivers" id="maxDrivers" path="maxDrivers" class="form-control"
-                                                      placeholder="Max drivers"/>
+                                            License plate (2 letters & 5 digist): <sf:input name="licensePlate"
+                                                                                            id="licensePlate" pattern="^[A-Za-z]{2}[0-9]{5}$"
+                                                                                            path="licensePlate" required="required"
+                                                                                            class="form-control"
+                                                                                            placeholder="License plate"
+                                                                                            oninvalid="this.setCustomValidity('2 letters and 5 digits')"
+                                                                                            onchange="try{setCustomValidity('')}catch(e){}"/>
+                                            Truck shift: <sf:input name="workingSession" id="workingSession"
+                                                                   pattern="\d+" required="required"
+                                                                   path="workingSession"
+                                                                   class="form-control" placeholder="Truck shift"
+                                                                   oninvalid="this.setCustomValidity('The field accepts only digits')"
+                                                                   onchange="try{setCustomValidity('')}catch(e){}"/>
+                                            Capacity: <sf:input name="capacity" id="capacity" pattern="\d+" required="required"
+                                                                path="capacity" class="form-control" placeholder="Capacity (tons)"
+                                                                oninvalid="this.setCustomValidity('The field accepts only digits')"
+                                                                onchange="try{setCustomValidity('')}catch(e){}"/>
+                                            Max drivers: <sf:input name="maxDrivers" id="maxDrivers" pattern="\d+"
+                                                                   required="required"  path="maxDrivers"
+                                                                   class="form-control" placeholder="Max drivers"
+                                                                   oninvalid="this.setCustomValidity('The field accepts only digits')"
+                                                                   onchange="try{setCustomValidity('')}catch(e){}"/>
                                             <br>
                                             <h5>Current location</h5>
                                             <sf:select path="city" cssClass="form-control">

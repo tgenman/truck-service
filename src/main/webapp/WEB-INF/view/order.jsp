@@ -34,9 +34,6 @@
             } else if (document.formSubmitPick.cargoWeight.value == "" || document.formSubmitPick.cargoWeight == null) {
                 alert("Cargo weight field is empty!");
                 return false;
-            } else if (!cargoWeightRegex.test(document.formSubmitPick.cargoWeight.value)) {
-                alert("Cargo weight consists of digits!");
-                return false;
             }
             return true;
         }
@@ -152,8 +149,8 @@
                         <sf:hidden path="cargoDTO.dropLocationSelected" value="false"/>
                         <sf:hidden path="type" value="PICK_UP"/>
                         <h6>Cargo weight:</h6>
-                        <sf:input name="cargoWeight" path="cargoDTO.weight" id="cargoWeight" class="form-control" placeholder="Weight"
-                                  required=""/>
+                        <sf:input name="cargoWeight" pattern="\\d+" path="cargoDTO.weight" id="cargoWeight" class="form-control" placeholder="Weight"
+                                  required="required"/>
                         <input type="submit" value="Submit">
                     </sf:form>
 
