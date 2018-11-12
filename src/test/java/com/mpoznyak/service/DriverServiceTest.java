@@ -1,6 +1,5 @@
 package com.mpoznyak.service;
 
-import com.mpoznyak.configuration.Initializer;
 import com.mpoznyak.configuration.RepositoryConfig;
 import com.mpoznyak.configuration.WebConfig;
 import com.mpoznyak.model.Driver;
