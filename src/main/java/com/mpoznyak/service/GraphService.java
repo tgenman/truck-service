@@ -3,6 +3,7 @@ package com.mpoznyak.service;
 import com.mpoznyak.dto.OrderDTO;
 import com.mpoznyak.dto.RouteDTO;
 import com.mpoznyak.dto.RoutePointDTO;
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.logistics.algorithm.DijkstraAlgorithm;
 import com.mpoznyak.logistics.model.Graph;
 import com.mpoznyak.model.City;
@@ -38,6 +39,7 @@ public class GraphService {
     private TruckService truckService;
 
 
+    @Loggable
     public LinkedList<City> getPath(Graph graph, int from, int to) {
         DijkstraAlgorithm algorithm = new DijkstraAlgorithm(graph);
         algorithm.execute(graph.getVertexes().get(from));
@@ -47,21 +49,20 @@ public class GraphService {
     }
 
 
+    @Loggable
     public List<City> getGraphVertices() {
         List<City> cities = cityService.getAllCitiesList();
         return cities;
     }
 
+    @Loggable
     public List<Road> getGraphEdges() {
         List<Road> roads = roadService.getRoads();
         return roads;
     }
 
+    @Loggable
     private ArrayDeque<LinkedList<City>> buildRoute(RouteDTO theRoute, OrderDTO orderDTO) {
-
-        //TODO truck from the same location as a cargo
-        //TODO move to ordercontroller
-
 
         logger.info("GraphService.class: called buildRoute(args...) ["
                 + " routePoints list size = " + theRoute.getRoutePoints().size()
@@ -113,6 +114,7 @@ public class GraphService {
         return path;
     }
 
+    @Loggable
     private Long calculateRouteDistance(ArrayDeque<LinkedList<City>> path) {
 
         Long distance = 0L;
@@ -151,6 +153,7 @@ public class GraphService {
     }
 
 
+    @Loggable
     private Long calculateRouteTime(Long distance, RouteDTO routeDTO) {
 
         //average speed 50 mph/h
@@ -168,12 +171,7 @@ public class GraphService {
         return routeTime;
     }
 
-    private Long calculateRouteWeight() {
-
-        return null;
-    }
-
-
+    @Loggable
     public Long getRouteTime(RouteDTO routeDTO, OrderDTO orderDTO) {
         ArrayDeque<LinkedList<City>> path = buildRoute(routeDTO, orderDTO);
         Long distance = calculateRouteDistance(path);

@@ -2,6 +2,7 @@ package com.mpoznyak.controller;
 
 import com.mpoznyak.dto.DriverDTO;
 import com.mpoznyak.dto.TruckDTO;
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.Customer;
 import com.mpoznyak.model.type.DriverStatus;
 import com.mpoznyak.service.*;
@@ -29,6 +30,7 @@ public class ManagerController {
     @Autowired
     private OrderService orderService;
 
+    @Loggable
     @GetMapping("/managerPage")
     public String showManagerPage(Model model) {
 
@@ -47,6 +49,7 @@ public class ManagerController {
         return "manager";
     }
 
+    @Loggable
     @PostMapping(value = "/delete-driver")
     public String processDriverDeleteButton(@RequestParam("driverIdDelete") String id) {
         Long longId = Long.parseLong(id);

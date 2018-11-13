@@ -1,5 +1,6 @@
 package com.mpoznyak.service;
 
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.TempShift;
 import com.mpoznyak.repository.TempShiftRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,13 @@ public class TempShiftService {
     @Autowired
     private TempShiftRepository tempShiftRepository;
 
+    @Loggable
     @Transactional
     public void saveNewTempShift(TempShift tempShift) {
         tempShiftRepository.add(tempShift);
     }
 
+    @Loggable
     @Transactional
     public void updateTempShift(TempShift tempShift) {
         tempShiftRepository.update(tempShift);

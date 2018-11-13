@@ -2,6 +2,7 @@ package com.mpoznyak.service;
 
 import com.mpoznyak.dto.DriverDTO;
 import com.mpoznyak.dto.TruckDTO;
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.mapper.TruckMapper;
 import com.mpoznyak.model.City;
 import com.mpoznyak.model.Driver;
@@ -32,13 +33,14 @@ public class TruckService {
     @Autowired
     private TruckMapper truckMapper;
 
-
+    @Loggable
     @Transactional
     public void saveNewTruckData(TruckDTO truckDTO) {
         Truck truck = truckMapper.map(truckDTO);
         truckRepository.add(truck);
     }
 
+    @Loggable
     public List<String> getTrucksStatus() {
         List<String> truckStatusList = new ArrayList<>();
         for (TruckStatus truckStatus : TruckStatus.values()) {
@@ -47,6 +49,7 @@ public class TruckService {
         return truckStatusList;
     }
 
+    @Loggable
     @Transactional
     public List<String> getTrucksDetails() {
         List<Truck> trucks = truckRepository.query();
@@ -61,22 +64,26 @@ public class TruckService {
         return details;
     }
 
+    @Loggable
     @Transactional
     public List<Truck> getAllTrucks() {
         return truckRepository.query();
     }
 
+    @Loggable
     @Transactional
     public void updateTruck(TruckDTO truckDTO) {
         Truck truck = truckMapper.map(truckDTO);
         truckRepository.update(truck);
     }
 
+    @Loggable
     @Transactional
     public void deleteTruck(Long id) {
         truckRepository.remove(id);
     }
 
+    @Loggable
     @Transactional
     public LinkedHashMap<Long,Truck> getTrucksForOrder(Long cargoCapacity) {
 
@@ -92,6 +99,7 @@ public class TruckService {
         return map;
     }
 
+    @Loggable
     @Transactional
     public Truck getTruckById(Long id) {
         List<Truck> trucks = truckRepository.query();
@@ -103,6 +111,7 @@ public class TruckService {
         return null;
     }
 
+    @Loggable
     @Transactional
     public void updateTruck(Truck truck) {
         truckRepository.update(truck);

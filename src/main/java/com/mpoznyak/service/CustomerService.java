@@ -1,5 +1,6 @@
 package com.mpoznyak.service;
 
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.Customer;
 import com.mpoznyak.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class CustomerService {
     private CustomerRepository customerRepository;
 
     @Transactional
+    @Loggable
     public void saveCustomer(Customer customer) {
         customerRepository.add(customer);
     }

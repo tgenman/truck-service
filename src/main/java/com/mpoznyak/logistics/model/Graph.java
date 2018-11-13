@@ -1,5 +1,6 @@
 package com.mpoznyak.logistics.model;
 
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.City;
 import com.mpoznyak.model.Road;
 
@@ -20,10 +21,12 @@ public class Graph {
         this.roads = roads;
     }
 
+    @Loggable
     public List<City> getVertexes() {
         return cities;
     }
 
+    @Loggable
     public List<Road> getRoads() {
         return roads;
     }

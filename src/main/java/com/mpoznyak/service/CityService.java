@@ -1,5 +1,6 @@
 package com.mpoznyak.service;
 
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.City;
 import com.mpoznyak.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class CityService {
     @Autowired
     private CityRepository cityRepository;
 
+    @Loggable
     @Transactional
     public LinkedHashMap<Long, City> getAllCitiesMap() {
         List<City> cityList = cityRepository.query();
@@ -31,6 +33,7 @@ public class CityService {
         return cityMap;
     }
 
+    @Loggable
     @Transactional
     public List<City> getAllCitiesList() {
         return cityRepository.query();

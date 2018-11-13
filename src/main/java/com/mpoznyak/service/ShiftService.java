@@ -1,5 +1,6 @@
 package com.mpoznyak.service;
 
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.Shift;
 import com.mpoznyak.repository.DriverRepository;
@@ -25,6 +26,7 @@ public class ShiftService {
     @Autowired
     private ShiftRepository shiftRepository;
 
+    @Loggable
     @Transactional
     public void newWeekShift(Shift shift) {
         shift.setTimeWeeklyElapsed(0);
@@ -37,6 +39,7 @@ public class ShiftService {
         shiftRepository.update(shift);
     }
 
+    @Loggable
     @Transactional
     public void setStartMonthShift(Shift shift) {
         shift.setTimeMonthlyElapsed(0L);
@@ -44,6 +47,7 @@ public class ShiftService {
         shiftRepository.update(shift);
     }
 
+    @Loggable
     @Transactional
     public void setEndMonthShift(Shift shift) {
         LocalDateTime startDate = shift.getMonthStartAt();
@@ -54,11 +58,13 @@ public class ShiftService {
         shiftRepository.update(shift);
     }
 
+    @Loggable
     @Transactional
     public void addShift(Shift shift) {
         shiftRepository.add(shift);
     }
 
+    @Loggable
     @Transactional
     public void updateShift(Shift shift) {
         shiftRepository.update(shift);

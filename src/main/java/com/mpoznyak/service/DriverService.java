@@ -3,6 +3,7 @@ package com.mpoznyak.service;
 import com.mpoznyak.dto.DriverDTO;
 import com.mpoznyak.dto.OrderDTO;
 import com.mpoznyak.dto.RoutePointDTO;
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.mapper.DriverMapper;
 import com.mpoznyak.model.*;
 import com.mpoznyak.model.type.DriverStatus;
@@ -55,6 +56,7 @@ public class DriverService {
 
     @Autowired TempShiftService tempShiftService;
 
+    @Loggable
     @Transactional
     public void addDriver(DriverDTO driverDTO) {
         Shift shift = new Shift();
@@ -72,6 +74,7 @@ public class DriverService {
         userRepository.add(user);
     }
 
+    @Loggable
     public List<String> getAllDriverStatus() {
         List<String> driverStatusList = new ArrayList<>();
         for (DriverStatus driverStatus : DriverStatus.values()) {
@@ -80,22 +83,26 @@ public class DriverService {
         return driverStatusList;
     }
 
+    @Loggable
     @Transactional
     public List<Driver> getAllDrivers() {
         return driverRepository.queryExisted();
     }
 
+    @Loggable
     @Transactional
     public void deleteDriver(Long id) {
         driverRepository.remove(id);
     }
 
+    @Loggable
     @Transactional
     public void updateDriver(DriverDTO driverDTO) {
         Driver driver = driverMapper.map(driverDTO);
         driverRepository.update(driver);
     }
 
+    @Loggable
     @Transactional
     public LinkedHashMap<Long, Driver> getDriversForOrder(Long orderDuration, OrderDTO orderDTO) {
 
@@ -136,6 +143,7 @@ public class DriverService {
         return map;
     }
 
+    @Loggable
     @Transactional
     public void updateDriver(Driver driver) {
 
@@ -153,6 +161,7 @@ public class DriverService {
         return driver;
     }
 
+    @Loggable
     @Transactional
     public void finishDriverOrder(Long driverId) {
 
@@ -184,6 +193,7 @@ public class DriverService {
         }
     }
 
+    @Loggable
     @Transactional
     public void startDriverShift(Long driverId) {
 
@@ -207,6 +217,7 @@ public class DriverService {
         }
     }
 
+    @Loggable
     @Transactional
     public void updateDriverStatus(Long driverId, Driver driverStatus) {
         Driver driver = getDriverForId(driverId);

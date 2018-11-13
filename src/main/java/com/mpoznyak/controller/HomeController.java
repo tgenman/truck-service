@@ -5,6 +5,7 @@ package com.mpoznyak.controller;
  * on 18/10/2018  at 20:13
  */
 
+import com.mpoznyak.logging.annotation.Loggable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "home")
 public class HomeController {
 
+    @Loggable
     @RequestMapping(method = RequestMethod.GET)
     public String showHomePage() {
 

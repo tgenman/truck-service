@@ -3,6 +3,7 @@ package com.mpoznyak.controller;
 import com.mpoznyak.dto.DriverDTO;
 import com.mpoznyak.dto.RouteDTO;
 import com.mpoznyak.dto.RoutePointDTO;
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.*;
 import com.mpoznyak.model.type.DriverStatus;
 import com.mpoznyak.model.type.OrderStatus;
@@ -42,6 +43,7 @@ public class DriverController {
 
 
     @RequestMapping(value = "/newDriver")
+    @Loggable
     public String showNewDriverPage(Model model) {
 
         model.addAttribute("driverDTO", new DriverDTO());
@@ -51,6 +53,7 @@ public class DriverController {
         return "new-driver";
     }
 
+    @Loggable
     @RequestMapping(value = "/processNewDriverData", method = RequestMethod.POST)
     public String processNewDriver(@ModelAttribute("driver") DriverDTO driverDTO) {
 
@@ -58,6 +61,7 @@ public class DriverController {
         return "redirect:managerPage";
     }
 
+    @Loggable
     @RequestMapping(value = "update-driver", method = RequestMethod.POST)
     public String processUpdateDriverData(@ModelAttribute("driver") DriverDTO driverDTO) {
 
@@ -65,6 +69,7 @@ public class DriverController {
         return "redirect:managerPage";
     }
 
+    @Loggable
     @PostMapping("/route-point-update")
     public String updateRoutePoint(@ModelAttribute("routePointDTO") RoutePointDTO routePointDTO,
                                    @RequestParam("driverId") Long driverId,
@@ -83,6 +88,7 @@ public class DriverController {
         return "redirect:driver";
     }
 
+    @Loggable
     @PostMapping("/driver-status-update")
     public String updateDriverStatus(@ModelAttribute("driver") Driver driverStatus,
                                      @RequestParam("driverId") Long driverId,
@@ -96,6 +102,7 @@ public class DriverController {
         return "redirect:driver";
     }
 
+    @Loggable
     @GetMapping("driver")
     public String showDriverPage(@ModelAttribute("driverId") Long driverId,
                                  Model model) {
@@ -117,6 +124,7 @@ public class DriverController {
         return "driver";
     }
 
+    @Loggable
     @PostMapping("finish-order")
     public String finishOrder(@RequestParam("driverId") long driverId, Model model) {
 
@@ -126,6 +134,7 @@ public class DriverController {
         return "redirect:driver";
     }
 
+    @Loggable
     @PostMapping("start-shift")
     public String startDriverShift(@RequestParam("driverId") Long driverId, Model model) {
 

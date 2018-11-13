@@ -4,6 +4,7 @@ import com.mpoznyak.dto.CargoDTO;
 import com.mpoznyak.dto.OrderDTO;
 import com.mpoznyak.dto.RouteDTO;
 import com.mpoznyak.dto.RoutePointDTO;
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.Cargo;
 import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.RoutePoint;
@@ -27,8 +28,6 @@ import java.util.*;
 @SessionAttributes({"routeDTO", "orderDTO", "cargoes"})
 public class OrderController {
 
-    private static final Logger logger = Logger.getLogger(OrderController.class);
-    private static final String TAG = OrderController.class.getSimpleName();
 
     @Autowired
     private OrderService orderService;
@@ -69,6 +68,7 @@ public class OrderController {
         return "redirect:managerPage";
     }
 
+    @Loggable
     @PostMapping(value = "select-driver")
     public String selectDrivers(@ModelAttribute("routeDTO") RouteDTO routeDTO,
                               @ModelAttribute("point") RoutePointDTO point,
@@ -78,11 +78,6 @@ public class OrderController {
         Long time = orderService.getRouteTime(routeDTO, orderDTO);
         LinkedHashMap<Long, Driver> drivers = orderService.getDriversForOrder(time, orderDTO);
 
-        logger.info(TAG + ": called selectDrivers(args...)" +
-                "{time = " + time + " hours" + "\n" +
-                "drivers map = " +drivers.values() +
-                "}");
-
         model.addAttribute("routeDTO", routeDTO);
         model.addAttribute("drivers", drivers);
         model.addAttribute("orderDTO", orderDTO);
@@ -91,6 +86,7 @@ public class OrderController {
 
     }
 
+    @Loggable
     @GetMapping(value = "new-order")
     public String showOrderFirstPage(@ModelAttribute("routeDTO") RouteDTO routeDTO,
                                      @ModelAttribute("orderDTO") OrderDTO orderDTO,
@@ -100,13 +96,12 @@ public class OrderController {
         return "order-start";
     }
 
-    //TODO implement
+    @Loggable
     @PostMapping(value = "delete-point")
     public String deletePoint(@ModelAttribute("routeDTO") RouteDTO routeDTO,
                               @RequestParam("pointDelete") String routePoint,
                               Model model) {
 
-        logger.info(TAG + ": called deletePoint(" + routeDTO + ", " + routePoint +")");
 
         List<RoutePointDTO> points = routeDTO.getRoutePoints();
         RoutePointDTO deletePoint = null;
@@ -115,16 +110,13 @@ public class OrderController {
                 deletePoint = point;
                 if (deletePoint.getType().equals(RoutePointType.PICK_UP)) {
                     if (point.getCargoDTO() == null) {
-                        logger.info(TAG + ": condition [ point.getCargoDTO == null ] returns true, " +
-                                "point.getType() equals " + point.getType());
+
                         points.remove(deletePoint);
                         break;
                     }
                     Long weight = routeDTO.getWeight();
-                    logger.info(TAG + ": deletePoint(args...) initial weight = " + weight);
                     weight -= deletePoint.getCargoDTO().getWeight();
                     routeDTO.setWeight(weight);
-                    logger.info(TAG + ": deletePoint(args...) final weight = " + weight);
                 }
                 if (deletePoint.getType().equals(RoutePointType.DROP_OFF)) {
                     for (RoutePointDTO routePointDTO : points) {
@@ -132,8 +124,6 @@ public class OrderController {
                         for (String cargo : cargoes) {
                             if (routePointDTO.getCargoDTO().toString().equals(cargo)) {
                                 routePointDTO.getCargoDTO().setDropLocationSelected(false);
-                                logger.info("deleteRoutePoint(): drop off point cargo location selected:" +
-                                        routePointDTO.getCargoDTO().getDropLocationSelected());
 
                             }
 
@@ -150,6 +140,7 @@ public class OrderController {
         return "redirect:order";
     }
 
+    @Loggable
     @GetMapping(value = "/order")
     public String showOrderPage(@ModelAttribute("routeDTO") RouteDTO routeDTO,
                                 @ModelAttribute("route-point") RoutePointDTO routePointDTO,
@@ -165,6 +156,7 @@ public class OrderController {
         return "order";
     }
 
+    @Loggable
     @PostMapping(value = "order-main")
     public String processNewRoutePoint(@ModelAttribute("routeDTO") RouteDTO routeDTO,
                                     @ModelAttribute("route-point") RoutePointDTO routePointDTO,
@@ -193,6 +185,7 @@ public class OrderController {
         return "redirect:order";
     }
 
+    @Loggable
     @PostMapping("/delete-order")
     public String deleteOrder(@RequestParam("orderId") Long id) {
         orderService.deleteOrder(id);

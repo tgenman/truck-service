@@ -1,6 +1,7 @@
 package com.mpoznyak.controller;
 
 import com.mpoznyak.dto.TruckDTO;
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.service.CityService;
 import com.mpoznyak.service.DriverService;
 import com.mpoznyak.service.TruckService;
@@ -26,6 +27,7 @@ public class TruckController {
     @Autowired
     private DriverService driverService;
 
+    @Loggable
     @RequestMapping("newTruck")
     public String showNewTruckPage(Model model) {
         model.addAttribute("truckDTO", new TruckDTO());
@@ -34,18 +36,21 @@ public class TruckController {
         return "new-truck";
     }
 
+    @Loggable
     @RequestMapping("processNewTruckData")
     public String processNewTruckData(@ModelAttribute("truck") TruckDTO truckDTO, Model model) {
         truckService.saveNewTruckData(truckDTO);
         return "redirect:managerPage";
     }
 
+    @Loggable
     @RequestMapping(value = "update-truck", method = RequestMethod.POST)
     public String processUpdateDriverData(@ModelAttribute("truckDTO") TruckDTO truckDTO) {
         truckService.updateTruck(truckDTO);
         return "redirect:managerPage";
     }
 
+    @Loggable
     @PostMapping(value = "/delete-truck")
     public String processDriverDeleteButton(@RequestParam("truckIdDelete") String id) {
         Long longId = Long.parseLong(id);

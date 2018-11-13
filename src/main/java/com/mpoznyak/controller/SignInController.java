@@ -1,6 +1,7 @@
 package com.mpoznyak.controller;
 
 import com.mpoznyak.dto.RoutePointDTO;
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.Order;
 import com.mpoznyak.model.RoutePoint;
@@ -9,7 +10,6 @@ import com.mpoznyak.model.type.DriverStatus;
 import com.mpoznyak.model.type.Role;
 import com.mpoznyak.service.DriverService;
 import com.mpoznyak.service.OrderService;
-import com.mpoznyak.service.TruckService;
 import com.mpoznyak.service.UserSignInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -38,14 +37,17 @@ public class SignInController {
     @Autowired
     private OrderService orderService;
 
+    @Loggable
     @GetMapping("/sign-in")
     public String showSignIn(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        return "sign-in";
+        return "login";
     }
 
     //TODO switch to oauth2 spring security
+
+    @Loggable
     @RequestMapping(value = "/processAuthInput", method = POST)
     public String processSubmit(@ModelAttribute("user") User user, Model model) {
 

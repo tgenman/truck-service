@@ -1,5 +1,6 @@
 package com.mpoznyak.logistics.algorithm;
 
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.logistics.model.Graph;
 import com.mpoznyak.model.City;
 import com.mpoznyak.model.Road;
@@ -26,6 +27,8 @@ public class DijkstraAlgorithm {
         this.roads = new ArrayList<Road>(graph.getRoads());
     }
 
+
+    @Loggable
     public void execute(City source) {
         visitedCities = new HashSet<City>();
         unvisitedCities = new HashSet<City>();
@@ -41,6 +44,8 @@ public class DijkstraAlgorithm {
         }
     }
 
+
+    @Loggable
     private void findMinimalDistances(City node) {
         List<City> adjacentNodes = getNeighbors(node);
         for (City target : adjacentNodes) {
@@ -55,6 +60,7 @@ public class DijkstraAlgorithm {
 
     }
 
+    @Loggable
     private int getDistance(City node, City target) {
         for (Road edge : roads) {
             if (edge.getFrom().equals(node)
@@ -65,6 +71,7 @@ public class DijkstraAlgorithm {
         throw new RuntimeException("Should not happen");
     }
 
+    @Loggable
     private List<City> getNeighbors(City node) {
         List<City> neighbors = new ArrayList<>();
         for (Road edge : roads) {
@@ -76,6 +83,7 @@ public class DijkstraAlgorithm {
         return neighbors;
     }
 
+    @Loggable
     private City getMinimum(Set<City> vertexes) {
         City minimum = null;
         for (City vertex : vertexes) {
@@ -90,10 +98,12 @@ public class DijkstraAlgorithm {
         return minimum;
     }
 
+    @Loggable
     private boolean isSettled(City vertex) {
         return visitedCities.contains(vertex);
     }
 
+    @Loggable
     private int getShortestDistance(City destination) {
         Integer d = distance.get(destination);
         if (d == null) {
@@ -103,25 +113,17 @@ public class DijkstraAlgorithm {
         }
     }
 
-    /*
-     * This method returns the path from the source to the selected target and
-     * NULL if no path exists
-     */
+
+    @Loggable
     public LinkedList<City> getPath(City target) {
         LinkedList<City> path = new LinkedList<>();
         City step = target;
-        // check if a path exists
-        /*
-        if (predecessors.get(step) == null) {
-            return null;
-        }
-        */
+
         path.add(step);
         while (predecessors.get(step) != null) {
             step = predecessors.get(step);
             path.add(step);
         }
-        // Put it into the correct order
         Collections.reverse(path);
         return path;
     }

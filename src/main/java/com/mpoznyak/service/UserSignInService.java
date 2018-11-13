@@ -1,5 +1,6 @@
 package com.mpoznyak.service;
 
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.User;
 import com.mpoznyak.model.type.Role;
 import com.mpoznyak.repository.UserRepository;
@@ -15,12 +16,13 @@ import java.util.List;
  */
 
 @Service
-@Transactional
 public class UserSignInService {
 
     @Autowired
     UserRepository userRepository;
 
+    @Loggable
+    @Transactional
     public Role checkAuthInput(Long companyId, String password) {
 
         List<User> users = userRepository.queryAll();

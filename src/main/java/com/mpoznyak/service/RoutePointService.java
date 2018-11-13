@@ -1,6 +1,7 @@
 package com.mpoznyak.service;
 
 import com.mpoznyak.dto.RoutePointDTO;
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.Cargo;
 import com.mpoznyak.model.Order;
 import com.mpoznyak.model.RoutePoint;
@@ -31,6 +32,7 @@ public class RoutePointService {
     @Autowired
     private OrderService orderService;
 
+    @Loggable
     @Transactional
     public void updateRoutePoint(RoutePoint routePoint) {
 
@@ -38,6 +40,7 @@ public class RoutePointService {
         routePointRepository.update(routePoint);
     }
 
+    @Loggable
     @Transactional
     public void updatePointStatusForOrder(RoutePoint routePoint) {
 
@@ -74,6 +77,7 @@ public class RoutePointService {
 
     }
 
+    @Loggable
     @Transactional
     public void updateRoutePoint(RoutePointDTO routePointDTO) {
         List<RoutePoint> pointList = routePointRepository.query();
@@ -86,6 +90,7 @@ public class RoutePointService {
         }
     }
 
+    @Loggable
     @Transactional
     public List<RoutePoint> getRoutePoints() {
         return routePointRepository.query();

@@ -5,6 +5,7 @@ import com.mpoznyak.dto.CargoDTO;
 import com.mpoznyak.dto.OrderDTO;
 import com.mpoznyak.dto.RouteDTO;
 import com.mpoznyak.dto.RoutePointDTO;
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.*;
 import com.mpoznyak.model.type.DriverStatus;
 import com.mpoznyak.model.type.OrderStatus;
@@ -62,19 +63,23 @@ public class OrderService {
     private TempShiftService tempShiftService;
 
 
+    @Loggable
     public Long getRouteTime(RouteDTO routeDTO, OrderDTO orderDTO) {
         Long time = graphService.getRouteTime(routeDTO, orderDTO);
         return time;
     }
 
+    @Loggable
     public LinkedHashMap<Long, Driver> getDriversForOrder(Long time, OrderDTO orderDTO) {
         return driverService.getDriversForOrder(time, orderDTO);
     }
 
+    @Loggable
     public LinkedHashMap<Long, Truck> getTrucksForOrder(Long weight) {
         return truckService.getTrucksForOrder(weight);
     }
 
+    @Loggable
     public void setDropLocations(RouteDTO routeDTO, List<RoutePointDTO> points) {
         for (RoutePointDTO point : points) {
             if (point.getType().equals(RoutePointType.DROP_OFF))
@@ -87,6 +92,7 @@ public class OrderService {
         }
     }
 
+    @Loggable
     public Long getWeight(RoutePointDTO routePointDTO, List<RoutePointDTO> points, Long weight) {
 
         logger.info("getWeight(routePointDTO: " + routePointDTO + " points: " + points + " \n" +
@@ -122,6 +128,7 @@ public class OrderService {
         return weight;
     }
 
+    @Loggable
     public void newRoutePoint(RoutePointDTO routePointDTO, RouteDTO routeDTO, List<RoutePointDTO> points) {
 
         List<City> cities = cityService.getAllCitiesList();
@@ -158,12 +165,13 @@ public class OrderService {
         }
     }
 
+    @Loggable
     public LinkedHashMap<Long, City> getAllCitiesMap() {
         return cityService.getAllCitiesMap();
     }
 
-    //TODO implemenet
 
+    @Loggable
     @Transactional
     public void saveOrder(RouteDTO routeDTO, OrderDTO orderDTO) {
 
@@ -266,6 +274,7 @@ public class OrderService {
         routePointRepository.add(routePointList);
     }
 
+    @Loggable
     @Transactional
     public List<OrderDTO> getAllOrdersDTO() {
         List<Order> orders = orderRepository.queryExisted();
@@ -284,6 +293,7 @@ public class OrderService {
         return orderDTOS;
     }
 
+    @Loggable
     @Transactional
     public List<RoutePoint> getRoutePointsForOrder(Order order) {
         List<RoutePoint> points = routePointRepository.query();
@@ -303,6 +313,7 @@ public class OrderService {
         return pointsForOrder;
     }
 
+    @Loggable
     @Transactional
     public List<Cargo> getCargoesForOrder(OrderDTO orderDTO) {
         List<RoutePoint> points = orderDTO.getRoutePoints();
@@ -315,12 +326,14 @@ public class OrderService {
         return cargoes;
     }
 
+    @Loggable
     @Transactional
     public void deleteOrder(Long id) {
         orderRepository.remove(id);
 
     }
 
+    @Loggable
     @Transactional
     public void updateOrder(Order order) {
         orderRepository.update(order);
