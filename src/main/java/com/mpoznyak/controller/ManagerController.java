@@ -7,14 +7,20 @@ import com.mpoznyak.model.Customer;
 import com.mpoznyak.model.type.DriverStatus;
 import com.mpoznyak.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sun.plugin.liveconnect.SecurityContextHelper;
 
 /**
  * Created by Max Poznyak
  * on 24/10/2018  at 12:05
  */
+
 @Controller
 public class ManagerController {
 
@@ -31,9 +37,11 @@ public class ManagerController {
     private OrderService orderService;
 
     @Loggable
-    @GetMapping("/managerPage")
+    @RequestMapping("/manager-page")
     public String showManagerPage(Model model) {
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        auth.getPrincipal();
         model.addAttribute("drivers", driverService.getAllDrivers());
         model.addAttribute("trucks", truckService.getAllTrucks());
         model.addAttribute("driverDTO", new DriverDTO());
@@ -55,7 +63,7 @@ public class ManagerController {
         Long longId = Long.parseLong(id);
         System.out.println(id);
         driverService.deleteDriver(longId);
-        return "redirect:managerPage";
+        return "redirect:manager/id";
     }
 
 

@@ -3,6 +3,7 @@ package com.mpoznyak.service;
 import com.mpoznyak.dto.DriverDTO;
 import com.mpoznyak.dto.OrderDTO;
 import com.mpoznyak.dto.RoutePointDTO;
+import com.mpoznyak.dto.UserDTO;
 import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.mapper.DriverMapper;
 import com.mpoznyak.model.*;
@@ -40,7 +41,7 @@ public class DriverService {
     private ShiftService shiftService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private TruckService truckService;
@@ -65,13 +66,14 @@ public class DriverService {
         shiftService.setEndMonthShift(shift);
         driverDTO.setShift(shift);
         Driver driver = driverMapper.map(driverDTO);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setCompanyId(String.valueOf(driver.getId()));
+        userDTO.setPassword(driver.getId() + driver.getFirstName());
+        userDTO.setRole(Role.DRIVER);
+        userService.addNewUser(userDTO);
+        User user = userService.findUserByCompanyId(String.valueOf(driver.getId()));
+        driver.setUser(user);
         driverRepository.add(driver);
-        User user = new User();
-        user.setDriver(driver);
-        user.setCompanyId(driver.getId());
-        user.setPassword(driver.getId() + driver.getFirstName());
-        user.setRole(Role.DRIVER);
-        userRepository.add(user);
     }
 
     @Loggable

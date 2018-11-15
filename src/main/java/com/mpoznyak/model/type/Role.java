@@ -6,5 +6,16 @@ package com.mpoznyak.model.type;
  */
 public enum  Role {
 
-    MANAGER, DRIVER, NOT_AUTHORIZED
+    MANAGER("ROLE_MANAGER"), DRIVER("ROLE_DRIVER"), ADMIN("ROLE_ADMIN");
+
+    Role(String name) {
+        this.name = name;
+    }
+
+    private String name;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

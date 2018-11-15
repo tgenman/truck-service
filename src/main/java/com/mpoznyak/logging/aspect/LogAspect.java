@@ -27,7 +27,7 @@ public class LogAspect {
     private static final Logger logger = Logger.getLogger(LogAspect.class);
 
     public LogAspect() {
-        logger.setLevel(Level.INFO);
+        logger.setLevel(Level.TRACE);
         //PatternLayout layout = new PatternLayout("%d{ISO8601} [%t] %-5p %c %x - %m%n");
         //logger.addAppender(new ConsoleAppender(layout));
     }

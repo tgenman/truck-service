@@ -8,13 +8,13 @@
     <title>Sign In</title>
 </head>
 <body class="text-center">
-<sf:form action="processAuthInput" modelAttribute="user" method="post" class="form-signin">
+<form action="/login" method="post" class="form-signin">
     <h1 class="h3 mb-3 font-weight-normal">Greetings!</h1>
-    <sf:input id="companyId" path="companyId" class="form-control" placeholder="ID manager/ drivers"/>
+    <input name="login" id="companyId" path="companyId" class="form-control" placeholder="ID manager/ drivers" required>
 
-    <sf:input path="password" type="password" id="inputPassword" class="form-control" placeholder="Password"
-              required=""/>
-    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign In"/>
-</sf:form>
+    <input name="password" path="password" type="password" id="inputPassword" class="form-control" placeholder="Password"
+              required>
+    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit"/>
+</form>
 </body>
 </html>

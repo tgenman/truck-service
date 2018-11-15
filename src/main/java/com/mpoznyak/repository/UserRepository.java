@@ -37,7 +37,7 @@ public class UserRepository {
 
     }
 
-    public void update(User role) {
+    public void update(User user) {
 
     }
 

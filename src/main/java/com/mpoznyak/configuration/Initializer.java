@@ -1,5 +1,6 @@
 package com.mpoznyak.configuration;
 
+import com.mpoznyak.configuration.security.WebSecurityConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
@@ -17,7 +18,7 @@ public class Initializer
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{RepositoryConfig.class};
+        return new Class<?>[]{RepositoryConfig.class, WebSecurityConfig.class};
     }
 
     @Override

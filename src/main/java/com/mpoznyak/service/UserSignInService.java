@@ -21,6 +21,7 @@ public class UserSignInService {
     @Autowired
     UserRepository userRepository;
 
+    /*
     @Loggable
     @Transactional
     public Role checkAuthInput(Long companyId, String password) {
@@ -35,4 +36,5 @@ public class UserSignInService {
         }
         return role;
     }
+    */
 }

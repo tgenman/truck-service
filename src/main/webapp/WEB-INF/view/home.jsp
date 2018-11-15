@@ -32,7 +32,7 @@
 </div>
 <ul class="side-nav" id="mobile-demo">
     <li><a href="about_us.jsp">About Us</a></li>
-    <li><a href="signIn">Sign In</a></li>
+    <li><a href="/user">Sign In</a></li>
 </ul>
 
 <div class="section no-pad-bot" id="index-banner">

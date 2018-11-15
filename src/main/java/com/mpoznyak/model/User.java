@@ -14,7 +14,6 @@ import javax.validation.constraints.Size;
  */
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
     @Id
@@ -22,7 +21,7 @@ public class User {
     protected Long id;
     
     @Column(name = "companyId")
-    protected Long companyId;
+    protected String companyId;
 
     @Column(name = "password")
     protected String password;
@@ -30,16 +29,12 @@ public class User {
     @Column(name = "role")
     private Role role;
 
-    @JoinColumn(name = "driver_id")
-    @OneToOne
-    private Driver driver;
-
-    public Long getCompanyId() {
+    public String getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(Long companySpecId) {
-        this.companyId = companySpecId;
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
 
     public String getPassword() {
@@ -66,11 +61,4 @@ public class User {
         this.role = role;
     }
 
-    public Driver getDriver() {
-        return driver;
-    }
-
-    public void setDriver(Driver driver) {
-        this.driver = driver;
-    }
 }

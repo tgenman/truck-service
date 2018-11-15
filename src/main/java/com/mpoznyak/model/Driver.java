@@ -46,6 +46,10 @@ public class Driver {
     @Column(name = "deleted")
     private Boolean deleted = false;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Long getId() {
         return id;
     }
@@ -116,6 +120,14 @@ public class Driver {
 
     public void setShift(Shift shift) {
         this.shift = shift;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
