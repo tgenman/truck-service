@@ -4,13 +4,17 @@ import com.mpoznyak.dto.DriverDTO;
 import com.mpoznyak.dto.RouteDTO;
 import com.mpoznyak.dto.RoutePointDTO;
 import com.mpoznyak.logging.annotation.Loggable;
-import com.mpoznyak.model.*;
+import com.mpoznyak.model.Order;
+import com.mpoznyak.model.Driver;
+import com.mpoznyak.model.RoutePoint;
 import com.mpoznyak.model.type.DriverStatus;
 import com.mpoznyak.model.type.OrderStatus;
 import com.mpoznyak.model.type.RoutePointType;
 import com.mpoznyak.repository.ShiftRepository;
 import com.mpoznyak.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +31,7 @@ import java.util.stream.Stream;
  * on 23/10/2018  at 02:26
  */
 @Controller
+@RequestMapping("/driver")
 public class DriverController {
 
     @Autowired
@@ -42,23 +47,33 @@ public class DriverController {
     private TruckService truckService;
 
 
-    @RequestMapping(value = "/newDriver")
-    @Loggable
-    public String showNewDriverPage(Model model) {
-
-        model.addAttribute("driverDTO", new DriverDTO());
-        model.addAttribute("cities", cityService.getAllCitiesMap());
-        model.addAttribute("trucks", truckService.getTrucksDetails());
-        model.addAttribute("status", driverService.getAllDriverStatus());
-        return "new-driver";
-    }
 
     @Loggable
-    @RequestMapping(value = "/processNewDriverData", method = RequestMethod.POST)
-    public String processNewDriver(@ModelAttribute("driver") DriverDTO driverDTO) {
+    @GetMapping("{name}")
+    public String showDriver(@PathVariable("name") String name, Model model) {
 
-        driverService.addDriver(driverDTO);
-        return "redirect:managerPage";
+
+        User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        List<Driver> drivers = driverService.getAllDrivers();
+        Driver driver = null;
+        for (Driver driver1 : drivers) {
+            if (user.getUsername().equals(driver1.getUser().getCompanyId())) {
+                driver = driver1;
+            }
+        }
+
+        Order order = driver.getOrder();
+        if (order != null) {
+            List<RoutePoint> points = orderService.getRoutePointsForOrder(order);
+            model.addAttribute("routePoints", points);
+        } else {
+            model.addAttribute("routePoints", new ArrayList<>());
+
+        }
+        model.addAttribute("driverStatus", DriverStatus.values());
+        model.addAttribute("routePointDTO", new RoutePointDTO());
+        model.addAttribute("driver", driver);
+        return "driver";
     }
 
     @Loggable
@@ -145,4 +160,7 @@ public class DriverController {
         model.addAttribute("routePointDTO", new RoutePointDTO());
         return "redirect:driver";
     }
+
+
+
 }

@@ -1,5 +1,7 @@
 package com.mpoznyak.configuration.security;
 
+import com.mpoznyak.configuration.CustomAuthenticationSuccessHandler;
+import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  * Created by Max Poznyak
@@ -30,18 +33,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Autowired
+    private AuthenticationSuccessHandler successHandler;
+
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
 
     }
 
+    @Loggable
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeRequests()
                 .antMatchers("/", "/login", "/home", "/static/**").permitAll()
-                .antMatchers("/manager-page/**").access("hasRole('MANAGER')")
+                .antMatchers("/management/**").access("hasRole('MANAGER')")
                 .antMatchers("/driver/**").access("hasRole('DRIVER')")
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
                 .anyRequest().authenticated()
@@ -51,12 +58,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .usernameParameter("login")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/home")
+                .successHandler(successHandler)
                 .permitAll()
                 .failureUrl("/login?error=true")
                 .and()
                 .csrf().disable()
-                .logout().permitAll();
+                .logout()
+                .permitAll()
+                .logoutSuccessUrl("/home")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .permitAll()
+        .and().exceptionHandling().accessDeniedPage("/access-denied");
     }
 
     @Bean

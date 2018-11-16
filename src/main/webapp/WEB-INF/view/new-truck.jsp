@@ -3,8 +3,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="stylesheet" href="static/css/sign-in.css">
-    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/sign-in.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
     <title>New Truck</title>
     <script type="text/javascript">
         function validateForm() {

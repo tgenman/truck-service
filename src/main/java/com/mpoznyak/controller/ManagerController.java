@@ -22,6 +22,7 @@ import sun.plugin.liveconnect.SecurityContextHelper;
  */
 
 @Controller
+@RequestMapping("management")
 public class ManagerController {
 
     @Autowired
@@ -36,12 +37,13 @@ public class ManagerController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private UserService userService;
+
     @Loggable
-    @RequestMapping("/manager-page")
+    @GetMapping("/manager")
     public String showManagerPage(Model model) {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        auth.getPrincipal();
         model.addAttribute("drivers", driverService.getAllDrivers());
         model.addAttribute("trucks", truckService.getAllTrucks());
         model.addAttribute("driverDTO", new DriverDTO());
@@ -59,11 +61,39 @@ public class ManagerController {
 
     @Loggable
     @PostMapping(value = "/delete-driver")
-    public String processDriverDeleteButton(@RequestParam("driverIdDelete") String id) {
-        Long longId = Long.parseLong(id);
+    public String processDriverDeleteButton(@RequestParam("id") Long id) {
+        Long longId = id;
         System.out.println(id);
         driverService.deleteDriver(longId);
-        return "redirect:manager/id";
+        return "redirect:/management/manager";
+    }
+
+    @Loggable
+    @GetMapping(value = "/new-driver")
+    public String showNewDriverPage(Model model) {
+
+        model.addAttribute("driverDTO", new DriverDTO());
+        model.addAttribute("cities", cityService.getAllCitiesMap());
+        model.addAttribute("trucks", truckService.getTrucksDetails());
+        model.addAttribute("status", driverService.getAllDriverStatus());
+        return "new-driver";
+    }
+
+    @Loggable
+    @PostMapping(value = "/process-driver")
+    public String processNewDriver(@ModelAttribute("driver") DriverDTO driverDTO) {
+
+        driverService.addDriver(driverDTO);
+        return "redirect:/management/manager";
+    }
+
+    @Loggable
+    @GetMapping("/new-truck")
+    public String showNewTruckPage(Model model) {
+        model.addAttribute("truckDTO", new TruckDTO());
+        model.addAttribute("cities", cityService.getAllCitiesMap());
+        model.addAttribute("truckStatus", truckService.getTrucksStatus());
+        return "new-truck";
     }
 
 

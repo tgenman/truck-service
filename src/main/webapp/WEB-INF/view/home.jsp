@@ -25,7 +25,7 @@
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="#">About Us</a></li>
-                <li><a href="/sign-in">Sign In</a></li>
+                <li><a href="/login">Sign In</a></li>
             </ul>
         </div>
     </nav>

@@ -66,14 +66,14 @@ public class DriverService {
         shiftService.setEndMonthShift(shift);
         driverDTO.setShift(shift);
         Driver driver = driverMapper.map(driverDTO);
-        UserDTO userDTO = new UserDTO();
-        userDTO.setCompanyId(String.valueOf(driver.getId()));
-        userDTO.setPassword(driver.getId() + driver.getFirstName());
-        userDTO.setRole(Role.DRIVER);
-        userService.addNewUser(userDTO);
-        User user = userService.findUserByCompanyId(String.valueOf(driver.getId()));
-        driver.setUser(user);
         driverRepository.add(driver);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setPassword(driver.getFirstName());
+        userDTO.setCompanyId("3000107"+ driver.getId());
+        userDTO.setRole(Role.DRIVER.toString());
+        userService.addNewUser(userDTO);
+        User user = userService.findUserByCompanyId(String.valueOf("3000107" + driver.getId()));
+        driver.setUser(user);
     }
 
     @Loggable

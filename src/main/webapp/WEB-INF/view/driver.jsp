@@ -149,6 +149,9 @@
                 </c:choose>
             </c:if>
         </div>
+        <div class="col-2">
+            <a href="/logout">Log out</a>
+        </div>
     </div>
 </div>
 </body>

@@ -28,15 +28,6 @@ public class TruckController {
     private DriverService driverService;
 
     @Loggable
-    @RequestMapping("newTruck")
-    public String showNewTruckPage(Model model) {
-        model.addAttribute("truckDTO", new TruckDTO());
-        model.addAttribute("cities", cityService.getAllCitiesMap());
-        model.addAttribute("truckStatus", truckService.getTrucksStatus());
-        return "new-truck";
-    }
-
-    @Loggable
     @RequestMapping("processNewTruckData")
     public String processNewTruckData(@ModelAttribute("truck") TruckDTO truckDTO, Model model) {
         truckService.saveNewTruckData(truckDTO);

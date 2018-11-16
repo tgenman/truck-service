@@ -38,23 +38,32 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("No workers with id " + id);
         }
 
+
+
         String companyId = user.getCompanyId();
-        String password = user.getPassword();
-        Role role = user.getRole();
+        String password = null;
+
+        //TODO after implementing admin - delete condition "123"
+
+        if (user.getCompanyId().equals("123")) {
+            password = new BCryptPasswordEncoder().encode(user.getPassword());
+        } else {
+            password = user.getPassword();
+        }
+        String role = user.getRole();
 
         List<SimpleGrantedAuthority> authList = getAuthorities(role);
-        String passwordEncoded = new BCryptPasswordEncoder().encode(password);
 
-        return new org.springframework.security.core.userdetails.User(companyId, passwordEncoded, true,
+        return new org.springframework.security.core.userdetails.User(companyId, password, true,
                 true,
                 true,
                 true, authList);
 
     }
 
-    private List<SimpleGrantedAuthority> getAuthorities(Role role) {
+    private List<SimpleGrantedAuthority> getAuthorities(String role) {
         List<SimpleGrantedAuthority> auths = new ArrayList<>();
-        auths.add(new SimpleGrantedAuthority(role.toString()));
+        auths.add(new SimpleGrantedAuthority(role));
         return auths;
     }
 }

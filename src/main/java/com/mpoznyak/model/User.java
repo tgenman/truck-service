@@ -7,6 +7,7 @@ import com.mpoznyak.model.type.UserType;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 /**
  * Created by Max Poznyak
@@ -19,7 +20,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
-    
+
     @Column(name = "companyId")
     protected String companyId;
 
@@ -27,7 +28,7 @@ public class User {
     protected String password;
 
     @Column(name = "role")
-    private Role role;
+    private String role;
 
     public String getCompanyId() {
         return companyId;
@@ -53,12 +54,24 @@ public class User {
         this.id = id;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

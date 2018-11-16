@@ -24,7 +24,7 @@
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Furious Turtle</a>
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="/home">Sign out</a>
+            <a class="nav-link" href="/logout">Log out</a>
         </li>
     </ul>
 </nav>
@@ -36,10 +36,10 @@
                     <br>
                     <br>
                     <br>
-                    <sf:form method="get" action="newDriver">
+                    <sf:form method="get" action="/management/new-driver">
                         <input type="submit" class="btn btn-primary btn-lg btn-block" value="New Driver">
                     </sf:form>
-                    <sf:form method="get" action="newTruck">
+                    <sf:form method="get" action="/management/new-truck">
                         <input type="submit" class="btn btn-primary btn-lg btn-block" value="New Truck">
                     </sf:form>
 
@@ -190,8 +190,8 @@
                                 </button>
                             </td>
                             <td>
-                                <sf:form method="post" action="delete-driver">
-                                    <input type="hidden" value="${drivers.id}" name="driverIdDelete">
+                                <sf:form method="post" action="/management/delete-driver">
+                                    <input type="hidden" value="${drivers.id}" name="id">
                                     <input type="submit" class="btn btn-danger" value="Delete"/>
                                 </sf:form>
                             </td>
