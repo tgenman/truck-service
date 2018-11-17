@@ -9,6 +9,7 @@ import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.Truck;
 import com.mpoznyak.model.type.TruckStatus;
 import com.mpoznyak.repository.TruckRepository;
+import com.mpoznyak.validator.form.TruckForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,9 +36,24 @@ public class TruckService {
 
     @Loggable
     @Transactional
-    public void saveNewTruckData(TruckDTO truckDTO) {
+    public void saveNewTruck(TruckDTO truckDTO) {
         Truck truck = truckMapper.map(truckDTO);
         truckRepository.add(truck);
+    }
+
+    @Loggable
+    @Transactional
+    public void saveNewTruck(TruckForm truckForm) {
+        TruckDTO truckDTO = new TruckDTO();
+        truckDTO.setBrand(truckForm.getBrand());
+        truckDTO.setCapacity(truckForm.getCapacity());
+        truckDTO.setCity(truckForm.getCity());
+        truckDTO.setLicensePlate(truckForm.getLicensePlate());
+        truckDTO.setMaxDrivers(truckForm.getMaxDrivers());
+        truckDTO.setModel(truckForm.getModel());
+        truckDTO.setStatus(truckForm.getStatus());
+        truckDTO.setWorkingSession(truckForm.getWorkingSession());
+        saveNewTruck(truckDTO);
     }
 
     @Loggable

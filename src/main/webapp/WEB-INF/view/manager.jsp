@@ -36,10 +36,10 @@
                     <br>
                     <br>
                     <br>
-                    <sf:form method="get" action="/management/new-driver">
+                    <sf:form method="get" action="driver/new">
                         <input type="submit" class="btn btn-primary btn-lg btn-block" value="New Driver">
                     </sf:form>
-                    <sf:form method="get" action="/management/new-truck">
+                    <sf:form method="get" action="truck/new">
                         <input type="submit" class="btn btn-primary btn-lg btn-block" value="New Truck">
                     </sf:form>
 
@@ -190,7 +190,7 @@
                                 </button>
                             </td>
                             <td>
-                                <sf:form method="post" action="/management/delete-driver">
+                                <sf:form method="post" action="driver/delete">
                                     <input type="hidden" value="${drivers.id}" name="id">
                                     <input type="submit" class="btn btn-danger" value="Delete"/>
                                 </sf:form>
@@ -208,7 +208,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <sf:form action="update-driver" name="formSubmit" id="formSubmit"
+                                        <sf:form action="driver/update" name="formSubmit" id="formSubmit"
                                                  method="post" modelAttribute="driverDTO"
                                                  cssClass="form-signin">
                                             <sf:hidden name="idDriver" path="id"/>
@@ -295,7 +295,7 @@
                                 </button>
                             </td>
                             <td>
-                                <sf:form method="post" action="delete-truck">
+                                <sf:form method="post" action="truck/delete">
                                     <input type="hidden" value="${truck1.id}" name="truckIdDelete">
                                     <input type="submit" class="btn btn-danger" value="Delete"/>
                                 </sf:form>
@@ -313,7 +313,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <sf:form action="update-truck" method="post" name="formUpdateTruck" id="formUpdateTruck" modelAttribute="truckDTO"
+                                        <sf:form action="truck/update" method="post" name="formUpdateTruck" id="formUpdateTruck" modelAttribute="truckDTO"
                                                  cssClass="form-signin">
                                             <sf:hidden name="idDriver" path="id"/>
                                             Brand: <sf:input name="brand" id="brand" path="brand" class="form-control" required="required"

@@ -77,14 +77,6 @@ public class DriverController {
     }
 
     @Loggable
-    @RequestMapping(value = "update-driver", method = RequestMethod.POST)
-    public String processUpdateDriverData(@ModelAttribute("driver") DriverDTO driverDTO) {
-
-        driverService.updateDriver(driverDTO);
-        return "redirect:managerPage";
-    }
-
-    @Loggable
     @PostMapping("/route-point-update")
     public String updateRoutePoint(@ModelAttribute("routePointDTO") RoutePointDTO routePointDTO,
                                    @RequestParam("driverId") Long driverId,

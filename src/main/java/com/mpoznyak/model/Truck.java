@@ -22,10 +22,10 @@ public class Truck {
     private String licensePlate;
 
     @Column(name = "working_session")
-    private Integer workingSession;
+    private Long workingSession;
 
     @Column(name = "capacity")
-    private Integer capacity;
+    private Long capacity;
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
@@ -42,7 +42,7 @@ public class Truck {
     private City city;
 
     @Column(name = "max_drivers")
-    private Integer maxDrivers;
+    private Long maxDrivers;
 
     @Column(name = "deleted")
     private Boolean deleted = false;
@@ -66,19 +66,19 @@ public class Truck {
         this.licensePlate = licensePlate;
     }
 
-    public Integer getWorkingSession() {
-        return workingSession;
+    public Long getMaxDrivers() {
+        return maxDrivers;
     }
 
-    public void setWorkingSession(Integer workingSession) {
-        this.workingSession = workingSession;
+    public void setMaxDrivers(Long maxDrivers) {
+        this.maxDrivers = maxDrivers;
     }
 
-    public Integer getCapacity() {
+    public Long getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(Integer capacity) {
+    public void setCapacity(Long capacity) {
         this.capacity = capacity;
     }
 
@@ -90,12 +90,12 @@ public class Truck {
         this.status = status;
     }
 
-    public Integer getMaxDrivers() {
-        return maxDrivers;
+    public void setWorkingSession(Long workingSession) {
+        this.workingSession = workingSession;
     }
 
-    public void setMaxDrivers(Integer maxDrivers) {
-        this.maxDrivers = maxDrivers;
+    public Long getWorkingSession() {
+        return workingSession;
     }
 
     public City getCity() {

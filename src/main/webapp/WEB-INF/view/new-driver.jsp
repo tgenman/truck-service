@@ -21,14 +21,18 @@
     </script>
 </head>
 <body class="text-center">
-<sf:form name="formSubmit" action="/management/process-driver" method="post" modelAttribute="driverDTO"
+<sf:form name="formSubmit" action="/management/driver/new/process" method="post" modelAttribute="driverForm"
          cssClass="form-signin" id="formSubmit" onsubmit="return validateForm()">
     <h1 class="h3 mb-3 font-weight-normal">New drivers</h1>
     <sf:input path="firstName" name="firstName" id="firstName" class="form-control" placeholder="First name"/>
+    <sf:errors path="firstName" cssClass="text-danger"/>
     <sf:input path="lastName" name="secondName" id="secondName" class="form-control" placeholder="Last name"/>
-    <sf:select path="cityId">
+    <sf:errors path="firstName" cssClass="text-danger"/>
+    <sf:select path="city">
         <sf:options items="${cities}"/>
     </sf:select>
+    <sf:errors path="city" cssClass="error"/>
+
 
     <br><br>
     <input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">

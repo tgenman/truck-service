@@ -6,6 +6,8 @@ import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.Customer;
 import com.mpoznyak.model.type.DriverStatus;
 import com.mpoznyak.service.*;
+import com.mpoznyak.validator.form.DriverForm;
+import com.mpoznyak.validator.form.TruckForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -13,8 +15,11 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import sun.plugin.liveconnect.SecurityContextHelper;
+
+import javax.validation.Valid;
 
 /**
  * Created by Max Poznyak
@@ -37,9 +42,6 @@ public class ManagerController {
     @Autowired
     private OrderService orderService;
 
-    @Autowired
-    private UserService userService;
-
     @Loggable
     @GetMapping("/manager")
     public String showManagerPage(Model model) {
@@ -60,7 +62,7 @@ public class ManagerController {
     }
 
     @Loggable
-    @PostMapping(value = "/delete-driver")
+    @PostMapping(value = "/driver/delete")
     public String processDriverDeleteButton(@RequestParam("id") Long id) {
         Long longId = id;
         System.out.println(id);
@@ -69,31 +71,74 @@ public class ManagerController {
     }
 
     @Loggable
-    @GetMapping(value = "/new-driver")
+    @GetMapping(value = "/driver/new")
     public String showNewDriverPage(Model model) {
 
-        model.addAttribute("driverDTO", new DriverDTO());
+        model.addAttribute("driverForm", new DriverForm());
         model.addAttribute("cities", cityService.getAllCitiesMap());
-        model.addAttribute("trucks", truckService.getTrucksDetails());
-        model.addAttribute("status", driverService.getAllDriverStatus());
         return "new-driver";
     }
 
     @Loggable
-    @PostMapping(value = "/process-driver")
-    public String processNewDriver(@ModelAttribute("driver") DriverDTO driverDTO) {
+    @PostMapping(value = "/driver/new/process")
+    public String processNewDriver(@ModelAttribute("driverForm") @Valid DriverForm driverForm,
+                                   BindingResult result, Model model) {
 
-        driverService.addDriver(driverDTO);
+        if (result.hasErrors()) {
+            model.addAttribute("cities", cityService.getAllCitiesMap());
+            return "new-driver";
+        }
+
+        driverService.addDriverFromForm(driverForm);
         return "redirect:/management/manager";
     }
 
     @Loggable
-    @GetMapping("/new-truck")
+    @GetMapping("/truck/new")
     public String showNewTruckPage(Model model) {
-        model.addAttribute("truckDTO", new TruckDTO());
+        model.addAttribute("truckForm", new TruckForm());
         model.addAttribute("cities", cityService.getAllCitiesMap());
         model.addAttribute("truckStatus", truckService.getTrucksStatus());
         return "new-truck";
+    }
+
+    @Loggable
+    @RequestMapping("truck/new/process")
+    public String processNewTruckData(@ModelAttribute("truckForm") @Valid TruckForm truckForm,
+                                      BindingResult result, Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("cities", cityService.getAllCitiesMap());
+            model.addAttribute("truckStatus", truckService.getTrucksStatus());
+            return "new-truck";
+        }
+
+        truckService.saveNewTruck(truckForm);
+        return "redirect:/management/manager";
+    }
+
+    @Loggable
+    @RequestMapping(value = "/truck/update", method = RequestMethod.POST)
+    public String processUpdateDriverData(@ModelAttribute("truckDTO") TruckDTO truckDTO) {
+
+        truckService.updateTruck(truckDTO);
+        return "redirect:/management/manager";
+    }
+
+    @Loggable
+    @PostMapping(value = "/truck/delete")
+    public String processTruckDeleteButton(@RequestParam("truckIdDelete") String id) {
+        Long longId = Long.parseLong(id);
+        truckService.deleteTruck(longId);
+        return "redirect:/management/manager";
+    }
+
+    @Loggable
+    @RequestMapping(value = "driver/update", method = RequestMethod.POST)
+    public String processUpdateDriverData(@ModelAttribute("driver") DriverDTO driverDTO) {
+
+        driverService.updateDriver(driverDTO);
+        return "redirect:/management/manager";
     }
 
 

@@ -5,10 +5,14 @@ import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.service.CityService;
 import com.mpoznyak.service.DriverService;
 import com.mpoznyak.service.TruckService;
+import com.mpoznyak.validator.form.TruckForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * Created by Max Poznyak
@@ -24,28 +28,5 @@ public class TruckController {
     @Autowired
     private CityService cityService;
 
-    @Autowired
-    private DriverService driverService;
 
-    @Loggable
-    @RequestMapping("processNewTruckData")
-    public String processNewTruckData(@ModelAttribute("truck") TruckDTO truckDTO, Model model) {
-        truckService.saveNewTruckData(truckDTO);
-        return "redirect:managerPage";
-    }
-
-    @Loggable
-    @RequestMapping(value = "update-truck", method = RequestMethod.POST)
-    public String processUpdateDriverData(@ModelAttribute("truckDTO") TruckDTO truckDTO) {
-        truckService.updateTruck(truckDTO);
-        return "redirect:managerPage";
-    }
-
-    @Loggable
-    @PostMapping(value = "/delete-truck")
-    public String processDriverDeleteButton(@RequestParam("truckIdDelete") String id) {
-        Long longId = Long.parseLong(id);
-        truckService.deleteTruck(longId);
-        return "redirect:managerPage";
-    }
 }

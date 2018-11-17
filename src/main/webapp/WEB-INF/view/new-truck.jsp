@@ -54,29 +54,44 @@
     </script>
 </head>
 <body>
-<sf:form name="formSubmit" action="processNewTruckData" method="post"
-         modelAttribute="truckDTO" cssClass="form-signin" onsubmit="return validateForm()">
+<sf:form name="formSubmit" action="/management/truck/new/process" method="post"
+         modelAttribute="truckForm" cssClass="form-signin" onsubmit="return validateForm()">
     <h1 class="h3 mb-3 font-weight-normal">New truck</h1>
     Brand: <sf:input id="brand" name="brand" path="brand" class="form-control" placeholder="Brand"/>
+    <sf:errors path="brand" cssClass="text-danger"/>
     Model: <sf:input id="model" name="model" path="model" class="form-control" placeholder="Model"/>
+    <sf:errors path="model" cssClass="text-danger"/>
+
     License plate: <sf:input id="license" name="license" path="licensePlate" class="form-control"
                              placeholder="2 letters and 5 digits"/>
+    <sf:errors path="licensePlate" cssClass="text-danger"/>
+
     Truck shift:<sf:input id="workingSession" name="workingSession" path="workingSession" class="form-control"
                           placeholder="Max working session"/>
+    <sf:errors path="workingSession" cssClass="text-danger"/>
+
     Capacity: <sf:input id="capacity" name="capacity" path="capacity" class="form-control"
                         placeholder="Capacity (tons)"/>
+    <sf:errors path="capacity" cssClass="text-danger"/>
+
     Max drivers: <sf:input id="maxDrivers" name="maxDrivers" path="maxDrivers" class="form-control"
                            placeholder="Max drivers"/>
+    <sf:errors path="maxDrivers" cssClass="text-danger"/>
+
     <br>
     <h5>Current location</h5>
     <sf:select path="city" cssClass="form-control">
         <sf:options items="${cities}"/>
     </sf:select>
+    <sf:errors path="city" cssClass="text-danger"/>
+
     <br>
     <h5>Operable status</h5>
     <sf:select path="status" cssClass="form-control">
         <sf:options items="${truckStatus}"/>
     </sf:select>
+    <sf:errors path="status" cssClass="text-danger"/>
+
     <br><br>
     <input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">
 </sf:form>

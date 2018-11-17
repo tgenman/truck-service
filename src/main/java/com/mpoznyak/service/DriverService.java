@@ -13,6 +13,7 @@ import com.mpoznyak.model.type.Role;
 import com.mpoznyak.repository.DriverRepository;
 import com.mpoznyak.repository.ShiftRepository;
 import com.mpoznyak.repository.UserRepository;
+import com.mpoznyak.validator.form.DriverForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,6 +57,16 @@ public class DriverService {
     private DriverMapper driverMapper;
 
     @Autowired TempShiftService tempShiftService;
+
+    @Loggable
+    @Transactional
+    public void addDriverFromForm(DriverForm driverForm) {
+        DriverDTO driverDTO = new DriverDTO();
+        driverDTO.setFirstName(driverForm.getFirstName());
+        driverDTO.setLastName(driverForm.getLastName());
+        driverDTO.setCityId(driverForm.getCity());
+        addDriver(driverDTO);
+    }
 
     @Loggable
     @Transactional
