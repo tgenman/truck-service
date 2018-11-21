@@ -80,7 +80,7 @@
                                         <h6>Truck: ${order.truckObject}   </h6>
                                         <h6>Drivers: ${order.driversList}   </h6>
                                     </a>
-                                    <sf:form method="post" action="delete-order">
+                                    <sf:form method="post" action="order/delete">
                                         <input type="hidden" value="${order.id}" name="orderId">
                                         <input type="submit" class="btn btn-danger" value="Delete"/>
                                     </sf:form>

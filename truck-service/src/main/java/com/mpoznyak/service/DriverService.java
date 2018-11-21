@@ -13,8 +13,10 @@ import com.mpoznyak.model.type.OrderStatus;
 import com.mpoznyak.model.type.Role;
 import com.mpoznyak.repository.DriverRepository;
 import com.mpoznyak.repository.ShiftRepository;
-import com.mpoznyak.repository.UserRepository;
 import com.mpoznyak.validator.form.DriverForm;
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +34,8 @@ import java.util.List;
 
 @Service
 public class DriverService {
+
+    private static final Logger logger = Logger.getLogger(DriverService.class);
 
     @Autowired
     private DriverRepository driverRepository;
@@ -57,7 +61,11 @@ public class DriverService {
     @Autowired
     private DriverMapper driverMapper;
 
-    @Autowired TempShiftService tempShiftService;
+    @Autowired
+    private TempShiftService tempShiftService;
+
+    @Autowired
+    private MQProducerService mqProducerService;
 
     @Loggable
     @Transactional
@@ -86,15 +94,15 @@ public class DriverService {
         userService.addNewUser(userDTO);
         User user = userService.findUserByCompanyId(String.valueOf("3000107" + driver.getId()));
         driver.setUser(user);
-    }
 
-    @Loggable
-    public List<String> getAllDriverStatus() {
-        List<String> driverStatusList = new ArrayList<>();
-        for (DriverStatus driverStatus : DriverStatus.values()) {
-            driverStatusList.add(driverStatus.name());
+        try {
+            mqProducerService.produceMessage("Created a new driver");
+        } catch (IOException ioe) {
+            logger.error("IOException during MQ producing: " + ioe.getMessage());
+        } catch (TimeoutException te) {
+            logger.error("TimeoutException during MQ producing: " + te.getMessage());
         }
-        return driverStatusList;
+
     }
 
     @Loggable
@@ -107,6 +115,14 @@ public class DriverService {
     @Transactional
     public void deleteDriver(Long id) {
         driverRepository.remove(id);
+
+        try {
+            mqProducerService.produceMessage("Delete a driver with id=" + id);
+        } catch (IOException ioe) {
+            logger.error("IOException during MQ producing: " + ioe.getMessage());
+        } catch (TimeoutException te) {
+            logger.error("TimeoutException during MQ producing: " + te.getMessage());
+        }
     }
 
     @Loggable
@@ -114,6 +130,14 @@ public class DriverService {
     public void updateDriver(DriverDTO driverDTO) {
         Driver driver = driverMapper.map(driverDTO);
         driverRepository.update(driver);
+
+        try {
+            mqProducerService.produceMessage("Update a driver with id=" + driver.getId());
+        } catch (IOException ioe) {
+            logger.error("IOException during MQ producing: " + ioe.getMessage());
+        } catch (TimeoutException te) {
+            logger.error("TimeoutException during MQ producing: " + te.getMessage());
+        }
     }
 
     @Loggable
@@ -162,6 +186,14 @@ public class DriverService {
     public void updateDriver(Driver driver) {
 
         driverRepository.update(driver);
+
+        try {
+            mqProducerService.produceMessage("Update a driver with id=" + driver.getId());
+        } catch (IOException ioe) {
+            logger.error("IOException during MQ producing: " + ioe.getMessage());
+        } catch (TimeoutException te) {
+            logger.error("TimeoutException during MQ producing: " + te.getMessage());
+        }
     }
 
     public Driver getDriverForId(Long driverId) {

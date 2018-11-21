@@ -1,21 +1,20 @@
 package com.mpoznyak.service;
 
-import com.mpoznyak.dto.DriverDTO;
 import com.mpoznyak.dto.TruckDTO;
 import com.mpoznyak.dto.rest.TruckDTORest;
 import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.mapper.TruckMapper;
-import com.mpoznyak.model.City;
-import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.Truck;
 import com.mpoznyak.model.type.TruckStatus;
 import com.mpoznyak.repository.TruckRepository;
 import com.mpoznyak.validator.form.TruckForm;
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -29,11 +28,16 @@ import java.util.StringJoiner;
 @Service
 public class TruckService {
 
+    private static final Logger logger = Logger.getLogger(TruckService.class);
+
     @Autowired
     private TruckRepository truckRepository;
 
     @Autowired
     private TruckMapper truckMapper;
+
+    @Autowired
+    private MQProducerService mqProducerService;
 
     @Loggable
     @Transactional
@@ -55,6 +59,14 @@ public class TruckService {
         truckDTO.setStatus(truckForm.getStatus());
         truckDTO.setWorkingSession(truckForm.getWorkingSession());
         saveNewTruck(truckDTO);
+
+        try {
+            mqProducerService.produceMessage("Created a new truck");
+        } catch (IOException ioe) {
+            logger.error("IOException during MQ producing: " + ioe.getMessage());
+        } catch (TimeoutException te) {
+            logger.error("TimeoutException during MQ producing: " + te.getMessage());
+        }
     }
 
     @Loggable
@@ -92,12 +104,28 @@ public class TruckService {
     public void updateTruck(TruckDTO truckDTO) {
         Truck truck = truckMapper.map(truckDTO);
         truckRepository.update(truck);
+
+        try {
+            mqProducerService.produceMessage("Updated a driver with id=" + truck.getId());
+        } catch (IOException ioe) {
+            logger.error("IOException during MQ producing: " + ioe.getMessage());
+        } catch (TimeoutException te) {
+            logger.error("TimeoutException during MQ producing: " + te.getMessage());
+        }
     }
 
     @Loggable
     @Transactional
     public void deleteTruck(Long id) {
         truckRepository.remove(id);
+
+        try {
+            mqProducerService.produceMessage("Deleted a driver with id=" + id);
+        } catch (IOException ioe) {
+            logger.error("IOException during MQ producing: " + ioe.getMessage());
+        } catch (TimeoutException te) {
+            logger.error("TimeoutException during MQ producing: " + te.getMessage());
+        }
     }
 
     @Loggable

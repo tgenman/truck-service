@@ -141,6 +141,13 @@ public class ManagerController {
         return "redirect:/management/manager";
     }
 
+    @Loggable
+    @PostMapping("/order/delete")
+    public String deleteOrder(@RequestParam("orderId") Long id) {
+        orderService.deleteOrder(id);
+        return "redirect:/management/manager";
+    }
+
 
 
 

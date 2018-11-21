@@ -194,7 +194,6 @@
         </div>
     </div>
 </div>
-</div>
 
 <script>
     $('#newPoint').on('show.bs.modal', function (event) {

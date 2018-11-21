@@ -13,6 +13,8 @@ import com.mpoznyak.model.type.DriverStatus;
 import com.mpoznyak.model.type.OrderStatus;
 import com.mpoznyak.model.type.RoutePointType;
 import com.mpoznyak.repository.*;
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,6 +68,9 @@ public class OrderService {
 
     @Autowired
     private TempShiftService tempShiftService;
+
+    @Autowired
+    private MQProducerService mqProducerService;
 
 
     @Loggable
@@ -277,6 +282,14 @@ public class OrderService {
         }
 
         routePointRepository.add(routePointList);
+
+        try {
+            mqProducerService.produceMessage("Create a new order");
+        } catch (IOException ioe) {
+            logger.error("IOException during MQ producing: " + ioe.getMessage());
+        } catch (TimeoutException te) {
+            logger.error("TimeoutException during MQ producing: " + te.getMessage());
+        }
     }
 
     @Loggable
@@ -336,6 +349,15 @@ public class OrderService {
     public void deleteOrder(Long id) {
         orderRepository.remove(id);
 
+        try {
+            mqProducerService.produceMessage("Delete an order with id=" + id);
+        } catch (IOException ioe) {
+            logger.error("IOException during MQ producing: " + ioe.getMessage());
+        } catch (TimeoutException te) {
+            logger.error("TimeoutException during MQ producing: " + te.getMessage());
+        }
+
+
     }
 
     @Loggable
@@ -357,6 +379,43 @@ public class OrderService {
         }
 
         return dtos;
+    }
+
+    @Loggable
+    public void deleteRoutePoint(String routePoint, RouteDTO routeDTO) {
+
+        List<RoutePointDTO> points = routeDTO.getRoutePoints();
+        RoutePointDTO deletePoint = null;
+        for (RoutePointDTO point : points) {
+            if (point.toString().equals(routePoint)) {
+                deletePoint = point;
+                if (deletePoint.getType().equals(RoutePointType.PICK_UP)) {
+                    if (point.getCargoDTO() == null) {
+
+                        points.remove(deletePoint);
+                        break;
+                    }
+                    Long weight = routeDTO.getWeight();
+                    weight -= deletePoint.getCargoDTO().getWeight();
+                    routeDTO.setWeight(weight);
+                }
+                if (deletePoint.getType().equals(RoutePointType.DROP_OFF)) {
+                    for (RoutePointDTO routePointDTO : points) {
+                        List<String> cargoes = deletePoint.getCargoesForDroppingOff();
+                        for (String cargo : cargoes) {
+                            if (routePointDTO.getCargoDTO().toString().equals(cargo)) {
+                                routePointDTO.getCargoDTO().setDropLocationSelected(false);
+
+                            }
+
+                        }
+
+                    }
+                }
+                points.remove(point);
+                break;
+            }
+        }
     }
 
 

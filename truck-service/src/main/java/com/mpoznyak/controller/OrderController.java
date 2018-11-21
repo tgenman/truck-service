@@ -28,7 +28,6 @@ import java.util.*;
 @SessionAttributes({"routeDTO", "orderDTO", "cargoes"})
 public class OrderController {
 
-
     @Autowired
     private OrderService orderService;
 
@@ -47,8 +46,6 @@ public class OrderController {
         return new ArrayList<>();
     }
 
-
-    //TODO implement
     @PostMapping(value = "save-order")
     public String saveOrder(@ModelAttribute("routeDTO") RouteDTO routeDTO,
                             @ModelAttribute("orderDTO") OrderDTO orderDTO,
@@ -103,38 +100,7 @@ public class OrderController {
                               Model model) {
 
 
-        List<RoutePointDTO> points = routeDTO.getRoutePoints();
-        RoutePointDTO deletePoint = null;
-        for (RoutePointDTO point : points) {
-            if (point.toString().equals(routePoint)) {
-                deletePoint = point;
-                if (deletePoint.getType().equals(RoutePointType.PICK_UP)) {
-                    if (point.getCargoDTO() == null) {
-
-                        points.remove(deletePoint);
-                        break;
-                    }
-                    Long weight = routeDTO.getWeight();
-                    weight -= deletePoint.getCargoDTO().getWeight();
-                    routeDTO.setWeight(weight);
-                }
-                if (deletePoint.getType().equals(RoutePointType.DROP_OFF)) {
-                    for (RoutePointDTO routePointDTO : points) {
-                        List<String> cargoes = deletePoint.getCargoesForDroppingOff();
-                        for (String cargo : cargoes) {
-                            if (routePointDTO.getCargoDTO().toString().equals(cargo)) {
-                                routePointDTO.getCargoDTO().setDropLocationSelected(false);
-
-                            }
-
-                        }
-
-                    }
-                }
-                points.remove(point);
-                break;
-            }
-        }
+        orderService.deleteRoutePoint(routePoint, routeDTO);
 
         model.addAttribute("route-point", new RoutePointDTO());
         return "redirect:order";
@@ -183,13 +149,6 @@ public class OrderController {
         model.addAttribute("trucks", orderService.getTrucksForOrder(weight));
         model.addAttribute("cities", orderService.getAllCitiesMap());
         return "redirect:order";
-    }
-
-    @Loggable
-    @PostMapping("/delete-order")
-    public String deleteOrder(@RequestParam("orderId") Long id) {
-        orderService.deleteOrder(id);
-        return "redirect:managerPage";
     }
 }
 

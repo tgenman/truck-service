@@ -40,14 +40,6 @@ public class DriverController {
     @Autowired
     private OrderService orderService;
 
-    @Autowired
-    private CityService cityService;
-
-    @Autowired
-    private TruckService truckService;
-
-
-
     @Loggable
     @GetMapping("{name}")
     public String showDriver(@PathVariable("name") String name, Model model) {
