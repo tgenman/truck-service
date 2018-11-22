@@ -19,9 +19,26 @@ import org.apache.log4j.Logger;
 public class DataLoader {
 
     private static final Logger logger = Logger.getLogger(DataLoader.class);
-
     private ObjectMapper mapper = new ObjectMapper();
     private Client client = new Client();
+    private static volatile DataLoader loader;
+
+    private DataLoader() {
+
+    }
+
+    public static DataLoader getInstance() {
+        DataLoader localInstance = loader;
+        if (localInstance == null) {
+            synchronized (DataLoader.class) {
+                localInstance = loader;
+                if (localInstance == loader) {
+                    localInstance = loader = new DataLoader();
+                }
+            }
+        }
+        return localInstance;
+    }
 
     public List<TempShift> getTempShifts() {
         String response = getResponse("http://localhost:8080/rest/temp-shift/list");

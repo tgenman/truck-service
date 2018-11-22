@@ -54,7 +54,7 @@ public class OrderController {
         orderService.saveOrder(routeDTO, orderDTO);
         sessionStatus.setComplete();
 
-        return "redirect:managerPage";
+        return "redirect:/management/manager";
     }
 
     @PostMapping(value = "abort-order")
@@ -62,7 +62,7 @@ public class OrderController {
 
         sessionStatus.setComplete();
 
-        return "redirect:managerPage";
+        return "redirect:/management/manager";
     }
 
     @Loggable

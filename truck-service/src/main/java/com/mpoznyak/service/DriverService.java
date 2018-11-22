@@ -117,7 +117,7 @@ public class DriverService {
         driverRepository.remove(id);
 
         try {
-            mqProducerService.produceMessage("Delete a driver with id=" + id);
+            mqProducerService.produceMessage("Deleted a driver with id=" + id);
         } catch (IOException ioe) {
             logger.error("IOException during MQ producing: " + ioe.getMessage());
         } catch (TimeoutException te) {
@@ -279,7 +279,7 @@ public class DriverService {
     @Loggable
     @Transactional
     public List<DriverDTORest> getAllDriversDTO() {
-        List<Driver> driverEntities = driverRepository.query();
+        List<Driver> driverEntities = driverRepository.queryExisted();
         List<DriverDTORest> driverDTOS = new ArrayList<>();
 
         for (Driver driverEntity : driverEntities) {
