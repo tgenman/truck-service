@@ -6,6 +6,7 @@ import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.mapper.TruckMapper;
 import com.mpoznyak.service.TruckService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/rest/truck")
+@RequestMapping("/api/truck")
 public class TruckControllerRest {
 
     @Autowired
@@ -26,6 +27,7 @@ public class TruckControllerRest {
 
     @Loggable
     @GetMapping("/list")
+    @Secured("ROLE_ADMIN")
     public List<TruckDTORest> getAllTrucks() {
         return truckService.getAllTrucksDTORest();
     }

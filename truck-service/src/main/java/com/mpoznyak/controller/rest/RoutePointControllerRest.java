@@ -5,6 +5,7 @@ import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.service.RoutePointService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/rest/route-point")
+@RequestMapping("/api/route-point")
 public class RoutePointControllerRest {
 
     @Autowired
@@ -23,6 +24,7 @@ public class RoutePointControllerRest {
 
     @GetMapping("/list")
     @Loggable
+    @Secured("ROLE_ADMIN")
     public List<RoutePointDTORest> getAllRoutePoints() {
         return routePointService.getAllRoutePointsDTORest();
     }

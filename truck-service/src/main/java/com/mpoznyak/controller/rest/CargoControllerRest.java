@@ -5,7 +5,9 @@ import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.service.CargoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
  * on 11/20/18  at 14:28
  */
 
+
 @RestController
-@RequestMapping("/rest/cargo")
+@CrossOrigin("http://localhost:8080")
+@RequestMapping("/api/cargo")
 public class CargoControllerRest {
 
     @Autowired
@@ -24,6 +28,7 @@ public class CargoControllerRest {
 
     @Loggable
     @GetMapping("/list")
+    @Secured("ROLE_ADMIN")
     public List<CargoDTORest> getAllCargoes() {
         return cargoService.getAllCargoesDTORest();
     }

@@ -1,15 +1,16 @@
 package com.mpoznyak.repository;
 
 import com.mpoznyak.model.Driver;
-import com.mpoznyak.model.Shift;
-import com.mpoznyak.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import org.springframework.stereotype.Repository;
+
+
 import java.util.Collections;
 import java.util.List;
 

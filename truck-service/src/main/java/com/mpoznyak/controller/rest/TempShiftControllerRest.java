@@ -5,6 +5,7 @@ import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.service.TempShiftService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/rest/temp-shift")
+@RequestMapping("/api/temp-shift")
 public class TempShiftControllerRest {
 
     @Autowired
@@ -23,6 +24,7 @@ public class TempShiftControllerRest {
 
     @GetMapping("/list")
     @Loggable
+    @Secured("ROLE_ADMIN")
     public List<TempShiftDTORest> getAllTempShifts() {
         return tempShiftService.getAllTempShiftsDTORest();
     }
