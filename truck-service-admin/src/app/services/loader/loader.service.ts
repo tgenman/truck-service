@@ -2,27 +2,43 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Cargo} from '../../model/cargo';
+import {catchError, map, share, tap} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
-import {catchError, map, tap} from 'rxjs/operators';
-
-const BASE_URL = 'http://localhost:8080/api';
+import {Driver} from '../../model/driver';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LoaderService {
 
+    BASE_URL = 'http://localhost:8080/api';
 
-    constructor(private http: HttpClient) {
+    constructor(private httpClient: HttpClient) {
     }
 
-    public getCargoes(cargoes) {
+
+    public getCargoes(): Observable<Cargo[]> {
         console.log('loader getCargoes');
-        this.http.get<Cargo[]>(`${BASE_URL}/cargo/list`)
-            .subscribe(updated_cargoes => {
-                cargoes = updated_cargoes;
-            });
+        return this.httpClient.get(`${this.BASE_URL}/cargo/list`)
+            .pipe(
+                map(response => {
+                    share();
+                    return response as Cargo[];
+                })
+            );
     }
+
+    public getDrivers(): Observable<Driver[]> {
+        console.log('loader getDrivers');
+        return this.httpClient.get(`${this.BASE_URL}/driver/list`)
+            .pipe(
+                map(response => {
+                    share();
+                    return response as Driver[];
+                })
+            );
+    }
+
 
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {LoaderService} from '../../services/loader/loader.service';
 import {Cargo} from '../../model/cargo';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {catchError} from 'rxjs/operators';
+import {Driver} from '../../model/driver';
 const BASE_URL = 'http://localhost:8080/api';
 
 
@@ -13,17 +15,14 @@ const BASE_URL = 'http://localhost:8080/api';
 })
 export class AdminCommonComponent implements OnInit {
 
-    cargoes: Cargo[];
+    public cargoes$: Observable<Cargo[]>;
+    public drivers$: Observable<Driver[]>;
 
   constructor(private loader: LoaderService, private http: HttpClient) { }
 
   ngOnInit() {
-  }
-
-  public getCargoes(): void {
-      console.log('admin-common: getCargoes() clicked');
-      this.loader.getCargoes(this.cargoes);
-      console.log(this.cargoes);
+      this.cargoes$ = this.loader.getCargoes();
+      this.drivers$ = this.loader.getDrivers();
   }
 
 }

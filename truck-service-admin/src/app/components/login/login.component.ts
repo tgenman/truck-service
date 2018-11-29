@@ -15,7 +15,7 @@ export class LoginComponent {
 
     login() {
         this.auth.authenticate(this.credentials, () => {
-            this.router.navigateByUrl('/admin-common');
+            this.router.navigateByUrl('/dashboard');
         });
         return false;
     }

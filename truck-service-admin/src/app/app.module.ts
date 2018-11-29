@@ -13,12 +13,7 @@ import {AuthenticationService} from './services/authentication/authentication.se
 import {RoutingModule} from './app.routing';
 import {AdminCommonComponent} from './components/admin-common/admin-common.component';
 import {XhrInterceptor} from './interceptors/xhr.interceptor';
-
-const routes: Routes = [
-    {path: '', pathMatch: 'full', redirectTo: 'home'},
-    {path: 'home', component: HomeComponent},
-    {path: 'login', component: LoginComponent}
-];
+import {AuthGuard} from './guards/AuthGuard';
 
 @NgModule({
     declarations: [

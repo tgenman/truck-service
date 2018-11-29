@@ -1,8 +1,14 @@
 <p>
     admin-common works!
 </p>
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let cargo of cargoes$ | async">
+        {{ cargo.name }} - {{ cargo.weight }}
+    </li>
+</ul>
 
-<button (click)="getCargoes()">Load cargoes</button>
-<br>
-<p>{{cargoes}}</p>
-
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let driver of drivers$ | async">
+        {{driver.firstName}} - {{driver.lastName}}
+    </li>
+</ul>

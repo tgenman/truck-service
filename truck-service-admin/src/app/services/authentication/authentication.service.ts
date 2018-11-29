@@ -23,9 +23,8 @@ export class AuthenticationService {
         this.http.get(`${URL}/api/user`, {headers: headers}).subscribe(response => {
             if (response['name']) {
                 this.authenticated = true;
-
                 localStorage.setItem('currentUser', JSON.stringify(btoa(credentials.username + ':' + credentials.password)));
-                this.router.navigateByUrl('/admin-common');
+                this.router.navigateByUrl('/dashboard');
             } else {
                 this.authenticated = false;
             }
