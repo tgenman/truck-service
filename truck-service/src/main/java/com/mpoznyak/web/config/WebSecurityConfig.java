@@ -1,15 +1,14 @@
-package com.mpoznyak.configuration.security;
+package com.mpoznyak.web.config;
 
-import com.mpoznyak.configuration.CustomAuthenticationSuccessHandler;
 import com.mpoznyak.logging.annotation.Loggable;
-import com.mpoznyak.service.UserDetailsServiceImpl;
+import com.mpoznyak.web.LogoutSuccess;
 import java.util.Arrays;
-import java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -23,12 +22,11 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * Created by Max Poznyak
@@ -43,6 +41,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean()
+            throws Exception {
+        return super.authenticationManagerBean();
+    }
+
     @Configuration
     @Order(1)
     public class ApiWebSecurity extends WebSecurityConfigurerAdapter {
@@ -54,13 +59,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
         }
 
+        @Autowired
+        private LogoutSuccess logoutSuccess;
+
         @Override
         @Loggable
         protected void configure(HttpSecurity http) throws Exception {
-            http.cors().and().antMatcher("/api/**")
-                    .authorizeRequests()
-                    .anyRequest()
-                    .access("hasRole('ADMIN')")
+            http.cors().and().authorizeRequests()
+                    .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                    .antMatchers("/api/**").access("hasRole('ADMIN')")
+                    .and()
+                    .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
+                    .logoutSuccessHandler(logoutSuccess)
+                    .deleteCookies("JSESSIONID").invalidateHttpSession(false)
+                    .permitAll()
                     .and()
                     .httpBasic()
                     .authenticationEntryPoint(authenticationEntryPoint()).and().csrf().disable();
@@ -77,30 +90,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfigurationSource corsConfigurationSource() {
             CorsConfiguration configuration = new CorsConfiguration();
             configuration.setAllowCredentials(true);
+            configuration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
+            configuration.setMaxAge(3600L);
             configuration.setAllowedOrigins(Arrays.asList("*"));
             configuration.setAllowedHeaders(Arrays.asList("*"));
             configuration.addAllowedMethod("GET");
             configuration.addAllowedMethod("PUT");
             configuration.addAllowedMethod("POST");
             configuration.addAllowedMethod("DELETE");
+            configuration.addAllowedMethod("OPTIONS");
             UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
             source.registerCorsConfiguration("/**", configuration);
             return source;
         }
-
-        @Bean
-        @Override
-        public AuthenticationManager authenticationManagerBean()
-                throws Exception {
-            return super.authenticationManagerBean();
-        }
-
-        @Bean
-        public AuthenticationEntryPoint loginUrlAuthenticationEntryPoint() {
-            return new LoginUrlAuthenticationEntryPoint("/auth");
-        }
-
-
     }
 
     @Configuration
@@ -143,13 +145,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .deleteCookies("JSESSIONID")
                     .permitAll()
                     .and().exceptionHandling().accessDeniedPage("/access-denied");
-        }
-
-        @Bean
-        @Override
-        public AuthenticationManager authenticationManagerBean()
-                throws Exception {
-            return super.authenticationManagerBean();
         }
 
     }

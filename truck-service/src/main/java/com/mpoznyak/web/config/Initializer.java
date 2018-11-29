@@ -1,6 +1,5 @@
-package com.mpoznyak.configuration;
+package com.mpoznyak.web.config;
 
-import com.mpoznyak.configuration.security.WebSecurityConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**

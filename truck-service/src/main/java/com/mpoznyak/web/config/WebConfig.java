@@ -1,4 +1,4 @@
-package com.mpoznyak.configuration;
+package com.mpoznyak.web.config;
 
 import com.mpoznyak.mapper.TruckMapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,6 +51,7 @@ public class WebConfig implements WebMvcConfigurer {
         configurer.enable();
     }
 
+    /*
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "POST", "OPTIONS", "PUT")
@@ -59,6 +60,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .exposedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials")
                 .allowCredentials(true).maxAge(3600);
     }
+    */
+
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {

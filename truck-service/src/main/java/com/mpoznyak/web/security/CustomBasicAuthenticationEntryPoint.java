@@ -1,4 +1,4 @@
-package com.mpoznyak.configuration.security;
+package com.mpoznyak.web.security;
 
 import java.io.IOException;
 import java.io.PrintWriter;

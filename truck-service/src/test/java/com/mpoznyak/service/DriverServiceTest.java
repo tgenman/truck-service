@@ -1,7 +1,7 @@
 package com.mpoznyak.service;
 
-import com.mpoznyak.configuration.RepositoryConfig;
-import com.mpoznyak.configuration.WebConfig;
+import com.mpoznyak.web.config.RepositoryConfig;
+import com.mpoznyak.web.config.WebConfig;
 import com.mpoznyak.model.Driver;
 import org.junit.Test;
 import org.junit.runner.RunWith;

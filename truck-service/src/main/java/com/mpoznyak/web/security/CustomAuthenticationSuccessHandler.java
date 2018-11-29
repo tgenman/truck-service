@@ -1,4 +1,4 @@
-package com.mpoznyak.configuration;
+package com.mpoznyak.web.security;
 
 import com.mpoznyak.logging.annotation.Loggable;
 import org.springframework.security.core.Authentication;

@@ -1,4 +1,4 @@
-package com.mpoznyak.configuration.security;
+package com.mpoznyak.web.security;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
