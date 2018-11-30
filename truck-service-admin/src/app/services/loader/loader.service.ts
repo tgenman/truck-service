@@ -5,6 +5,12 @@ import {Cargo} from '../../model/cargo';
 import {catchError, map, share, tap} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 import {Driver} from '../../model/driver';
+import {Customer} from '../../model/customer';
+import {Order} from '../../model/order';
+import {RoutePoint} from '../../model/routepoint';
+import {Shift} from '../../model/shift';
+import {Tempshift} from '../../model/tempshift';
+import {Truck} from '../../model/truck';
 
 @Injectable({
     providedIn: 'root'
@@ -35,6 +41,71 @@ export class LoaderService {
                 map(response => {
                     share();
                     return response as Driver[];
+                })
+            );
+    }
+
+    public getCustomers(): Observable<Customer[]> {
+        return this.httpClient.get(`${this.BASE_URL}/customer/list`)
+            .pipe(
+                map(response => {
+                    share();
+                    return response as Customer[];
+                })
+            );
+    }
+
+    public getOrders(): Observable<Order[]> {
+        return this.httpClient.get(`${this.BASE_URL}/order/list`)
+            .pipe(
+                map(response => {
+                    share();
+                    console.log(response);
+                    return response as Order[];
+                })
+            );
+    }
+
+    public getRoutePoints(): Observable<RoutePoint[]> {
+        return this.httpClient.get(`${this.BASE_URL}/route-point/list`)
+            .pipe(
+                map(response => {
+                    share();
+                    console.log(response);
+                    return response as RoutePoint[];
+                })
+            );
+    }
+
+    public getShifts(): Observable<Shift[]> {
+        return this.httpClient.get(`${this.BASE_URL}/shift/list`)
+            .pipe(
+                map(response => {
+                    share();
+                    console.log(response);
+                    return response as Shift[];
+                })
+            );
+    }
+
+    public getTempShifts(): Observable<Tempshift[]> {
+        return this.httpClient.get(`${this.BASE_URL}/temp-shift/list`)
+            .pipe(
+                map(response => {
+                    share();
+                    console.log(response);
+                    return response as Tempshift[];
+                })
+            );
+    }
+
+    public getTrucks(): Observable<Truck[]> {
+        return this.httpClient.get(`${this.BASE_URL}/truck/list`)
+            .pipe(
+                map(response => {
+                    share();
+                    console.log(response);
+                    return response as Truck[];
                 })
             );
     }

@@ -1,4 +1,4 @@
-export interface Cargo {
+export class Cargo {
     id: number;
     name: string;
     weight: number;

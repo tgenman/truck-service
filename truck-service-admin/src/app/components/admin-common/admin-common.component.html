@@ -12,3 +12,43 @@
         {{driver.firstName}} - {{driver.lastName}}
     </li>
 </ul>
+
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let customer of customers$ | async">
+        {{customer.id}} - {{customer.name}}
+    </li>
+</ul>
+
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let order of orders$ | async">
+       <p> ORDER: {{order.id}} - as{{order.driversId.entries()}}
+           : {{order.status}} - {{order.date}} </p>
+    </li>
+</ul>
+
+
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let point of routePoints$ | async">
+        <p> ORDER: {{point.id}} - as{{point.cargoesForDropId.entries()}}
+            : {{point.type}} - {{point.cityName}} </p>
+    </li>
+</ul>
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let shift of shifts$ | async">
+        <p> SHIFT: {{shift.id}} - as{{shift.monthEndAt}}
+            : {{shift.monthEndAt}} - {{shift.weeklyRest}} </p>
+    </li>
+</ul>
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let tempshift of tempShifts$ | async">
+        <p> SHIFT: {{tempshift.startTempShift}} - as{{tempshift.startDate}}
+            : {{tempshift.id}}
+    </li>
+</ul>
+
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let tempshift of trucks$ | async">
+        <p> SHIFT: {{tempshift.brand}} - as{{tempshift.model}}
+            : {{tempshift.free}} {{tempshift.licensePlate}}
+    </li>
+</ul>
