@@ -32,17 +32,11 @@ import java.util.List;
  * on 23/10/2018  at 02:26
  */
 @RestController
-@CrossOrigin("http://localhost:8080")
 @RequestMapping("/api/driver")
 public class DriverControllerRest {
 
-    private final DriverService driverService;
-
-
     @Autowired
-    public DriverControllerRest(DriverService driverService) {
-        this.driverService = driverService;
-    }
+    private DriverService driverService;
 
     @Loggable
     @GetMapping("/list")

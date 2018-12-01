@@ -9,6 +9,7 @@ import {RoutePoint} from '../../model/routepoint';
 import {Shift} from '../../model/shift';
 import {Tempshift} from '../../model/tempshift';
 import {Truck} from '../../model/truck';
+import {Driver} from '../../model/driver';
 const BASE_URL = 'http://localhost:8080/api';
 
 
@@ -26,8 +27,10 @@ export class DashboardComponent implements OnInit {
     public shifts$: Observable<Shift[]>;
     public tempShifts$: Observable<Tempshift[]>;
     public trucks$: Observable<Truck[]>;
+    drivers$: Observable<Driver[]>;
 
-  constructor(private loader: LoaderService, private http: HttpClient) { }
+
+    constructor(private loader: LoaderService, private http: HttpClient) { }
 
   ngOnInit() {
       this.cargoes$ = this.loader.getCargoes();
@@ -37,6 +40,7 @@ export class DashboardComponent implements OnInit {
       this.shifts$ = this.loader.getShifts();
       this.tempShifts$ = this.loader.getTempShifts();
       this.trucks$ = this.loader.getTrucks();
+      this.drivers$ = this.loader.getDrivers();
 
   }
 

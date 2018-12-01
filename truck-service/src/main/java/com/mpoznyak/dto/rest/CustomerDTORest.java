@@ -7,7 +7,7 @@ package com.mpoznyak.dto.rest;
 
 public class CustomerDTORest {
 
-    private Long id;
+    private Long  id;
     private String name;
 
     public Long getId() {

@@ -14,7 +14,6 @@ import {RoutingModule} from './app.routing';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {XhrInterceptor} from './interceptors/xhr.interceptor';
 import {AuthGuard} from './guards/auth-guard';
-import { DriverTableComponent } from './components/driver-table/driver-table.component';
 
 @NgModule({
     declarations: [
@@ -22,7 +21,6 @@ import { DriverTableComponent } from './components/driver-table/driver-table.com
         HomeComponent,
         LoginComponent,
         DashboardComponent,
-        DriverTableComponent,
     ],
     imports: [
         BrowserModule,
