@@ -40,6 +40,7 @@ export class LoaderService {
             .pipe(
                 map(response => {
                     share();
+                    console.log(response);
                     return response as Driver[];
                 })
             );

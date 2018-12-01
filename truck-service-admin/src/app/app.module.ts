@@ -11,16 +11,18 @@ import {HomeComponent} from './components/home/home.component';
 import {LoginComponent} from './components/login/login.component';
 import {AuthenticationService} from './services/authentication/authentication.service';
 import {RoutingModule} from './app.routing';
-import {AdminCommonComponent} from './components/admin-common/admin-common.component';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {XhrInterceptor} from './interceptors/xhr.interceptor';
-import {AuthGuard} from './guards/AuthGuard';
+import {AuthGuard} from './guards/auth-guard';
+import { DriverTableComponent } from './components/driver-table/driver-table.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
         LoginComponent,
-        AdminCommonComponent,
+        DashboardComponent,
+        DriverTableComponent,
     ],
     imports: [
         BrowserModule,

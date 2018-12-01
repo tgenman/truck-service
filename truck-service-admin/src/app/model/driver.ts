@@ -4,7 +4,7 @@ export class Driver {
     lastName: string;
     status: string;
     city: string;
-    truckId: number;
-    orderId: number;
-    shiftId: number;
+    truck: number;
+    order: number;
+    shift: number;
 }
