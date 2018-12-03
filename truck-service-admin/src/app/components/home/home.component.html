@@ -1,8 +1,12 @@
 <h1>Greeting</h1>
+<ul class="nav nav-pills">
+    <li><a routerLinkActive="active" routerLink="/home">Home</a></li>
+</ul>
 <div [hidden]="!authenticated()">
-    <p>The ID is {{greeting.id}}</p>
-    <p>The content is {{greeting.content}}</p>
+    <a routerLinkActive="active" routerLink="/dashboard">Go to Dashboard</a>
+    <button class="btn btn-primary" (click)="logout()">Logout</button>
 </div>
 <div [hidden]="authenticated()">
     <p>Login to see your greeting</p>
+    <li><a routerLinkActive="active" routerLink="/login">Login</a></li>
 </div>

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@CrossOrigin("http://localhost:8080")
 @RequestMapping("/api/cargo")
 public class CargoControllerRest {
 

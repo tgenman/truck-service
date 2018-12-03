@@ -4,17 +4,18 @@ import {LoginComponent} from './components/login/login.component';
 import {HomeComponent} from './components/home/home.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {AuthGuard} from './guards/auth-guard';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
 
 
 const routes: Routes = [
     { path: 'login', component: LoginComponent},
-    { path: '', component: HomeComponent},
-    {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
+    { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
 
 ];
 
 @NgModule({
-    imports: [ RouterModule.forRoot(routes) ],
+    imports: [ RouterModule.forRoot(routes)],
     exports: [
         RouterModule
     ]

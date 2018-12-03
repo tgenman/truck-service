@@ -79,6 +79,13 @@ public class DriverService {
 
     @Loggable
     @Transactional
+    public void addDriver(DriverDTORest driverDTORest) {
+        DriverDTO driverDTO = driverMapper.mapToDriverDTOFrom(driverDTORest);
+        addDriver(driverDTO);
+    }
+
+    @Loggable
+    @Transactional
     public void addDriver(DriverDTO driverDTO) {
         Shift shift = new Shift();
         shiftRepository.add(shift);
@@ -196,6 +203,24 @@ public class DriverService {
         }
     }
 
+    @Loggable
+    @Transactional
+    public void updateDriver(DriverDTORest driver) {
+
+        DriverDTO driver1 = driverMapper.mapToDriverDTOFrom(driver);
+        updateDriver(driver1);
+
+        try {
+            mqProducerService.produceMessage("Update a driver with id=" + driver.getId());
+        } catch (IOException ioe) {
+            logger.error("IOException during MQ producing: " + ioe.getMessage());
+        } catch (TimeoutException te) {
+            logger.error("TimeoutException during MQ producing: " + te.getMessage());
+        }
+    }
+
+    @Loggable
+    @Transactional
     public Driver getDriverForId(Long driverId) {
         List<Driver> drivers = getAllDrivers();
         Driver driver = null;
@@ -205,6 +230,14 @@ public class DriverService {
             }
         }
         return driver;
+    }
+
+    @Loggable
+    @Transactional
+    public DriverDTORest getDriverDTORestById(Long id) {
+        Driver driver = getDriverForId(id);
+        DriverDTORest dto = driverMapper.mapToDTORestFrom(driver);
+        return dto;
     }
 
     @Loggable

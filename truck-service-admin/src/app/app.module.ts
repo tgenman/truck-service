@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
 import {AppComponent} from './app.component';
@@ -13,7 +13,11 @@ import {AuthenticationService} from './services/authentication/authentication.se
 import {RoutingModule} from './app.routing';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {XhrInterceptor} from './interceptors/xhr.interceptor';
-import {AuthGuard} from './guards/auth-guard';
+import { OrderTableComponent } from './components/order-table/order-table.component';
+import { DriverTableComponent } from './components/driver-table/driver-table.component';
+import {NgxSmartModalModule} from 'ngx-smart-modal';
+import { NewDriverFormComponent } from './components/new-driver-form/new-driver-form.component';
+import { UpdateDriverFormComponent } from './components/update-driver-form/update-driver-form.component';
 
 @NgModule({
     declarations: [
@@ -21,12 +25,17 @@ import {AuthGuard} from './guards/auth-guard';
         HomeComponent,
         LoginComponent,
         DashboardComponent,
+        OrderTableComponent,
+        DriverTableComponent,
+        NewDriverFormComponent,
+        UpdateDriverFormComponent,
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpClientModule,
-        RoutingModule
+        RoutingModule,
+        NgxSmartModalModule.forRoot(),
     ],
     providers: [AuthenticationService, {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true}],
     bootstrap: [AppComponent]

@@ -1,0 +1,46 @@
+<div class="card">
+    <div class="card-header card-header-warning">
+        <h4 class="card-title">Drivers</h4>
+    </div>
+    <div class="card-body table-responsive">
+        <button class="btn btn-warning" (click)="ngxSmartModalService.getModal('newDriverModal').open()">
+            New Driver
+        </button>
+        <ngx-smart-modal #newDriverModal identifier="newDriverModal">
+            <app-new-driver-form></app-new-driver-form>
+        </ngx-smart-modal>
+        <ngx-smart-modal #updateDriverModal identifier="updateDriverModal">
+            <app-update-driver-form [selectedId]="selectedDriverId"></app-update-driver-form>
+        </ngx-smart-modal>
+
+        <table class="table table-hover">
+            <thead class="text-warning">
+            <th>ID</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Truck ID</th>
+            <th>Order ID</th>
+            <th></th>
+            <th></th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let driver of drivers$ | async">
+                <td>{{driver.id}}</td>
+                <td>{{driver.firstName}} {{driver.lastName}}</td>
+                <td>{{driver.status}}</td>
+                <td>
+                    {{driver.truck}}
+                </td>
+                <td>{{driver.order}}</td>
+
+                <td>
+                    <button class="btn btn-sm btn-warning" (click)="onClickUpdate(driver.id)">UPDATE</button>
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-danger" (click)="deleteDriver(driver.id)">DELETE</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

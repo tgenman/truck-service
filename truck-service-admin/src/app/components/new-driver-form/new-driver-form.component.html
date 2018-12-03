@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <h3>Create a new driver</h3>
+</div>
+<form (ngSubmit)="onSubmit()" #newDriverForm="ngForm">
+    <div class="form-group">
+        <label for="fn">First Name</label>
+        <input type="text" class="form-control" id="fn" required
+               [(ngModel)]="driver.firstName" [ngModelOptions]="{standalone: true}" name="th" #fnFirstName="ngModel">
+        <div [hidden]="fnFirstName.valid || fnFirstName.pristine"
+             class="alert alert-danger">
+            First Name is required
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="sn">Last Name</label>
+        <input type="text" class="form-control" id="sn" required
+               [(ngModel)]="driver.lastName" [ngModelOptions]="{standalone: true}" name="th" #snLastName="ngModel">
+        <div [hidden]="snLastName.valid || snLastName.pristine"
+             class="alert alert-danger">
+            Last Name is required
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="ct">City</label>
+        <select required="required" class="bootstrap-select" [(ngModel)]="driver.city" [ngModelOptions]="{standalone: true}" id="ct">
+            <option *ngFor="let c of cities$ | async" [ngValue]="c.name">{{c.name}}</option>
+        </select>
+    </div>
+    <input [disabled]="false" type="submit" value="Submit">
+</form>

@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-header card-header-warning">
+    <h4 class="card-title">Orders</h4>
+  </div>
+  <div class="card-body table-responsive">
+    <table class="table table-hover">
+      <thead class="text-warning">
+      <th>ID</th>
+      <th>Customer</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th>Drivers ID</th>
+      <th>Truck ID</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let order of orders$ | async">
+        <td>{{order.id}}</td>
+        <td>{{order.customerId}}</td>
+        <td>{{order.date}}</td>
+        <td>{{order.status}}</td>
+        <td>{{order.driversId}}</td>
+        <td>{{order.truckId}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

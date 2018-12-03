@@ -1,0 +1,33 @@
+<div class="modal-header">
+  <h3>Update a driver</h3>
+  <button class="btn btn-outline-warning btn-sm" (click)="updateData()">Reload</button>
+</div>
+<form (ngSubmit)="onSubmitUpdate()" #updateDriverForm="ngForm">
+  <div class="form-group">
+    <label for="fn1">First Name</label>
+    <input type="text" class="form-control" id="fn1" required
+           [(ngModel)]="driverUpdated.firstName" [ngModelOptions]="{standalone: true}" name="th"
+           #fn1FirstName="ngModel">
+    <div [hidden]="fn1FirstName.valid || fn1FirstName.pristine"
+         class="alert alert-danger">
+      First Name is required
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="sn1">Last Name</label>
+    <input type="text" class="form-control" id="sn1" required
+           [(ngModel)]="driverUpdated.lastName" [ngModelOptions]="{standalone: true}" name="th"
+           #sn1LastName="ngModel">
+    <div [hidden]="sn1LastName.valid || sn1LastName.pristine"
+         class="alert alert-danger">
+      Last Name is required
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="ct1">City</label>
+    <select required="required" class="bootstrap-select" [(ngModel)]="driverUpdated.city" [ngModelOptions]="{standalone: true}" id="ct1">
+      <option *ngFor="let c of cities$ | async">{{c.name}}</option>
+    </select>
+  </div>
+  <input [disabled]="false" type="submit" value="Submit">
+</form>

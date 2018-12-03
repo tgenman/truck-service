@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import {AuthenticationService} from '../../services/authentication/authentication.service';
 
 @Component({
-    templateUrl: './login.component.html'
+    templateUrl: './login.component.html',
+    styleUrls: ['../../../assets/css/material-dashboard.min.css']
 })
 export class LoginComponent {
 

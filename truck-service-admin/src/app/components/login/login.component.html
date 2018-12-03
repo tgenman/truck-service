@@ -1,14 +1,32 @@
-<div class="alert alert-danger" [hidden]="!error">
-    There was a problem logging in. Please try again.
+<div class="page-header header-filter"
+     style="background-image: url('../../../assets/img/bg.jpg'); background-size: cover; background-position: top center;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+                <div class="card card-login">
+                    <form role="form" class="form" (submit)="login()">
+                        <div class="card-header card-header-primary text-center">
+                            <h4 class="card-title">Login</h4>
+                        </div>
+                        <div class="card-body">
+                            <label for="username">Username:</label> <input type="text"
+                                                                           class="form-control" id="username"
+                                                                           name="username"
+                                                                           [(ngModel)]="credentials.username"/>
+
+                            <label for="password">Password:</label> <input type="password"
+                                                                           class="form-control" id="password"
+                                                                           name="password"
+                                                                           [(ngModel)]="credentials.password"/>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-wd btn-lg">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+    </footer>
 </div>
-<form role="form" (submit)="login()">
-    <div class="form-group">
-        <label for="username">Username:</label> <input type="text"
-                                                       class="form-control" id="username" name="username" [(ngModel)]="credentials.username"/>
-    </div>
-    <div class="form-group">
-        <label for="password">Password:</label> <input type="password"
-                                                       class="form-control" id="password" name="password" [(ngModel)]="credentials.password"/>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
