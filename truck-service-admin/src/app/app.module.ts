@@ -21,6 +21,9 @@ import { UpdateDriverFormComponent } from './components/update-driver-form/updat
 import { TruckTableComponent } from './components/truck-table/truck-table.component';
 import { UpdateTruckFormComponent } from './components/update-truck-form/update-truck-form.component';
 import { NewTruckFormComponent } from './components/new-truck-form/new-truck-form.component';
+import { ManagerTableComponent } from './components/manager-table/manager-table.component';
+import { NewManagerFormComponent } from './components/new-manager-form/new-manager-form.component';
+import { UpdateManagerFormComponent } from './components/update-manager-form/update-manager-form.component';
 
 @NgModule({
     declarations: [
@@ -35,6 +38,9 @@ import { NewTruckFormComponent } from './components/new-truck-form/new-truck-for
         TruckTableComponent,
         UpdateTruckFormComponent,
         NewTruckFormComponent,
+        ManagerTableComponent,
+        NewManagerFormComponent,
+        UpdateManagerFormComponent,
     ],
     imports: [
         BrowserModule,

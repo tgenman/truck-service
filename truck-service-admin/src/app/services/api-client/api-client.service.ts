@@ -26,6 +26,7 @@ import {Tempshift} from '../../model/tempshift';
 import {Truck} from '../../model/truck';
 import {tryCatch} from 'rxjs/internal-compatibility';
 import {City} from '../../model/city';
+import {Manager} from '../../model/manager';
 
 @Injectable({
     providedIn: 'root'
@@ -40,6 +41,36 @@ export class ApiClientService {
 
 
     constructor(private httpClient: HttpClient) {
+    }
+
+
+    public addNewManager(manager: Manager) {
+        console.log('Send manager ' + JSON.stringify(manager));
+        this.httpClient.put(`${this.BASE_URL}/manager/new`, manager, this.httpOptions)
+            .subscribe(res => console.log(res));
+    }
+
+    public deleteManager(id: number) {
+        const url = `${this.BASE_URL}/manager/${id}`;
+        console.log(url);
+        return this.httpClient.delete<Manager>(url, this.httpOptions)
+            .subscribe(res => console.log(res));
+    }
+
+    public updateManager(manager: Manager) {
+        this.httpClient.post(`${this.BASE_URL}/manager/update`, manager, this.httpOptions)
+            .subscribe(res => console.log(res));
+    }
+
+    public getManagerById(id: number): Observable<Manager> {
+        return  this.httpClient
+            .get(`${this.BASE_URL}/manager/${id}`)
+            .pipe(
+                map(res => {
+                    console.log('getManagerById ' + JSON.stringify(res));
+                    return res as Manager;
+                })
+            );
     }
 
     public addNewTruck(truck: Truck) {
@@ -242,6 +273,25 @@ export class ApiClientService {
             retryWhen(err => {
                 return err.pipe(
                     tap(() => console.log('retrying tempshifts request...'))
+                );
+            })
+        );
+    }
+
+    public getManagers(): Observable<Manager[]> {
+        return interval(7000).pipe(
+            startWith(0),
+            tap(() => console.log('execute getManagers()')),
+            switchMap(() => this.httpClient
+                .get(`${this.BASE_URL}/manager/list`)),
+            map(res => {
+                console.log('Empty ' + res);
+                return res as Manager[];
+            }),
+            shareReplay(),
+            retryWhen(err => {
+                return err.pipe(
+                    tap(() => console.log('retrying managers request...'))
                 );
             })
         );

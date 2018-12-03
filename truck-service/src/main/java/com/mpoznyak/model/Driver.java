@@ -46,7 +46,7 @@ public class Driver {
     @Column(name = "deleted")
     private Boolean deleted = false;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 

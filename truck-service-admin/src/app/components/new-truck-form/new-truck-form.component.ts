@@ -37,7 +37,7 @@ export class NewTruckFormComponent implements OnInit {
         this.truck.brand = '';
         this.truck.model = '';
         this.truck.licensePlate = '';
-        this.truck.licensePlate = '';
+        this.truck.capacity = 0;
     }
 
 }

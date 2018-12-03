@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h3>Update the Manager</h3>
+</div>
+<button class="btn btn-outline-warning btn-sm" (click)="updateData()">Reload</button>
+<form (ngSubmit)="onSubmitUpdate()" #updateManagerForm="ngForm">
+    <div class="form-group">
+        <label for="fnm">First Name</label>
+        <input type="text" class="form-control" id="fnm" required
+               [(ngModel)]="managerUpdated.firstName" [ngModelOptions]="{standalone: true}" name="th" #manager="ngModel">
+        <div [hidden]="manager.valid || manager.pristine"
+             class="alert alert-danger">
+            First name is required
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="lnm">Last Name</label>
+        <input type="text" class="form-control" id="lnm" required
+               [(ngModel)]="managerUpdated.lastName" [ngModelOptions]="{standalone: true}" name="th" #lastname="ngModel">
+        <div [hidden]="lastname.valid || lastname.pristine"
+             class="alert alert-danger">
+            Last name is required
+        </div>
+    </div>
+    <input [disabled]="!reloaded" class="btn btn-warning" type="submit" value="Submit">
+</form>

@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h3>Create a new manager</h3>
+</div>
+<form (ngSubmit)="onSubmit()" #newManagerForm="ngForm">
+  <div class="form-group">
+    <label for="fn1m">First Name</label>
+    <input type="text" class="form-control" id="fn1m" required
+           [(ngModel)]="manager.firstName" [ngModelOptions]="{standalone: true}" name="th" #ma1nager="ngModel">
+    <div [hidden]="ma1nager.valid || ma1nager.pristine"
+         class="alert alert-danger">
+      First name is required
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="lnm">Last Name</label>
+    <input type="text" class="form-control" id="lnm" required
+           [(ngModel)]="manager.lastName" [ngModelOptions]="{standalone: true}" name="th" #la1stname="ngModel">
+    <div [hidden]="la1stname.valid || la1stname.pristine"
+         class="alert alert-danger">
+      Last name is required
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="license">Username (company ID)</label>
+    <input type="text" class="form-control" id="license" required
+           [(ngModel)]="manager.username" [ngModelOptions]="{standalone: true}" name="th" #us1ername="ngModel">
+    <div [hidden]="us1ername.valid || us1ername.pristine"
+         class="alert alert-danger">
+      Username is required
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="capacity">Password</label>
+    <input type="password" class="form-control" id="capacity" required
+           [(ngModel)]="manager.password" [ngModelOptions]="{standalone: true}" name="th" #pa1ssword="ngModel">
+    <div [hidden]="pa1ssword.valid || pa1ssword.pristine"
+         class="alert alert-danger">
+      Password is required
+    </div>
+  </div>
+  <input [disabled]="false" class="btn btn-warning" type="submit" value="Submit">
+</form>

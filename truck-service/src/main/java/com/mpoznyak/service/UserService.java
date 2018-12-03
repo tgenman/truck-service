@@ -33,6 +33,13 @@ public class UserService {
         return null;
     }
 
+    @Loggable
+    @Transactional
+    public void addNewUser(User user) {
+        userRepository.add(user);
+    }
+
+    @Loggable
     @Transactional
     public void addNewUser(UserDTO userDTO) {
         User user = new User();

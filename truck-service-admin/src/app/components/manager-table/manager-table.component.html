@@ -1,0 +1,41 @@
+<div class="card">
+    <div class="card-header card-header-warning">
+        <h4 class="card-title">Managers</h4>
+    </div>
+    <div class="card-body table-responsive">
+        <button class="btn btn-warning" (click)="ngxSmartModalService.getModal('newManagerModal').open()">
+            New manager
+        </button>
+        <ngx-smart-modal #newManagerModal identifier="newManagerModal">
+            <app-new-manager-form></app-new-manager-form>
+        </ngx-smart-modal>
+        <ngx-smart-modal #updateManagerModal identifier="updateManagerModal">
+            <app-update-manager-form [selectedId]="selectedManagerId"></app-update-manager-form>
+        </ngx-smart-modal>
+
+        <table class="table table-hover">
+            <thead class="text-warning">
+            <th>ID</th>
+            <th>Name</th>
+            <th>Credentials</th>
+            <th></th>
+            <th></th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let manager of managers$ | async">
+                <td>{{manager.id}}</td>
+                <td>{{manager.firstName}} {{manager.lastName}}</td>
+                <td>
+                    <button class="btn btn-sm btn-primary" (click)="onClickCredentials(manager.id)">CREDENTIALS</button>
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-warning" (click)="onClickUpdate(manager.id)">UPDATE</button>
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-danger" (click)="deleteManager(manager.id)">DELETE</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

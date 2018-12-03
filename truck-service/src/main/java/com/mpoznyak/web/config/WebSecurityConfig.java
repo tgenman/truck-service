@@ -59,6 +59,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
         }
 
+
+        @Autowired
+        private AuthenticationSuccessHandler successHandler;
+
         @Autowired
         private LogoutSuccess logoutSuccess;
 
@@ -68,15 +72,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             http.cors().and().authorizeRequests()
                     .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                     .antMatchers("/api/**").access("hasRole('ADMIN')")
+                    .antMatchers("/", "/login", "/home", "/static/**").permitAll()
+                    .antMatchers("/management/**").access("hasRole('MANAGER') OR hasRole('ADMIN')")
+                    .antMatchers("/driver/**").access("hasRole('DRIVER') OR hasRole('ADMIN')")
+                    .and()
+                    .formLogin()
+                    .loginPage("/login")
+                    .usernameParameter("login")
+                    .passwordParameter("password")
+                    .successHandler(successHandler)
+                    .failureUrl("/login?error=true")
                     .and()
                     .logout()
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
-                    .logoutSuccessHandler(logoutSuccess)
-                    .deleteCookies("JSESSIONID").invalidateHttpSession(false)
+                    //.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
+                    //.logoutSuccessUrl("redirect:home").permitAll()
+                    //.logoutSuccessHandler(logoutSuccess)
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID")
                     .permitAll()
+                    .and().exceptionHandling().accessDeniedPage("/access-denied")
                     .and()
                     .httpBasic()
-                    .authenticationEntryPoint(authenticationEntryPoint()).and().csrf().disable();
+                    .authenticationEntryPoint(authenticationEntryPoint())
+                    .and()
+                    .csrf()
+                    .disable()
+
+
+            ;
         }
 
         @Bean
@@ -105,6 +128,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         }
     }
 
+    /*
     @Configuration
     @Order(2)
     public class FormLoginWebSecurity extends WebSecurityConfigurerAdapter {
@@ -147,7 +171,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and().exceptionHandling().accessDeniedPage("/access-denied");
         }
 
+
+
     }
+    */
 
 
 }
