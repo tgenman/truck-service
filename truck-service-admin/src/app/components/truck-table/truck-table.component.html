@@ -1,0 +1,47 @@
+<div class="card">
+  <div class="card-header card-header-warning">
+    <h4 class="card-title">Drivers</h4>
+  </div>
+  <div class="card-body table-responsive">
+    <button class="btn btn-warning" (click)="ngxSmartModalService.getModal('newTruckModal').open()">
+      New truck
+    </button>
+    <ngx-smart-modal #newTruckModal identifier="newTruckModal">
+      <app-new-truck-form></app-new-truck-form>
+    </ngx-smart-modal>
+    <ngx-smart-modal #updateTruckModal identifier="updateTruckModal">
+      <app-update-truck-form [selectedId]="selectedTruckId"></app-update-truck-form>
+    </ngx-smart-modal>
+
+    <table class="table table-hover">
+      <thead class="text-warning">
+      <th>ID</th>
+      <th>Brand</th>
+      <th>Model</th>
+      <th>License plate</th>
+      <th>Capacity</th>
+      <th>Status</th>
+      <th></th>
+      <th></th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let truck of trucks$ | async">
+        <td>{{truck.id}}</td>
+        <td>{{truck.brand}}</td>
+        <td>{{truck.model}}</td>
+        <td>
+          {{truck.licensePlate}}
+        </td>
+        <td>{{truck.capacity}}</td>
+        <td>{{truck.status}}</td>
+        <td>
+          <button class="btn btn-sm btn-warning" (click)="onClickUpdate(truck.id)">UPDATE</button>
+        </td>
+        <td>
+          <button class="btn btn-sm btn-danger" (click)="deleteTruck(truck.id)">DELETE</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

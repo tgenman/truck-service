@@ -18,6 +18,9 @@ import { DriverTableComponent } from './components/driver-table/driver-table.com
 import {NgxSmartModalModule} from 'ngx-smart-modal';
 import { NewDriverFormComponent } from './components/new-driver-form/new-driver-form.component';
 import { UpdateDriverFormComponent } from './components/update-driver-form/update-driver-form.component';
+import { TruckTableComponent } from './components/truck-table/truck-table.component';
+import { UpdateTruckFormComponent } from './components/update-truck-form/update-truck-form.component';
+import { NewTruckFormComponent } from './components/new-truck-form/new-truck-form.component';
 
 @NgModule({
     declarations: [
@@ -29,6 +32,9 @@ import { UpdateDriverFormComponent } from './components/update-driver-form/updat
         DriverTableComponent,
         NewDriverFormComponent,
         UpdateDriverFormComponent,
+        TruckTableComponent,
+        UpdateTruckFormComponent,
+        NewTruckFormComponent,
     ],
     imports: [
         BrowserModule,

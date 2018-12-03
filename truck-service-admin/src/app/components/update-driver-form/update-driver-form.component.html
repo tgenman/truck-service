@@ -29,5 +29,5 @@
       <option *ngFor="let c of cities$ | async">{{c.name}}</option>
     </select>
   </div>
-  <input [disabled]="false" type="submit" value="Submit">
+  <input [disabled]="!reloaded" class="btn btn-warning" type="submit" value="Submit">
 </form>

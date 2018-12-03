@@ -26,5 +26,5 @@
             <option *ngFor="let c of cities$ | async" [ngValue]="c.name">{{c.name}}</option>
         </select>
     </div>
-    <input [disabled]="false" type="submit" value="Submit">
+    <input [disabled]="false" class="btn btn-warning" type="submit" value="Submit">
 </form>

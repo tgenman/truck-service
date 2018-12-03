@@ -48,6 +48,28 @@ public class TruckService {
 
     @Loggable
     @Transactional
+    public void saveNewTruck(TruckDTORest truckDTORest) {
+        TruckDTO truckDTO = truckMapper.mapToTruckDTOFrom(truckDTORest);
+        saveNewTruck(truckDTO);
+    }
+
+    @Loggable
+    @Transactional
+    public TruckDTORest getTruckDTORestById(Long id) {
+        Truck truck = getTruckById(id);
+        TruckDTORest truckDTORest = truckMapper.mapToDTORestFrom(truck);
+        return truckDTORest;
+    }
+
+    @Loggable
+    @Transactional
+    public void updateTruck(TruckDTORest truckDTORest) {
+        TruckDTO truckDTO = truckMapper.mapToTruckDTOFrom(truckDTORest);
+        updateTruck(truckDTO);
+    }
+
+    @Loggable
+    @Transactional
     public void saveNewTruck(TruckForm truckForm) {
         TruckDTO truckDTO = new TruckDTO();
         truckDTO.setBrand(truckForm.getBrand());

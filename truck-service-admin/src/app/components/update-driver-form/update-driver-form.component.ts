@@ -17,6 +17,7 @@ export class UpdateDriverFormComponent implements OnInit, AfterContentInit {
     @Input() selectedId: number;
     public driverUpdated: Driver;
     public cities$: Observable<City[]>;
+    public reloaded = false;
 
 
     constructor(private apiClientService: ApiClientService, private service: DriverService,
@@ -39,6 +40,7 @@ export class UpdateDriverFormComponent implements OnInit, AfterContentInit {
         this.service.getDriverById(this.selectedId).subscribe(res => {
             this.driverUpdated = res;
         });
+        this.reloaded = true;
     }
 
     public onSubmitUpdate() {
@@ -46,6 +48,7 @@ export class UpdateDriverFormComponent implements OnInit, AfterContentInit {
         console.log('UPDATE DRIVER' + this.selectedId + 'JSON ' + JSON.stringify(this.driverUpdated));
         this.ngxSmartModalService.closeLatestModal();
         this.service.updateDriver(this.driverUpdated);
+        this.reloaded = false;
         this.driverUpdated.firstName = '';
         this.driverUpdated.lastName = '';
         this.driverUpdated.city = '';

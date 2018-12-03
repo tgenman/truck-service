@@ -42,6 +42,37 @@ export class ApiClientService {
     constructor(private httpClient: HttpClient) {
     }
 
+    public addNewTruck(truck: Truck) {
+        console.log('Send truck ' + JSON.stringify(truck));
+        this.httpClient.put(`${this.BASE_URL}/truck/new`, truck, this.httpOptions)
+            .subscribe(res => console.log(res));
+    }
+
+    public deleteTruck(id: number) {
+        const url = `${this.BASE_URL}/truck/${id}`;
+        console.log(url);
+        return this.httpClient.delete<Truck>(url, this.httpOptions)
+            .subscribe(res => console.log(res));
+    }
+
+    public updateTruck(truck: Truck) {
+        this.httpClient.post(`${this.BASE_URL}/truck/update`, truck, this.httpOptions)
+            .subscribe(res => console.log(res));
+    }
+
+    public getTruckById(id: number): Observable<Truck> {
+        return  this.httpClient
+            .get(`${this.BASE_URL}/truck/${id}`)
+            .pipe(
+                map(res => {
+                    console.log('getTruckById ' + JSON.stringify(res));
+                    return res as Truck;
+                })
+            );
+    }
+
+
+
     public addNewDriver(driver: Driver) {
         console.log('Send ' + JSON.stringify(driver));
         this.httpClient.put(`${this.BASE_URL}/driver/new`, driver, this.httpOptions)
