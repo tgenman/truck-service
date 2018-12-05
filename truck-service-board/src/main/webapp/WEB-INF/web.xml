@@ -9,7 +9,7 @@
          id="WebApp_ID" version="2.5">
   <display-name>Archetype Created Web Application</display-name>
   <welcome-file-list>
-    <welcome-file>faces/home.xhtml</welcome-file>
+    <welcome-file>faces/board.xhtml</welcome-file>
   </welcome-file-list>
 
   <servlet>

@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import sun.plugin.liveconnect.SecurityContextHelper;
 
 import javax.validation.Valid;
 
@@ -62,7 +61,7 @@ public class ManagerController {
     }
 
     @Loggable
-    @PostMapping(value = "/driver/delete")
+    @PostMapping(value = "driver/delete")
     public String processDriverDeleteButton(@RequestParam("id") Long id) {
         Long longId = id;
         System.out.println(id);
@@ -71,7 +70,7 @@ public class ManagerController {
     }
 
     @Loggable
-    @GetMapping(value = "/driver/new")
+    @GetMapping(value = "driver/new")
     public String showNewDriverPage(Model model) {
 
         model.addAttribute("driverForm", new DriverForm());
@@ -80,7 +79,7 @@ public class ManagerController {
     }
 
     @Loggable
-    @PostMapping(value = "/driver/new/process")
+    @PostMapping(value = "driver/new/process")
     public String processNewDriver(@ModelAttribute("driverForm") @Valid DriverForm driverForm,
                                    BindingResult result, Model model) {
 
@@ -94,7 +93,7 @@ public class ManagerController {
     }
 
     @Loggable
-    @GetMapping("/truck/new")
+    @GetMapping("truck/new")
     public String showNewTruckPage(Model model) {
         model.addAttribute("truckForm", new TruckForm());
         model.addAttribute("cities", cityService.getAllCitiesMap());
@@ -118,7 +117,7 @@ public class ManagerController {
     }
 
     @Loggable
-    @RequestMapping(value = "/truck/update", method = RequestMethod.POST)
+    @RequestMapping(value = "truck/update", method = RequestMethod.POST)
     public String processUpdateDriverData(@ModelAttribute("truckDTO") TruckDTO truckDTO) {
 
         truckService.updateTruck(truckDTO);
@@ -126,7 +125,7 @@ public class ManagerController {
     }
 
     @Loggable
-    @PostMapping(value = "/truck/delete")
+    @PostMapping(value = "truck/delete")
     public String processTruckDeleteButton(@RequestParam("truckIdDelete") String id) {
         Long longId = Long.parseLong(id);
         truckService.deleteTruck(longId);
@@ -142,7 +141,7 @@ public class ManagerController {
     }
 
     @Loggable
-    @PostMapping("/order/delete")
+    @PostMapping("order/delete")
     public String deleteOrder(@RequestParam("orderId") Long id) {
         orderService.deleteOrder(id);
         return "redirect:/management/manager";

@@ -1,0 +1,54 @@
+version: '3.7'
+services:
+  truckservice:
+    image: tomcat:latest
+    links:
+      - database
+      - rabbitmq
+    volumes:
+      - ./truck-service/target/:/usr/local/tomcat/webapps/
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - database
+      - rabbitmq
+  rabbitmq:
+    hostname: rabbitmq
+    image: rabbitmq
+    volumes:
+      - ./rabbitmq-isolated.conf:/etc/rabbitmq/rabbitmq.config
+    command: rabbitmq-server
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    restart: always
+  board:
+    image: jboss/wildfly
+    links:
+      - truckservice
+      - rabbitmq
+    volumes:
+      - ./truck-service-board/target/:/opt/jboss/wildfly/standalone/deployments/
+    environment:
+      - JAVA_OPTS= -Djava.net.preferIPv4Stack=true -Djboss.socket.binding.port-offset=100
+    ports:
+      - "8180:8180"
+    depends_on:
+      - truckservice
+      - rabbitmq
+    restart: always
+  database:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=maxim
+      - MYSQL_DATABASE=school
+      - MYSQL_USER=school
+      - MYSQL_PASSWORD=school
+    restart: always
+
+

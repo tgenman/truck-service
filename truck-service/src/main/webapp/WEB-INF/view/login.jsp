@@ -8,7 +8,7 @@
     <title>Sign In</title>
 </head>
 <body class="text-center">
-<form action="/login" method="post" class="form-signin">
+<form action="${pageContext.request.contextPath}/login" method="post" class="form-signin">
     <h1 class="h3 mb-3 font-weight-normal">Greetings!</h1>
     <input name="login" id="companyId" path="companyId" class="form-control" placeholder="ID manager/ drivers" required>
 

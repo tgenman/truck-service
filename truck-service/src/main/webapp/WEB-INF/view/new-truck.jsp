@@ -54,7 +54,7 @@
     </script>
 </head>
 <body>
-<sf:form name="formSubmit" action="/management/truck/new/process" method="post"
+<sf:form name="formSubmit" action="${pageContext.request.contextPath}/management/truck/new/process" method="post"
          modelAttribute="truckForm" cssClass="form-signin" onsubmit="return validateForm()">
     <h1 class="h3 mb-3 font-weight-normal">New truck</h1>
     Brand: <sf:input id="brand" name="brand" path="brand" class="form-control" placeholder="Brand"/>

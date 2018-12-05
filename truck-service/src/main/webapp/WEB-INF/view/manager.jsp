@@ -24,7 +24,7 @@
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Furious Turtle</a>
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="/logout">Log out</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/logout">Log out</a>
         </li>
     </ul>
 </nav>
@@ -45,13 +45,11 @@
 
                     <div class="btn btn-primary btn-lg btn-block">
                         <a class="btn btn-primary"
-                           href="/new-order">
+                           href="${pageContext.request.contextPath}/new-order">
                             New order
                         </a>
                     </div>
                 </ul>
-
-
             </div>
         </nav>
 
@@ -80,7 +78,7 @@
                                         <h6>Truck: ${order.truckObject}   </h6>
                                         <h6>Drivers: ${order.driversList}   </h6>
                                     </a>
-                                    <sf:form method="post" action="order/delete">
+                                    <sf:form method="post" action="${pageContext.request.contextPath}/order/delete">
                                         <input type="hidden" value="${order.id}" name="orderId">
                                         <input type="submit" class="btn btn-danger" value="Delete"/>
                                     </sf:form>
@@ -295,7 +293,7 @@
                                 </button>
                             </td>
                             <td>
-                                <sf:form method="post" action="truck/delete">
+                                <sf:form method="post" action="${pageContext.request.contextPath}/truck/delete">
                                     <input type="hidden" value="${truck1.id}" name="truckIdDelete">
                                     <input type="submit" class="btn btn-danger" value="Delete"/>
                                 </sf:form>

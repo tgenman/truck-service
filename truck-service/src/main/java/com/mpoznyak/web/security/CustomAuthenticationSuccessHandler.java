@@ -25,16 +25,16 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         for (GrantedAuthority auth : authentication.getAuthorities()) {
             if ("ROLE_MANAGER".equals(auth.getAuthority())){
-                httpServletResponse.sendRedirect("/management/manager");
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/management/manager");
             }
 
             if ("ROLE_DRIVER".equals(auth.getAuthority())) {
                 String name = authentication.getName();
-                httpServletResponse.sendRedirect("/driver/" + name);
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/driver/" + name);
             }
 
             if ("ROLE_ADMIN".equals(auth.getAuthority())){
-                httpServletResponse.sendRedirect("/management/manager");
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/management/manager");
             }
 
         }

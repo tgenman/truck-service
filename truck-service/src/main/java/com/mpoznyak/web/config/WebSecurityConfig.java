@@ -69,7 +69,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         @Override
         @Loggable
         protected void configure(HttpSecurity http) throws Exception {
-            http.cors().and().authorizeRequests()
+            http.csrf()
+                    .disable().cors().and().authorizeRequests()
                     .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                     .antMatchers("/api/**").access("hasRole('ADMIN')")
                     .antMatchers("/", "/login", "/home", "/static/**").permitAll()
@@ -81,7 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .usernameParameter("login")
                     .passwordParameter("password")
                     .successHandler(successHandler)
-                    .failureUrl("/login?error=true")
+                    .failureUrl("/home")
                     .and()
                     .logout()
                     //.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
@@ -94,9 +95,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                     .httpBasic()
                     .authenticationEntryPoint(authenticationEntryPoint())
-                    .and()
-                    .csrf()
-                    .disable()
+
 
 
             ;

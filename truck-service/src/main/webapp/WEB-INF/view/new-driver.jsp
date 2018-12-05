@@ -21,7 +21,7 @@
     </script>
 </head>
 <body class="text-center">
-<sf:form name="formSubmit" action="/management/driver/new/process" method="post" modelAttribute="driverForm"
+<sf:form name="formSubmit" action="${pageContext.request.contextPath}/management/driver/new/process" method="post" modelAttribute="driverForm"
          cssClass="form-signin" id="formSubmit" onsubmit="return validateForm()">
     <h1 class="h3 mb-3 font-weight-normal">New drivers</h1>
     <sf:input path="firstName" name="firstName" id="firstName" class="form-control" placeholder="First name"/>

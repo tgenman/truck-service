@@ -24,8 +24,9 @@ public class MQProducerService {
     @Loggable
     public void produceMessage(String msg) throws IOException, TimeoutException {
         ConnectionFactory connectionFactory = new ConnectionFactory();
-        connectionFactory.setHost("localhost");
-
+        connectionFactory.setHost("rabbitmq");
+        connectionFactory.setUsername("guest");
+        connectionFactory.setPassword("guest");
         Connection connection = connectionFactory.newConnection();
         Channel channel = connection.createChannel();
         channel.queueDeclare(EXCHANGE_NAME, false, false, false, null);
