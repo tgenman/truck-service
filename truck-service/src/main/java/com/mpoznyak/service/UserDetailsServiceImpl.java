@@ -41,15 +41,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 
         String companyId = user.getCompanyId();
-        String password = null;
-
-        //TODO after implementing admin - delete condition "123"
-
-        if (user.getCompanyId().equals("123") || user.getCompanyId().equals("admin")) {
-            password = new BCryptPasswordEncoder().encode(user.getPassword());
-        } else {
-            password = user.getPassword();
-        }
+        String password = user.getPassword();
         String role = user.getRole();
 
         List<SimpleGrantedAuthority> authList = getAuthorities(role);

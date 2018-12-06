@@ -203,7 +203,7 @@ INSERT INTO school.City (name, latitude, longtitude) VALUES ('Reading', 51.45792
 INSERT INTO school.City (name, latitude, longtitude) VALUES ('London', 51.509647, -0.132626);
 INSERT INTO school.City (name, latitude, longtitude) VALUES ('Swindon', 51.560422, -1.77397);
 
-INSERT INTO school.User (companyId, password, role) VALUES ('admin', 'admin', 'ROLE_ADMIN');
+INSERT INTO school.User (companyId, password, role) VALUES ('admin', '$2a$10$mT840tt0k2QN5tqvcgu4e.u1gD1FE2hKErrMgdxIzSwXU9LgtwXmy', 'ROLE_ADMIN');
 
 INSERT INTO school.Road (distance, `from`, `to`) VALUES (41, 1, 2);
 INSERT INTO school.Road (distance, `from`, `to`) VALUES (40, 2, 3);
