@@ -43,7 +43,7 @@ public class DataLoader {
     }
 
     public List<TempShift> getTempShifts() {
-        String response = getResponse("http://truckservice:8080/api/temp-shift/list");
+        String response = getResponse("http://truckservice:8080/truckservice/api/temp-shift/list");
         List<TempShift> tempShifts = null;
         try {
             tempShifts = mapper.readValue(response, new TypeReference<List<TempShift>>() {
@@ -56,7 +56,7 @@ public class DataLoader {
     }
 
     public List<RoutePoint> getRoutePoints() {
-        String response = getResponse("http://truckservice:8080/api/route-point/list");
+        String response = getResponse("http://truckservice:8080/truckservice/api/route-point/list");
         List<RoutePoint> routePoints = null;
         try {
             routePoints = mapper.readValue(response, new TypeReference<List<RoutePoint>>() {
@@ -69,7 +69,7 @@ public class DataLoader {
     }
 
     public List<Customer> getCustomers() {
-        String response = getResponse("http://truckservice:8080/api/customer/list");
+        String response = getResponse("http://truckservice:8080/truckservice/api/customer/list");
         List<Customer> customers = null;
         try {
             customers = mapper.readValue(response, new TypeReference<List<Customer>>() {
@@ -82,7 +82,7 @@ public class DataLoader {
     }
 
     public List<Shift> getShifts() {
-        String response = getResponse("http://truckservice:8080/api/shift/list");
+        String response = getResponse("http://truckservice:8080/truckservice/api/shift/list");
         List<Shift> shifts = null;
         try {
             shifts = mapper.readValue(response, new TypeReference<List<Shift>>() {
@@ -95,7 +95,7 @@ public class DataLoader {
     }
 
     public List<Order> getOrders() {
-        String response = getResponse("http://truckservice:8080/api/order/list");
+        String response = getResponse("http://truckservice:8080/truckservice/api/order/list");
         List<Order> orders = null;
         try {
             orders = mapper.readValue(response, new TypeReference<List<Order>>() {
@@ -108,7 +108,7 @@ public class DataLoader {
     }
 
     public List<Cargo> getCargoes() {
-        String response = getResponse("http://truckservice:8080/api/cargo/list");
+        String response = getResponse("http://truckservice:8080/truckservice/api/cargo/list");
         List<Cargo> cargoes = null;
         try {
             cargoes = mapper.readValue(response, new TypeReference<List<Cargo>>() {
@@ -121,7 +121,7 @@ public class DataLoader {
     }
 
     public List<Driver> getDrivers() {
-        String response = getResponse("http://truckservice:8080/api/driver/list");
+        String response = getResponse("http://truckservice:8080/truckservice/api/driver/list");
         List<Driver> drivers = null;
         try {
             drivers = mapper.readValue(response, new TypeReference<List<Driver>>() {
@@ -134,7 +134,7 @@ public class DataLoader {
     }
 
     public List<Truck> getTrucks() {
-        String response = getResponse("http://truckservice:8080/api/truck/list");
+        String response = getResponse("http://truckservice:8080/truckservice/api/truck/list");
         List<Truck> trucks = null;
         try {
             trucks = mapper.readValue(response, new TypeReference<List<Truck>>() {

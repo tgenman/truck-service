@@ -33,7 +33,7 @@ import {Manager} from '../../model/manager';
 })
 export class ApiClientService {
 
-    BASE_URL = 'http://localhost:8080/api';
+    BASE_URL = 'http://localhost:8080/truckservice/api';
 
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })

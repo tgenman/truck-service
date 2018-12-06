@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
-const URL = 'http://localhost:8080';
+const URL = 'http://localhost:8080/truckservice';
 
 @Injectable({
   providedIn: 'root'

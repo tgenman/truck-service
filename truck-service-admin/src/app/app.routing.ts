@@ -9,7 +9,6 @@ import { NgxSmartModalModule } from 'ngx-smart-modal';
 
 const routes: Routes = [
     { path: 'login', component: LoginComponent},
-    { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
 
 ];

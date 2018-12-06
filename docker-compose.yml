@@ -50,5 +50,21 @@ services:
       - MYSQL_USER=school
       - MYSQL_PASSWORD=school
     restart: always
+  dashboard:
+    working_dir: /usr/app
+    build:
+      context: ./truck-service-admin
+      dockerfile: Dockerfile
+    command: "npm start"
+    volumes:
+      - ./truck-service-admin:/usr/app
+    links:
+      - truckservice
+    depends_on:
+      - truckservice
+    ports:
+      - "4200:4200"
+
+
 
 

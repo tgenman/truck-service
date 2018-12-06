@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {finalize} from 'rxjs/operators';
 import {AuthenticationService} from './services/authentication/authentication.service';
 
-const URL = 'http://localhost:8080';
+const URL = 'http://localhost:8080/truckservice';
 
 @Component({
     selector: 'app-root',

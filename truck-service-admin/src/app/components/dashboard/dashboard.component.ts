@@ -13,7 +13,7 @@ import {Driver} from '../../model/driver';
 import {finalize} from 'rxjs/operators';
 import {AuthenticationService} from '../../services/authentication/authentication.service';
 import {Router} from '@angular/router';
-const BASE_URL = 'http://localhost:8080/api';
+const BASE_URL = 'http://localhost:8080/truckservice/api';
 
 
 @Component({
