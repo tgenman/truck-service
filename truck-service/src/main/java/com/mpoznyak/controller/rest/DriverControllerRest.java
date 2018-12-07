@@ -2,7 +2,7 @@ package com.mpoznyak.controller.rest;
 
 import com.mpoznyak.dto.rest.DriverDTORest;
 import com.mpoznyak.logging.annotation.Loggable;
-import com.mpoznyak.service.DriverService;
+import com.mpoznyak.service.api.DriverService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -2,7 +2,7 @@ package com.mpoznyak.controller.rest;
 
 import com.mpoznyak.dto.rest.ManagerDTORest;
 import com.mpoznyak.logging.annotation.Loggable;
-import com.mpoznyak.service.ManagerService;
+import com.mpoznyak.service.api.ManagerService;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

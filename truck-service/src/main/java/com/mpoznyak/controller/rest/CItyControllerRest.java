@@ -2,7 +2,7 @@ package com.mpoznyak.controller.rest;
 
 import com.mpoznyak.dto.rest.CityDTORest;
 import com.mpoznyak.logging.annotation.Loggable;
-import com.mpoznyak.service.CityService;
+import com.mpoznyak.service.api.CityService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;

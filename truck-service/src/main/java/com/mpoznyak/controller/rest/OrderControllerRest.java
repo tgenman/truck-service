@@ -1,7 +1,7 @@
 package com.mpoznyak.controller.rest;
 
 import com.mpoznyak.dto.rest.OrderDTORest;
-import com.mpoznyak.service.OrderService;
+import com.mpoznyak.service.api.OrderService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;

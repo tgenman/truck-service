@@ -2,7 +2,7 @@ package com.mpoznyak.controller.rest;
 
 import com.mpoznyak.dto.rest.TruckDTORest;
 import com.mpoznyak.logging.annotation.Loggable;
-import com.mpoznyak.service.TruckService;
+import com.mpoznyak.service.api.TruckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

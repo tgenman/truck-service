@@ -2,6 +2,7 @@ package com.mpoznyak.service;
 
 import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.User;
+import com.mpoznyak.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

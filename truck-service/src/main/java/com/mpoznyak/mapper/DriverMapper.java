@@ -7,8 +7,9 @@ import com.mpoznyak.model.City;
 import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.Truck;
 import com.mpoznyak.model.type.DriverStatus;
-import com.mpoznyak.repository.CityRepository;
-import com.mpoznyak.repository.TruckRepository;
+import com.mpoznyak.repository.api.CityRepository;
+import com.mpoznyak.repository.api.TruckRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,8 @@ import java.util.List;
 
 @Component
 public class DriverMapper {
+
+    private static final Logger logger = Logger.getLogger(DriverMapper.class);
 
     @Autowired
     private CityRepository cityRepository;
@@ -66,8 +69,9 @@ public class DriverMapper {
                 return DriverStatus.SECOND_DRIVER;
             case "FREE":
                 return DriverStatus.FREE;
+            default:
+                return DriverStatus.FREE;
         }
-        return null;
     }
 
     @Loggable
@@ -79,7 +83,8 @@ public class DriverMapper {
                 return city;
             }
         }
-        return null;
+        logger.warn("mapToCity returned default value");
+        return cities.get(0);
     }
 
     @Loggable
@@ -91,13 +96,13 @@ public class DriverMapper {
                 return city;
             }
         }
-        return null;
+        logger.warn("mapToCity returned default value");
+        return cities.get(0);
     }
 
     private Truck mapToTruck(String truckDTO) {
         List<Truck> trucks = truckRepository.query();
 
-        //TODO update code for checking brand and model too
         for (Truck truck : trucks) {
             if (truckDTO.contains(truck.getLicensePlate())) {
                 return truck;
@@ -137,8 +142,11 @@ public class DriverMapper {
         driverDTO.setUsername(driverDTORest.getUsername());
         driverDTO.setPassword(driverDTORest.getPassword());
 
-        City city = mapToCity(driverDTORest.getCity());
-        driverDTO.setCityId(city.getId());
+        String cityName = driverDTORest.getCity();
+        if (cityName != null) {
+            City city = mapToCity(cityName);
+            driverDTO.setCityId(city.getId());
+        }
         return driverDTO;
     }
 }

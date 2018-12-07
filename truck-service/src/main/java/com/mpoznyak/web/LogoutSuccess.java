@@ -2,6 +2,7 @@ package com.mpoznyak.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogoutSuccess implements LogoutSuccessHandler {
 
+    private final static Logger logger = Logger.getLogger(LogoutSuccess.class);
+
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                                 Authentication authentication) {
@@ -21,8 +24,7 @@ public class LogoutSuccess implements LogoutSuccessHandler {
             try {
                 httpServletRequest.getSession().invalidate();
             } catch (Exception e) {
-                e.printStackTrace();
-                e = null;
+                logger.error(e.getMessage());
             }
         }
 

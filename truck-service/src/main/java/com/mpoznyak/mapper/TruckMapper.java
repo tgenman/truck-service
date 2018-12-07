@@ -6,7 +6,8 @@ import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.City;
 import com.mpoznyak.model.Truck;
 import com.mpoznyak.model.type.TruckStatus;
-import com.mpoznyak.repository.CityRepository;
+import com.mpoznyak.repository.api.CityRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,8 @@ import java.util.List;
 
 @Component
 public class TruckMapper {
+
+    private final static Logger logger = Logger.getLogger(TruckMapper.class);
 
     @Autowired
     CityRepository cityRepository;
@@ -35,6 +38,7 @@ public class TruckMapper {
 
         TruckStatus status = mapToTruckStatus(truckDTO.getStatus());
         truck.setStatus(status);
+
 
         City city = mapToCity(truckDTO.getCity());
         truck.setCity(city);
@@ -71,7 +75,8 @@ public class TruckMapper {
                 return city;
             }
         }
-        return null;
+        logger.warn("mapToCity returned default value");
+        return cities.get(0);
     }
 
     public TruckDTORest mapToDTORestFrom(Truck truck) {
@@ -100,9 +105,12 @@ public class TruckMapper {
         truckDTO.setCapacity(truckDTORest.getCapacity());
         truckDTO.setMaxDrivers(truckDTORest.getMaxDrivers());
         truckDTO.setCityName(truckDTORest.getCityName());
+        String cityName = truckDTORest.getCityName();
 
-        City city = mapToCity(truckDTORest.getCityName());
-        truckDTO.setCity(city.getId());
+        if (cityName != null) {
+            City city = mapToCity(cityName);
+            truckDTO.setCity(city.getId());
+        }
         truckDTO.setStatus(truckDTORest.getStatus());
         return truckDTO;
     }

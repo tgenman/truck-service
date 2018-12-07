@@ -2,20 +2,21 @@ package com.mpoznyak.controller;
 
 import com.mpoznyak.dto.RoutePointDTO;
 import com.mpoznyak.logging.annotation.Loggable;
-import com.mpoznyak.model.Order;
 import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.RoutePoint;
 import com.mpoznyak.model.type.DriverStatus;
-import com.mpoznyak.service.*;
+import com.mpoznyak.service.api.DriverService;
+import com.mpoznyak.service.api.OrderService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by Max Poznyak
@@ -35,24 +36,9 @@ public class DriverController {
     @GetMapping("{name}")
     public String showDriver(@PathVariable("name") String name, Model model) {
 
-
-        User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        List<Driver> drivers = driverService.getAllDrivers();
-        Driver driver = null;
-        for (Driver driver1 : drivers) {
-            if (user.getUsername().equals(driver1.getUser().getCompanyId())) {
-                driver = driver1;
-            }
-        }
-
-        Order order = driver.getOrder();
-        if (order != null) {
-            List<RoutePoint> points = orderService.getRoutePointsForOrder(order);
-            model.addAttribute("routePoints", points);
-        } else {
-            model.addAttribute("routePoints", new ArrayList<>());
-
-        }
+        Driver driver = driverService.getAuthenticatedDriver();
+        List<RoutePoint> points = driverService.getRoutePointsForDriver(driver);
+        model.addAttribute("routePoints", points);
         model.addAttribute("driverStatus", DriverStatus.values());
         model.addAttribute("routePointDTO", new RoutePointDTO());
         model.addAttribute("driver", driver);
@@ -64,7 +50,7 @@ public class DriverController {
     public String updateRoutePoint(@ModelAttribute("routePointDTO") RoutePointDTO routePointDTO,
                                    @RequestParam("driverId") Long driverId,
                                    @RequestParam("pointId") Long pointId,
-                                   Model model)  {
+                                   Model model) {
 
         routePointDTO.setId(pointId);
         routePointDTO.setCompleted(true);
@@ -82,7 +68,7 @@ public class DriverController {
     @PostMapping("/driver-status-update")
     public String updateDriverStatus(@ModelAttribute("driver") Driver driverStatus,
                                      @RequestParam("driverId") Long driverId,
-                                     Model model)  {
+                                     Model model) {
 
         driverService.updateDriverStatus(driverId, driverStatus);
 
@@ -98,16 +84,8 @@ public class DriverController {
                                  Model model) {
 
         Driver driver = driverService.getDriverForId(driverId);
-        Order order = driver.getOrder();
-
-        if (order != null) {
-            List<RoutePoint> points = orderService.getRoutePointsForOrder(order);
-            model.addAttribute("routePoints", points);
-        } else {
-            model.addAttribute("routePoints", new ArrayList<>());
-
-        }
-
+        List<RoutePoint> points = driverService.getRoutePointsForDriver(driver);
+        model.addAttribute("routePoints", points);
         model.addAttribute("routePointDTO", new RoutePointDTO());
         model.addAttribute("driverStatus", DriverStatus.values());
         model.addAttribute("driver", driver);
@@ -129,13 +107,11 @@ public class DriverController {
     public String startDriverShift(@RequestParam("driverId") Long driverId, Model model) {
 
         driverService.startDriverShift(driverId);
-
         Long driverIds = driverId;
         model.addAttribute("driverId", driverIds);
         model.addAttribute("routePointDTO", new RoutePointDTO());
         return "redirect:driver";
     }
-
 
 
 }
