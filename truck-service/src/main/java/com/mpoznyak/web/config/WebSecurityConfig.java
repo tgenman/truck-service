@@ -1,7 +1,6 @@
 package com.mpoznyak.web.config;
 
 import com.mpoznyak.logging.annotation.Loggable;
-import com.mpoznyak.web.LogoutSuccess;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,10 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -59,12 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
         }
 
-
         @Autowired
         private AuthenticationSuccessHandler successHandler;
-
-        @Autowired
-        private LogoutSuccess logoutSuccess;
 
         @Override
         @Loggable
@@ -126,54 +118,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             return source;
         }
     }
-
-    /*
-    @Configuration
-    @Order(2)
-    public class FormLoginWebSecurity extends WebSecurityConfigurerAdapter {
-
-        @Autowired
-        private AuthenticationSuccessHandler successHandler;
-
-        @Autowired
-        public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-            PasswordEncoder encoder = new BCryptPasswordEncoder();
-            auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
-
-        }
-
-        @Loggable
-        @Override
-        protected void configure(HttpSecurity httpSecurity) throws Exception {
-            httpSecurity
-                    .authorizeRequests()
-                    .antMatchers("/", "/login", "/home", "/static/**").permitAll()
-                    .antMatchers("/management/**").access("hasRole('MANAGER') OR hasRole('ADMIN')")
-                    .antMatchers("/driver/**").access("hasRole('DRIVER') OR hasRole('ADMIN')")
-                    .and()
-                    .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
-                    .usernameParameter("login")
-                    .passwordParameter("password")
-                    .successHandler(successHandler)
-                    .permitAll()
-                    .failureUrl("/login?error=true")
-                    .and()
-                    .csrf().disable()
-                    .logout()
-                    .permitAll()
-                    .logoutSuccessUrl("/home")
-                    .invalidateHttpSession(true)
-                    .deleteCookies("JSESSIONID")
-                    .permitAll()
-                    .and().exceptionHandling().accessDeniedPage("/access-denied");
-        }
-
-
-
-    }
-    */
-
 
 }

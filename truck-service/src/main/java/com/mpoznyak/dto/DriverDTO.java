@@ -1,6 +1,5 @@
 package com.mpoznyak.dto;
 
-
 import com.mpoznyak.model.Shift;
 import com.mpoznyak.model.type.DriverStatus;
 

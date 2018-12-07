@@ -1,8 +1,6 @@
 package com.mpoznyak.repository;
 
 import com.mpoznyak.model.Manager;
-import com.mpoznyak.model.Road;
-import com.mpoznyak.model.Shift;
 import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityManager;

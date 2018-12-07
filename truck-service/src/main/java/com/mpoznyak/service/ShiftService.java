@@ -3,19 +3,15 @@ package com.mpoznyak.service;
 import com.mpoznyak.dto.rest.ShiftDTORest;
 import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.mapper.ShiftMapper;
-import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.Shift;
-import com.mpoznyak.repository.DriverRepository;
 import com.mpoznyak.repository.ShiftRepository;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
-import java.util.Date;
 import java.util.List;
 
 /**

@@ -1,12 +1,6 @@
 package com.mpoznyak.model;
 
-
-import com.mpoznyak.model.type.Role;
-import com.mpoznyak.model.type.UserType;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Objects;
 
 /**

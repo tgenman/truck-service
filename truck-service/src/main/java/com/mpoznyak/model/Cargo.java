@@ -1,7 +1,5 @@
 package com.mpoznyak.model;
 
-
-
 import com.mpoznyak.model.type.CargoStatus;
 
 import javax.persistence.*;

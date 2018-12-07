@@ -1,7 +1,6 @@
 package com.mpoznyak.repository;
 
 import com.mpoznyak.model.Cargo;
-import com.mpoznyak.model.Order;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

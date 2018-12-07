@@ -1,10 +1,8 @@
 package com.mpoznyak.service;
 
-import com.mpoznyak.dto.rest.DriverDTORest;
 import com.mpoznyak.dto.rest.ManagerDTORest;
 import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.mapper.ManagerMapper;
-import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.Manager;
 import com.mpoznyak.model.User;
 import com.mpoznyak.repository.ManagerRepository;

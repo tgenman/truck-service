@@ -2,12 +2,10 @@ package com.mpoznyak.controller.rest;
 
 import com.mpoznyak.dto.rest.CustomerDTORest;
 import com.mpoznyak.logging.annotation.Loggable;
-import com.mpoznyak.model.Customer;
 import com.mpoznyak.service.CustomerService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

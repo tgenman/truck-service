@@ -1,7 +1,6 @@
 package com.mpoznyak.repository;
 
 import com.mpoznyak.model.City;
-import com.mpoznyak.model.Truck;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

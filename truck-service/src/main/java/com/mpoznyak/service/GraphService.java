@@ -8,7 +8,6 @@ import com.mpoznyak.logistics.algorithm.DijkstraAlgorithm;
 import com.mpoznyak.logistics.model.Graph;
 import com.mpoznyak.model.City;
 import com.mpoznyak.model.Road;
-import com.mpoznyak.model.RoutePoint;
 import com.mpoznyak.model.Truck;
 import com.mpoznyak.model.type.RoutePointType;
 import org.apache.log4j.Logger;

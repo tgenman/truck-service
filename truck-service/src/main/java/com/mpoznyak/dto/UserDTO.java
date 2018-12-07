@@ -1,7 +1,5 @@
 package com.mpoznyak.dto;
 
-import com.mpoznyak.model.type.Role;
-
 /**
  * Created by Max Poznyak
  * on 11/14/18  at 13:09

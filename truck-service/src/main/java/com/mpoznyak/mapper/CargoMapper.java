@@ -1,7 +1,6 @@
 package com.mpoznyak.mapper;
 
 import com.mpoznyak.dto.rest.CargoDTORest;
-import com.mpoznyak.dto.rest.TruckDTORest;
 import com.mpoznyak.model.Cargo;
 import org.springframework.stereotype.Component;
 

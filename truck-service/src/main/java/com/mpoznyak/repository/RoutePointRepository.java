@@ -1,10 +1,7 @@
 package com.mpoznyak.repository;
 
 import com.mpoznyak.model.Cargo;
-import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.RoutePoint;
-import com.mpoznyak.model.type.CargoStatus;
-import com.mpoznyak.model.type.RoutePointType;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

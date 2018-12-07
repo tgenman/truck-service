@@ -1,14 +1,12 @@
 package com.mpoznyak.mapper;
 
 import com.mpoznyak.dto.DriverDTO;
-import com.mpoznyak.dto.TruckDTO;
 import com.mpoznyak.dto.rest.DriverDTORest;
 import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.City;
 import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.Truck;
 import com.mpoznyak.model.type.DriverStatus;
-import com.mpoznyak.model.type.TruckStatus;
 import com.mpoznyak.repository.CityRepository;
 import com.mpoznyak.repository.TruckRepository;
 import org.springframework.beans.factory.annotation.Autowired;

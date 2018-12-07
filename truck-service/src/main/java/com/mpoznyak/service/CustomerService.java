@@ -1,6 +1,5 @@
 package com.mpoznyak.service;
 
-import com.mpoznyak.dto.rest.CargoDTORest;
 import com.mpoznyak.dto.rest.CustomerDTORest;
 import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.mapper.CustomerMapper;

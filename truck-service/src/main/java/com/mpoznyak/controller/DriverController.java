@@ -1,16 +1,11 @@
 package com.mpoznyak.controller;
 
-import com.mpoznyak.dto.DriverDTO;
-import com.mpoznyak.dto.RouteDTO;
 import com.mpoznyak.dto.RoutePointDTO;
 import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.Order;
 import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.RoutePoint;
 import com.mpoznyak.model.type.DriverStatus;
-import com.mpoznyak.model.type.OrderStatus;
-import com.mpoznyak.model.type.RoutePointType;
-import com.mpoznyak.repository.ShiftRepository;
 import com.mpoznyak.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,12 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Created by Max Poznyak

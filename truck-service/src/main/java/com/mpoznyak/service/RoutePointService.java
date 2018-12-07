@@ -5,7 +5,6 @@ import com.mpoznyak.dto.rest.RoutePointDTORest;
 import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.mapper.RoutePointMapper;
 import com.mpoznyak.model.Cargo;
-import com.mpoznyak.model.Order;
 import com.mpoznyak.model.RoutePoint;
 import com.mpoznyak.model.type.CargoStatus;
 import com.mpoznyak.model.type.RoutePointType;

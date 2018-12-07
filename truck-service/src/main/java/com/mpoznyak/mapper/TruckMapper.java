@@ -1,8 +1,6 @@
 package com.mpoznyak.mapper;
 
-import com.mpoznyak.dto.DriverDTO;
 import com.mpoznyak.dto.TruckDTO;
-import com.mpoznyak.dto.rest.DriverDTORest;
 import com.mpoznyak.dto.rest.TruckDTORest;
 import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.City;
@@ -12,7 +10,6 @@ import com.mpoznyak.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**

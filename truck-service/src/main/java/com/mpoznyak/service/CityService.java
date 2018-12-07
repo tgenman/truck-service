@@ -1,11 +1,9 @@
 package com.mpoznyak.service;
 
 import com.mpoznyak.dto.rest.CityDTORest;
-import com.mpoznyak.dto.rest.DriverDTORest;
 import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.mapper.CItyMapper;
 import com.mpoznyak.model.City;
-import com.mpoznyak.model.Driver;
 import com.mpoznyak.repository.CityRepository;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Max Poznyak

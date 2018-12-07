@@ -1,10 +1,8 @@
 package com.mpoznyak.mapper;
 
 import com.mpoznyak.dto.rest.CityDTORest;
-import com.mpoznyak.dto.rest.CustomerDTORest;
 import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.City;
-import com.mpoznyak.model.Customer;
 import org.springframework.stereotype.Component;
 
 /**

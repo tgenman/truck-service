@@ -1,10 +1,5 @@
 package com.mpoznyak.dto;
 
-import com.mpoznyak.model.City;
-import com.mpoznyak.model.type.TruckStatus;
-
-import javax.persistence.*;
-
 /**
  * Created by Max Poznyak
  * on 23/10/2018  at 23:02

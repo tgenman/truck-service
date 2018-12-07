@@ -1,6 +1,5 @@
 package com.mpoznyak.dto.rest;
 
-import com.mpoznyak.dto.CargoDTO;
 import java.util.Objects;
 
 /**

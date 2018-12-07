@@ -1,13 +1,9 @@
 package com.mpoznyak.repository;
 
-import com.mpoznyak.model.Driver;
 import com.mpoznyak.model.Truck;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.Collections;
 import java.util.List;
 

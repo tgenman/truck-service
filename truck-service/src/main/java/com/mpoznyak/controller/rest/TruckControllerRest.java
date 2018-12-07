@@ -1,10 +1,7 @@
 package com.mpoznyak.controller.rest;
 
-import com.mpoznyak.dto.TruckDTO;
-import com.mpoznyak.dto.rest.DriverDTORest;
 import com.mpoznyak.dto.rest.TruckDTORest;
 import com.mpoznyak.logging.annotation.Loggable;
-import com.mpoznyak.mapper.TruckMapper;
 import com.mpoznyak.service.TruckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

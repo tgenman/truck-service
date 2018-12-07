@@ -3,7 +3,6 @@ package com.mpoznyak.model;
 import com.mpoznyak.model.type.DriverStatus;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * Created by Max Poznyak
