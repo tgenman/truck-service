@@ -14,6 +14,6 @@
     You have no authorities to access the resource. Please, log in as a particular worker.
     <br>
     <br>
-    <a href="/home" class="btn btn-primary"><- Home</a>
+    <a href="${pageContext.request.contextPath}/login" class="btn btn-primary"><- Home</a>
 </body>
 </html>

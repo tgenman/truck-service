@@ -7,4 +7,6 @@ export class Driver {
     truck: number;
     order: number;
     shift: number;
+    username: string;
+    password: string;
 }

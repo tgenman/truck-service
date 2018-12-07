@@ -27,7 +27,12 @@
     <sf:input path="firstName" name="firstName" id="firstName" class="form-control" placeholder="First name"/>
     <sf:errors path="firstName" cssClass="text-danger"/>
     <sf:input path="lastName" name="secondName" id="secondName" class="form-control" placeholder="Last name"/>
-    <sf:errors path="firstName" cssClass="text-danger"/>
+    <sf:errors path="lastName" cssClass="text-danger"/>
+    <sf:input path="username" name="username" id="username" class="form-control" placeholder="Username"/>
+    <sf:errors path="username" cssClass="text-danger"/>
+    <sf:input path="password" name="password" id="password" class="form-control" placeholder="Password"/>
+    <sf:errors path="password" cssClass="text-danger"/>
+    <br>
     <sf:select path="city">
         <sf:options items="${cities}"/>
     </sf:select>

@@ -74,6 +74,8 @@ public class DriverService {
         driverDTO.setFirstName(driverForm.getFirstName());
         driverDTO.setLastName(driverForm.getLastName());
         driverDTO.setCityId(driverForm.getCity());
+        driverDTO.setUsername(driverForm.getUsername());
+        driverDTO.setPassword(driverForm.getPassword());
         addDriver(driverDTO);
     }
 
@@ -95,11 +97,11 @@ public class DriverService {
         Driver driver = driverMapper.map(driverDTO);
         driverRepository.add(driver);
         UserDTO userDTO = new UserDTO();
-        userDTO.setPassword(driver.getFirstName());
-        userDTO.setCompanyId("3000107"+ driver.getId());
+        userDTO.setPassword(driverDTO.getPassword());
+        userDTO.setCompanyId(driverDTO.getUsername());
         userDTO.setRole(Role.DRIVER.toString());
         userService.addNewUser(userDTO);
-        User user = userService.findUserByCompanyId(String.valueOf("3000107" + driver.getId()));
+        User user = userService.findUserByCompanyId(String.valueOf(driverDTO.getUsername()));
         driver.setUser(user);
 
         try {

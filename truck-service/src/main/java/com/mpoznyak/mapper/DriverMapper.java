@@ -136,6 +136,8 @@ public class DriverMapper {
         driverDTO.setId(driverDTORest.getId());
         driverDTO.setFirstName(driverDTORest.getFirstName());
         driverDTO.setLastName(driverDTORest.getLastName());
+        driverDTO.setUsername(driverDTORest.getUsername());
+        driverDTO.setPassword(driverDTORest.getPassword());
 
         City city = mapToCity(driverDTORest.getCity());
         driverDTO.setCityId(city.getId());

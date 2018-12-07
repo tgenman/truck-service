@@ -21,8 +21,27 @@
         </div>
     </div>
     <div class="form-group">
+        <label for="us">Username</label>
+        <input type="text" class="form-control" id="us" required
+               [(ngModel)]="driver.username" [ngModelOptions]="{standalone: true}" name="th" #usUsername="ngModel">
+        <div [hidden]="usUsername.valid || usUsername.pristine"
+             class="alert alert-danger">
+            Username is required
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="ps">Password</label>
+        <input type="password" class="form-control" id="ps" required
+               [(ngModel)]="driver.password" [ngModelOptions]="{standalone: true}" name="th" #psPassword="ngModel">
+        <div [hidden]="psPassword.valid || psPassword.pristine"
+             class="alert alert-danger">
+            Password is required
+        </div>
+    </div>
+    <div class="form-group">
         <label for="ct">City</label>
-        <select required="required" class="bootstrap-select" [(ngModel)]="driver.city" [ngModelOptions]="{standalone: true}" id="ct">
+        <select required="required" class="bootstrap-select" [(ngModel)]="driver.city"
+                [ngModelOptions]="{standalone: true}" id="ct">
             <option *ngFor="let c of cities$ | async" [ngValue]="c.name">{{c.name}}</option>
         </select>
     </div>

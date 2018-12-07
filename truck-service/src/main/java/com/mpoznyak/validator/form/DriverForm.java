@@ -26,6 +26,14 @@ public class DriverForm {
     @NotNull
     Long city;
 
+    @NotNull
+    @Size(min = 6, max = 10)
+    private String username;
+
+    @NotNull
+    @Size(min = 8, max = 16)
+    private String password;
+
     public String getFirstName() {
         return firstName;
     }
@@ -48,6 +56,22 @@ public class DriverForm {
 
     public void setCity(Long city) {
         this.city = city;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
