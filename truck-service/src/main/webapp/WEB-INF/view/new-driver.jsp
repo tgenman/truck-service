@@ -30,7 +30,7 @@
     <sf:errors path="lastName" cssClass="text-danger"/>
     <sf:input path="username" name="username" id="username" class="form-control" placeholder="Username"/>
     <sf:errors path="username" cssClass="text-danger"/>
-    <sf:input path="password" name="password" id="password" class="form-control" placeholder="Password"/>
+    <sf:input type="password" path="password" name="password" id="password" class="form-control" placeholder="Password"/>
     <sf:errors path="password" cssClass="text-danger"/>
     <br>
     <sf:select path="city">

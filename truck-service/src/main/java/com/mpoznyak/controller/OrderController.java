@@ -7,6 +7,7 @@ import com.mpoznyak.dto.RoutePointDTO;
 import com.mpoznyak.logging.annotation.Loggable;
 import com.mpoznyak.model.Driver;
 import com.mpoznyak.service.api.OrderService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,8 @@ import java.util.*;
 @Controller
 @SessionAttributes({"routeDTO", "orderDTO", "cargoes"})
 public class OrderController {
+
+    private static final Logger logger = Logger.getLogger(OrderController.class);
 
     @Autowired
     private OrderService orderService;
@@ -71,6 +74,7 @@ public class OrderController {
         Long time = orderService.getRouteTime(routeDTO, orderDTO);
         LinkedHashMap<Long, Driver> drivers = orderService.getDriversForOrder(time, orderDTO);
 
+        logger.info("select driver: " + drivers);
         model.addAttribute("routeDTO", routeDTO);
         model.addAttribute("drivers", drivers);
         model.addAttribute("orderDTO", orderDTO);

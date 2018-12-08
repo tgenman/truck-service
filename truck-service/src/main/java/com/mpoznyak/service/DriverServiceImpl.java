@@ -177,6 +177,8 @@ public class DriverServiceImpl implements DriverService {
     public LinkedHashMap<Long, Driver> getDriversForOrder(Long orderDuration, OrderDTO orderDTO) {
 
         List<Driver> allDrivers = driverRepository.queryExisted();
+        logger.info("getDriversForOrder: orderDuration: " + orderDuration);
+        logger.info("getDriversForOrder: allDrivers" + allDrivers);
         LinkedHashMap<Long, Driver> map = new LinkedHashMap<>();
         List<Truck> trucks = truckService.getAllTrucks();
         Truck truck = null;
@@ -187,7 +189,9 @@ public class DriverServiceImpl implements DriverService {
                 break;
             }
         }
+        logger.info("getDriversForOrder: truck license and city" + truck.getLicensePlate() + " " + truck.getCity());
 
+        int countDrivers = 0;
         for (int i = 0; i < allDrivers.size(); i++) {
 
             Driver driver = allDrivers.get(i);
@@ -204,9 +208,16 @@ public class DriverServiceImpl implements DriverService {
                     continue;
                 }
 
+                logger.info("driver get city: " + driver.getCity().getName() + " truck getcity"
+                        + truck.getCity().getName() + " driver get order: " + driver.getOrder());
                 if (driver.getCity().equals(truck.getCity())
                         && driver.getOrder() == null) {
+                    logger.info("getDriversForOrder: map put driver" + driver.getFirstName() + driver.getLastName());
+                    if (truck.getMaxDrivers() == countDrivers) {
+                        break;
+                    }
                     map.put(driver.getId(), driver);
+                    countDrivers++;
                 }
             }
         }
