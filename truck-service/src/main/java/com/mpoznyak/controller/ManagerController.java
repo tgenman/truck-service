@@ -63,7 +63,6 @@ public class ManagerController {
     @PostMapping(value = "driver/delete")
     public String processDriverDeleteButton(@RequestParam("id") Long id) {
         Long longId = id;
-        System.out.println(id);
         driverService.deleteDriver(longId);
         return "redirect:/management/manager";
     }

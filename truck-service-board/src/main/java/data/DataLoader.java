@@ -7,6 +7,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.MediaType;
 import model.*;
@@ -104,7 +105,18 @@ public class DataLoader {
             logger.error("Error during loading orders data! " + e.getMessage());
         }
 
-        return orders;
+        if (orders != null) {
+            if (orders.size() == 0) {
+                return new ArrayList<>();
+            }
+            List<Order> finalList = new ArrayList<>();
+            for (int i = 1; i < 11; i++) {
+                finalList.add(orders.get(orders.size() - i));
+            }
+            return finalList;
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     public List<Cargo> getCargoes() {
