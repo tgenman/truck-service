@@ -56,7 +56,7 @@ public class OrderController {
         return "redirect:/management/manager";
     }
 
-    @PostMapping(value = "abort-order")
+    @GetMapping(value = "abort-order")
     public String abortOrder(SessionStatus sessionStatus) {
 
         sessionStatus.setComplete();
